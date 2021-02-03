@@ -1,10 +1,19 @@
 <template>
-    <div>
+    <div class="tech-container">
         <img :src=iconPath() :title=name />
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.tech-container {
+    margin: 10px;
+}
+
+img {
+    width: 70px;
+    height: 70px;
+}
+</style>
 
 <script>
 export default {
