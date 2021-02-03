@@ -3,6 +3,7 @@
         <div class="project-header">
             <div class="title-container">
                 <h1 class="title">{{name}}</h1>
+                <img v-if=githubRepo :src=githubRepoUrl alt="version">
             </div>
             <div class="tech-stack">
                 <div v-for="(technology, index) in technologies" :key=index>
@@ -37,6 +38,7 @@
 .title-container {
     width: 60%;
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
 }
 
@@ -49,7 +51,7 @@
 }
 
 .title-container > img {
-    margin-top: 1em;
+    margin-top: 0.75em;
     transform-origin: 0;
     transform: scale(1.25);
 }
@@ -110,6 +112,7 @@ export default {
     },
     props: {
         name: String,
+        githubRepo: String,
         technologyTags: Array,
         description: String,
         images: Array,
@@ -121,6 +124,9 @@ export default {
         }
     },
     computed: {
+        githubRepoUrl() {
+            return `https://img.shields.io/github/tag/aleksander73/${this.githubRepo}.svg?label=version&style=flat-square`;
+        },
         ytVideoSrc() {
             return 'https://www.youtube.com/embed/' + this.ytVideoId;
         }

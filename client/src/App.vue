@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div v-for="(project, index) in projects" :key=index>
-      <Project :name=project.name :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
+      <Project :name=project.name :githubRepo=project.githubRepo :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
       <div v-if="index < projects.length - 1" class="horizontal-line"></div>
     </div>
   </div>
