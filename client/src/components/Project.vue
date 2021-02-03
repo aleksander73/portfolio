@@ -10,10 +10,18 @@
 <style scoped></style>
 
 <script>
+import Storage from '../Storage';
+
 export default {
     name: 'Project',
+    data() {
+        return {
+            technologies: []
+        }
+    },
     props: {
         name: String,
+        technologyTags: Array,
         description: String,
         images: Array,
         ytVideoId: String
@@ -27,6 +35,11 @@ export default {
         ytVideoSrc() {
             return 'https://www.youtube.com/embed/' + this.ytVideoId;
         }
+    },
+    created() {
+        this.technologies = this.technologyTags.map((tag) => {
+            return Storage.getTechnologies().find(technology => technology.tag === tag);
+        });
     }
 }
 </script>
