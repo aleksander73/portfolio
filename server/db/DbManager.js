@@ -19,4 +19,8 @@ DbManager.getProjectsCollection = async function() {
     return DbManager.getCollection('projects');
 }
 
+DbManager.getTechnologiesCollection = async function() {
+    return DbManager.getCollection('technologies');
+}
+
 module.exports = DbManager;
