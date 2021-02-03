@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div v-for="(project, index) in projects" :key=index>
-      <Project :name=project.name :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
+      <Project :name=project.name :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
       <hr v-if="index !== projects.length - 1">
     </div>
   </div>
@@ -10,7 +10,7 @@
 <style></style>
 
 <script>
-import ApiService from './ApiService'
+import Storage from './Storage'
 import Project from './components/Project.vue';
 
 export default {
@@ -21,7 +21,8 @@ export default {
     };
   },
   async created() {
-    this.projects = await ApiService.getProjects();
+    await Storage.initialize();
+    this.projects = Storage.getProjects();
   },
   components: {
     Project

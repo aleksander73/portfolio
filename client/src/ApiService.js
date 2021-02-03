@@ -8,6 +8,12 @@ class ApiService {
             return res.data;
         });
     }
+
+    static async getTechnologies() {
+        return axios.get(serverUrl + '/api/technologies').then((res) => {
+            return res.data;
+        });
+    }
 }
 
 export default ApiService;
