@@ -3,7 +3,10 @@
         <div class="project-header">
             <div class="title-container">
                 <h1 class="title">{{name}}</h1>
-                <img v-if=githubRepo :src=githubRepoUrl alt="version">
+                <div class="title-container-row2">
+                    <a :href=githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img src="../../assets/social/github.svg" class="filter-white"></a>
+                    <img v-if=githubRepo class="github-version" :src=versionUrl>
+                </div>
             </div>
             <div class="tech-stack">
                 <div v-for="(technology, index) in technologies" :key=index>
@@ -37,6 +40,7 @@
 
 .title-container {
     width: 60%;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -47,11 +51,27 @@
     font-size: 3.5em;
     font-weight: 100;
     color: #dadada;
-    margin-top: 10px;
 }
 
-.title-container > img {
-    margin-top: 0.75em;
+.title-container-row2 {
+    display: flex;
+    align-items: center;
+}
+
+.github-version {
+    height: min-content;
+}
+
+.github-repo-link {
+    margin-right: 1.5em;
+}
+
+.github-repo-link > img {
+    height: 50px;
+}
+
+.filter-white{
+    filter: invert(100%) sepia(3%) saturate(6%) hue-rotate(251deg) brightness(103%) contrast(100%);
 }
 
 .tech-stack {
@@ -122,7 +142,13 @@ export default {
         }
     },
     computed: {
-        githubRepoUrl() {
+        githubUrl() {
+            return `https://github.com/aleksander73/${this.githubRepo}`;
+        },
+        githubUrlTitle() {
+            return `Visit ${this.name} repository on GitHub`;
+        },
+        versionUrl() {
             return `https://img.shields.io/github/tag/aleksander73/${this.githubRepo}.svg?label=version&style=for-the-badge`;
         },
         ytVideoSrc() {
