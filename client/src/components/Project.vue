@@ -102,6 +102,11 @@
     border-radius: 10px;
     width: 45%;
     margin: 0.75em;
+    transition: transform 0.25s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.5);
 }
 
 .yt-video-container {
