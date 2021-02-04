@@ -17,7 +17,7 @@
         <div class="gallery-container">
             <img class="gallery-item" v-for="(image, index) in images" :key="index" :src="relativePath(image)" alt="image">
         </div>
-        <div class="yt-video-container">
+        <div v-if="ytVideoId" class="yt-video-container">
             <iframe class="yt-video-item" width='560' height='315' :src=ytVideoSrc frameborder='0' allowfullscreen />
         </div>
     </div>
