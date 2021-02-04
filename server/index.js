@@ -12,8 +12,9 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/api/projects', projects);
 app.use('/api/technologies', technologies);
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static(__dirname + '/public'));
+}
 
-const port = 5000;
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+const port = process.env.PORT || 5000;
+app.listen(port);
