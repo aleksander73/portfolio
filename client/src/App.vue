@@ -43,6 +43,9 @@ export default {
   async created() {
     await Storage.initialize();
     this.projects = Storage.getProjects();
+    this.projects.sort((p1, p2) => {
+      return p2.score - p1.score;
+    });
   },
   components: {
     Project
