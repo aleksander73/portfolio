@@ -52,8 +52,6 @@
 
 .title-container > img {
     margin-top: 0.75em;
-    transform-origin: 0;
-    transform: scale(1.25);
 }
 
 .tech-stack {
@@ -125,7 +123,7 @@ export default {
     },
     computed: {
         githubRepoUrl() {
-            return `https://img.shields.io/github/tag/aleksander73/${this.githubRepo}.svg?label=version&style=flat-square`;
+            return `https://img.shields.io/github/tag/aleksander73/${this.githubRepo}.svg?label=version&style=for-the-badge`;
         },
         ytVideoSrc() {
             return 'https://www.youtube.com/embed/' + this.ytVideoId;
