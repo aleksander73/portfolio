@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
-  "version": "0.1.0",
-  "description": "Portfolio website",
+  "version": "1.0.0",
+  "description": "Portfolio single page application",
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
