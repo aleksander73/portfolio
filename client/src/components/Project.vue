@@ -100,13 +100,13 @@
 
 .gallery-item {
     border-radius: 10px;
-    width: 45%;
+    width: 60%;
     margin: 0.75em;
     transition: transform 0.25s ease;
 }
 
 .gallery-item:hover {
-    transform: scale(1.5);
+    transform: scale(1.25);
 }
 
 .yt-video-container {
