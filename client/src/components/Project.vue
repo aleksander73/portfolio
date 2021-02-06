@@ -19,7 +19,7 @@
         </div>
         <Gallery :images="images" />
         <div v-if="ytVideoId" class="yt-video-container">
-            <iframe class="yt-video-item" width='560' height='315' :src=ytVideoSrc frameborder='0' allowfullscreen />
+            <iframe class="yt-video-item" width='70%' :height="888 / 1.77" :src=ytVideoSrc frameborder='0' allowfullscreen />
         </div>
     </div>
 </template>
@@ -96,7 +96,7 @@
 }
 
 .yt-video-item {
-    margin: 1em 0;
+    margin: 3em 0;
 }
 </style>
 
