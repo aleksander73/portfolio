@@ -1,16 +1,23 @@
 <template>
-    <div class="gallery-container" v-if="images.length > 0" @mouseenter=onMouseEnterGallery @mouseleave=onMouseLeaveGallery>
-        <div :class=navigationClass>
-            <div class="arrow-container">
-                <img :src=arrowImage @mouseenter=toogleArrow @mouseleave=toogleArrow @click=move(-1)>
+    <div class="gallery-container" @mouseenter=onMouseEnterGallery @mouseleave=onMouseLeaveGallery>
+        <div class="row-content" v-if="images.length > 0">
+            <div :class=navigationClass>
+                <div class="arrow-container">
+                    <img :src=arrowImage @mouseenter=toogleArrow @mouseleave=toogleArrow @click=move(-1)>
+                </div>
+            </div>
+            <div class="image-container">
+                <img class="image" :src=src(index) alt="image">
+            </div>
+            <div :class=navigationClass>
+                <div class="arrow-container">
+                    <img :src=arrowImage @mouseenter=toogleArrow @mouseleave=toogleArrow @click=move(1)>
+                </div>
             </div>
         </div>
-        <div class="image-container">
-            <img class="image" :src=src(index) alt="image">
-        </div>
-        <div :class=navigationClass>
-            <div class="arrow-container">
-                <img :src=arrowImage @mouseenter=toogleArrow @mouseleave=toogleArrow @click=move(1)>
+        <div class="dots" v-if="images.length > 1">
+            <div class="dot-container" v-for="(image, index) in images" :key=index>
+                <span :class=dotClass(index) @click=select(index)></span>
             </div>
         </div>
     </div>
@@ -18,6 +25,12 @@
 
 <style scoped>
 .gallery-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row-content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,6 +82,42 @@
     height: 100%;
     object-fit: contain;
 }
+
+.dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dot-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+}
+
+.dot {
+    width: 20px;
+    height: 20px;
+    border: 2px solid white;
+    border-radius: 50%;
+    margin: 0 0.3em;
+    opacity: 0;
+    transition: background-color 0.5s ease, opacity 0.5s ease;
+}
+
+.dot:hover {
+    cursor: pointer;
+}
+
+.dot-awake {
+    opacity: 1;
+}
+
+.dot-active {
+    background-color: rgb(162, 233, 47);
+    border-color:rgb(162, 233, 47);
+}
 </style>
 
 <script>
@@ -105,6 +154,21 @@ export default {
         },
         toogleArrow(event) {
             event.target.classList.toggle('arrow-active');
+        },
+        dotClass(index) {
+            let staticClasses = 'dot';
+            let dynamicClasses = '';
+            if(this.galleryAwake) {
+                dynamicClasses += ' dot-awake';
+            }
+            if(index === this.index) { 
+                dynamicClasses += ' dot-active';
+            }
+
+            return `${staticClasses} ${dynamicClasses}`;
+        },
+        select(index) {
+            this.index = index;
         }
     },
     computed: {
