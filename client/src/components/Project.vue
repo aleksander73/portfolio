@@ -17,9 +17,7 @@
         <div class="description">
             <p>{{description}}</p>
         </div>
-        <div class="gallery-container">
-            <img class="gallery-item" v-for="(image, index) in images" :key="index" :src="relativePath(image)" alt="image">
-        </div>
+        <Gallery :images="images" />
         <div v-if="ytVideoId" class="yt-video-container">
             <iframe class="yt-video-item" width='560' height='315' :src=ytVideoSrc frameborder='0' allowfullscreen />
         </div>
@@ -92,23 +90,6 @@
     border-bottom: 2px solid #c5c5c5;
 }
 
-.gallery-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;    
-}
-
-.gallery-item {
-    border-radius: 10px;
-    width: 60%;
-    margin: 0.75em;
-    transition: transform 0.25s ease;
-}
-
-.gallery-item:hover {
-    transform: scale(1.25);
-}
-
 .yt-video-container {
     display: flex;
     justify-content: center;
@@ -122,11 +103,13 @@
 <script>
 import Storage from '../Storage';
 import Technology from './Technology.vue';
+import Gallery from './Gallery.vue';
 
 export default {
     name: 'Project',
     components: {
-        Technology
+        Technology,
+        Gallery
     },
     data() {
         return {
@@ -140,11 +123,6 @@ export default {
         description: String,
         images: Array,
         ytVideoId: String
-    },
-    methods: {
-        relativePath(image) {
-            return require('../../assets/projects/' + image);
-        }
     },
     computed: {
         githubUrl() {
