@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Intro/>
+    <Intro :intro="intro"/>
     <div id="projects-start">
       <div  v-for="(project, index) in projects" :key=index>
         <Project :name=project.name :githubRepo=project.githubRepo :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
@@ -45,11 +45,13 @@ export default {
   name: 'App',
   data() {
     return {
+      intro: '',
       projects: []
     };
   },
   async created() {
     await Storage.initialize();
+    this.intro = Storage.getParagraph('INTRO');
     this.projects = Storage.getProjects();
     this.projects.sort((p1, p2) => {
       return p2.score - p1.score;

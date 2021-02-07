@@ -23,4 +23,8 @@ DbManager.getTechnologiesCollection = async function() {
     return DbManager.getCollection('technologies');
 }
 
+DbManager.getParagraphsCollection = async function() {
+    return DbManager.getCollection('paragraphs');
+}
+
 module.exports = DbManager;
