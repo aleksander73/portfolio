@@ -46,6 +46,7 @@
     font-family: 'Courier New', Courier, monospace;
     border: 0;
     background-color: rgb(26, 137, 228);
+    border-radius: 10px;
     width: 35vh;
     height: 10vh;
     font-size: 1.5em;
