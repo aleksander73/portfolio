@@ -1,9 +1,9 @@
 const express = require('express');
-const dbManager = require('../../db/DbManager');
+const DbManager = require('../../db/DbManager');
 
 const router = express.Router();
 router.get('/', async (req, res) => {
-    const technologies = await dbManager.getTechnologiesCollection();
+    const technologies = await DbManager.getInstance().getTechnologiesCollection();
     res.send(await technologies.find({}).toArray());
 });
 

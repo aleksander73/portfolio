@@ -25,6 +25,6 @@ export default {
         iconPath() {
             return require('../../assets/technologies/' + this.icon);
         }
-    },
+    }
 }
 </script>

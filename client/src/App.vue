@@ -1,37 +1,61 @@
 <template>
   <div id="app">
-    <div v-for="(project, index) in projects" :key=index>
-      <Project :name=project.name :githubRepo=project.githubRepo :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
-      <div v-if="index < projects.length - 1" class="horizontal-line"></div>
-    </div>
+    <Intro/>
+    <section id="main-content">
+      <Index :projects="projects"/>
+      <div id="projects">
+        <div v-for="(project, index) in projects" :key=index>
+          <Project :name=project.name :githubRepo=project.githubRepo :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
+          <div v-if="index < projects.length - 1" class="horizontal-line"></div>
+        </div>
+      </div>
+    </section>
+    <Footer/>
   </div>
 </template>
 
 <style>
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
-  background-color: #222629;
   font-family: 'Courier New', Courier, monospace;
+  color: #e2e2e2;
 }
 
 #app {
-  width: 75%;
-  color: white;
+  background: url('../assets/other/code.jpeg');
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+#main-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+#projects {
+  width: 70%;
   margin: 0 auto;
 }
 
 .horizontal-line {
-  border-top: 5px solid #dadada;
+  border-bottom: 15px solid #00000000;
 }
 </style>
 
 <script>
 import Storage from './Storage'
+import Intro from './components/Intro.vue'
+import Index from './components/Index.vue';
 import Project from './components/Project.vue';
+import Footer from './components/Footer.vue';
 
 export default {
   name: 'App',
@@ -48,7 +72,10 @@ export default {
     });
   },
   components: {
-    Project
+    Intro,
+    Index,
+    Project,
+    Footer
   }
 }
 </script>
