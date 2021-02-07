@@ -12,8 +12,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #0f0f0f;
-    border-top: 5px solid #e2e2e2
+    background-color: #0f0f0fad;
+    border-top: 2px solid #e2e2e2
 }
 
 p {

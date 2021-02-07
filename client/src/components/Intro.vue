@@ -4,7 +4,7 @@
             <img src="../../assets/social/profile.png">
             <p>{{ $t('intro') }}</p>
         </div>
-        <a href="#projects">
+        <a href="#main-content">
             <button class="button">{{ $t('projects-btn') }}</button>
         </a>
     </div>
@@ -17,7 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #0f0f0f;
+    background-color: #0f0f0fad;
 }
 
 .top {
