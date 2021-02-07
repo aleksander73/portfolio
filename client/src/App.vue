@@ -7,6 +7,7 @@
         <div v-if="index < projects.length - 1" class="horizontal-line"></div>
       </div>
     </div>
+    <Footer/>
   </div>
 </template>
 
@@ -45,6 +46,7 @@ body {
 import Storage from './Storage'
 import Intro from './components/Intro.vue'
 import Project from './components/Project.vue';
+import Footer from './components/Footer.vue';
 
 export default {
   name: 'App',
@@ -62,7 +64,8 @@ export default {
   },
   components: {
     Intro,
-    Project
+    Project,
+    Footer
   }
 }
 </script>
