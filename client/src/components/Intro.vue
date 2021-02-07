@@ -5,7 +5,7 @@
             <p>{{ $t('intro') }}</p>
         </div>
         <a href="#projects">
-            <button class="button">My projects</button>
+            <button class="button">{{ $t('projects-btn') }}</button>
         </a>
     </div>
 </template>
