@@ -27,7 +27,7 @@
 <style scoped>
 .project-container {
     padding: 2em 5em;
-    background-color:#0f0f0f;
+    background-color: #0f0f0f;
 }
 
 .project-header {
@@ -48,7 +48,6 @@
     text-transform: uppercase;
     font-size: 3.5em;
     font-weight: 100;
-    color: #dadada;
 }
 
 .title-container-row2 {
@@ -85,9 +84,8 @@
     font-size: 1.5em;
     text-align: center;
     line-height: 1.5em;
-    color: #dadada;
-    border-top: 2px solid #c5c5c5;
-    border-bottom: 2px solid #c5c5c5;
+    border-top: 2px solid #e2e2e2;
+    border-bottom: 2px solid #e2e2e2;
 }
 
 .yt-video-container {

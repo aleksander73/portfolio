@@ -4,7 +4,7 @@
             <img src="../../assets/social/profile.png">
             <p>{{ $t('intro') }}</p>
         </div>
-        <a href="#projects-start">
+        <a href="#projects-container">
             <button class="button">My projects</button>
         </a>
     </div>
@@ -17,21 +17,23 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #0f0f0f;
 }
 
 .top {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 75%;
     height: 30vh;
-    margin-bottom: 15vh;
+    margin-bottom: 10vh;
 }
 
 .top > img {
     width: 35vh;
     height: 35vh;
     border-radius: 50%;
+    margin-right: 10vh;
 }
 
 .top p {
@@ -39,14 +41,13 @@
     font-size: 1.5em;
     text-align: center;
     line-height: 1.5em;
-    color: #dadada;
 }
 
 .button {
     font-family: 'Courier New', Courier, monospace;
+    color: #dadada;
     border: 0;
     background-color: rgb(26, 137, 228);
-    border-radius: 10px;
     width: 35vh;
     height: 10vh;
     font-size: 1.5em;

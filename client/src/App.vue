@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Intro/>
-    <div id="projects-start">
+    <div id="projects-container">
       <div  v-for="(project, index) in projects" :key=index>
         <Project :name=project.name :githubRepo=project.githubRepo :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
         <div v-if="index < projects.length - 1" class="horizontal-line"></div>
@@ -21,18 +21,23 @@ html {
 }
 
 body {
-  background-color: #222629;
   font-family: 'Courier New', Courier, monospace;
+  color: #e2e2e2;
 }
 
 #app {
+  background: url('../assets/other/code.jpeg');
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+#projects-container {
   width: 75%;
-  color: white;
   margin: 0 auto;
 }
 
 .horizontal-line {
-  border-top: 5px solid #dadada;
+  height: 15px;
 }
 </style>
 
