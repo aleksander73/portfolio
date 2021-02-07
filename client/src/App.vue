@@ -1,12 +1,15 @@
 <template>
   <div id="app">
     <Intro/>
-    <div id="projects">
-      <div  v-for="(project, index) in projects" :key=index>
-        <Project :name=project.name :githubRepo=project.githubRepo :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
-        <div v-if="index < projects.length - 1" class="horizontal-line"></div>
+    <section id="main-content">
+      <Index :projects="projects"/>
+      <div id="projects">
+        <div v-for="(project, index) in projects" :key=index>
+          <Project :name=project.name :githubRepo=project.githubRepo :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
+          <div v-if="index < projects.length - 1" class="horizontal-line"></div>
+        </div>
       </div>
-    </div>
+    </section>
     <Footer/>
   </div>
 </template>
@@ -32,8 +35,13 @@ body {
   background-attachment: fixed;
 }
 
+#main-content {
+  display: flex;
+  justify-content: space-around;
+}
+
 #projects {
-  width: 75%;
+  width: 70%;
   margin: 0 auto;
 }
 
@@ -45,6 +53,7 @@ body {
 <script>
 import Storage from './Storage'
 import Intro from './components/Intro.vue'
+import Index from './components/Index.vue';
 import Project from './components/Project.vue';
 import Footer from './components/Footer.vue';
 
@@ -64,6 +73,7 @@ export default {
   },
   components: {
     Intro,
+    Index,
     Project,
     Footer
   }

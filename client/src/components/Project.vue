@@ -1,11 +1,11 @@
 <template>
-    <div class="project-container">
+    <div :id="githubRepo" class="project-container">
         <div class="project-header">
             <div class="title-container">
                 <h1 class="title">{{name}}</h1>
                 <div class="title-container-row2">
                     <a :href=githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img src="../../assets/social/github.svg" class="filter-white"></a>
-                    <img v-if=githubRepo class="github-version" :src=versionUrl>
+                    <img class="github-version" :src=versionUrl>
                 </div>
             </div>
             <div class="tech-stack">
@@ -27,7 +27,7 @@
 <style scoped>
 .project-container {
     padding: 2em 5em;
-    background-color: #0f0f0f;
+    background-color: #0f0f0fec;
 }
 
 .project-header {
