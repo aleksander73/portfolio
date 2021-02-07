@@ -103,7 +103,7 @@
     border-radius: 50%;
     margin: 0 0.3em;
     opacity: 0;
-    transition: background-color 0.5s ease, opacity 0.5s ease;
+    transition: background-color 0.25s ease, opacity 0.25s ease;
 }
 
 .dot:hover {
@@ -115,8 +115,8 @@
 }
 
 .dot-active {
-    background-color: #1a89e4;
-    border-color:#1a89e4;
+    background-color: #0060a0;
+    border-color:#0060a0;
 }
 </style>
 
