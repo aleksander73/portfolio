@@ -37,7 +37,7 @@ body {
 }
 
 .horizontal-line {
-  height: 15px;
+  border-bottom: 15px solid #00000000;
 }
 </style>
 

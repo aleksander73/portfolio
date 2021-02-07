@@ -115,8 +115,8 @@
 }
 
 .dot-active {
-    background-color: rgb(162, 233, 47);
-    border-color:rgb(162, 233, 47);
+    background-color: #1a89e4;
+    border-color:#1a89e4;
 }
 </style>
 
