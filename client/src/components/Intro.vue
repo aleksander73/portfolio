@@ -2,7 +2,7 @@
     <div id="intro">
         <div class="top">
             <img src="../../assets/social/profile.png">
-            <p>{{intro}}</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint soluta aspernatur, maiores neque beatae quibusdam consequuntur quas fuga voluptatem distinctio libero dicta incidunt molestias magnam officia porro blanditiis veritatis!</p>
         </div>
         <a href="#projects-start">
             <button class="button">My projects</button>
@@ -57,11 +57,6 @@
 
 <script>
 export default {
-    name: 'Intro',
-    props: {
-        intro: {
-            type: String
-        }
-    }
+    name: 'Intro'
 }
 </script>

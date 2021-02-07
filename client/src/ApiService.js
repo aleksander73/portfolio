@@ -12,12 +12,6 @@ class ApiService {
             return res.data;
         });
     }
-
-    static async getParagraphs() {
-        return axios.get('/api/paragraphs').then((res) => {
-            return res.data;
-        });
-    }
 }
 
 export default ApiService;
