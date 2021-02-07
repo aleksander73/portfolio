@@ -1,13 +1,20 @@
 <template>
   <div id="app">
-    <div v-for="(project, index) in projects" :key=index>
-      <Project :name=project.name :githubRepo=project.githubRepo :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
-      <div v-if="index < projects.length - 1" class="horizontal-line"></div>
+    <Intro/>
+    <div id="projects-start">
+      <div  v-for="(project, index) in projects" :key=index>
+        <Project :name=project.name :githubRepo=project.githubRepo :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
+        <div v-if="index < projects.length - 1" class="horizontal-line"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <style>
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -31,6 +38,7 @@ body {
 
 <script>
 import Storage from './Storage'
+import Intro from './components/Intro.vue'
 import Project from './components/Project.vue';
 
 export default {
@@ -48,6 +56,7 @@ export default {
     });
   },
   components: {
+    Intro,
     Project
   }
 }
