@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Intro/>
-    <div id="projects-container">
+    <div id="projects">
       <div  v-for="(project, index) in projects" :key=index>
         <Project :name=project.name :githubRepo=project.githubRepo :technologyTags=project.technologies :description=project.description :images=project.images :ytVideoId=project.ytVideoId />
         <div v-if="index < projects.length - 1" class="horizontal-line"></div>
@@ -31,7 +31,7 @@ body {
   background-attachment: fixed;
 }
 
-#projects-container {
+#projects {
   width: 75%;
   margin: 0 auto;
 }

@@ -4,7 +4,7 @@
             <img src="../../assets/social/profile.png">
             <p>{{ $t('intro') }}</p>
         </div>
-        <a href="#projects-container">
+        <a href="#projects">
             <button class="button">My projects</button>
         </a>
     </div>
