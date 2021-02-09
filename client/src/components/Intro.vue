@@ -65,13 +65,14 @@
 .social-links {
     position: absolute;
     right: 0;
+    margin-right: 3em;
     display: flex;
     flex-direction: column;
 }
 
 .social-link-container {
     width: 70px;
-    margin: 1em 3em 1em 0;
+    margin: 1em 0;
 }
 
 .social-link-container img {
