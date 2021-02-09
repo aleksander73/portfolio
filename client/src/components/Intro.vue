@@ -4,9 +4,7 @@
             <img src="../../assets/social/profile.png">
             <p>{{ $t('intro') }}</p>
         </div>
-        <a href="#main-content">
-            <button class="button">{{ $t('projects-btn') }}</button>
-        </a>
+        <button class="button" @click=onButtonClick()>{{ $t('projects-btn') }}</button>
     </div>
 </template>
 
@@ -59,6 +57,12 @@
 
 <script>
 export default {
-    name: 'Intro'
+    name: 'Intro',
+    methods: {
+        onButtonClick() {
+            const mainContent = document.getElementById('main-content');
+            mainContent.scrollIntoView();
+        }
+    }
 }
 </script>
