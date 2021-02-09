@@ -10,7 +10,7 @@
 }
 
 img {
-    height: 70px;
+    height: 60px;
 }
 </style>
 
