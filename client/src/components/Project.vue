@@ -4,7 +4,7 @@
             <div class="title-container">
                 <h1 class="title">{{name}}</h1>
                 <div class="title-container-row2">
-                    <a :href=githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img src="../../assets/social/github.svg" class="filter-white"></a>
+                    <a :href=githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img src="../../assets/social/github.png"></a>
                     <img class="github-version" :src=versionUrl>
                 </div>
             </div>
@@ -65,10 +65,6 @@
 
 .github-repo-link > img {
     height: 50px;
-}
-
-.filter-white{
-    filter: invert(100%) sepia(3%) saturate(6%) hue-rotate(251deg) brightness(103%) contrast(100%);
 }
 
 .tech-stack {
