@@ -1,4 +1,4 @@
-const mongodb = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
 
 class DbManager {
     constructor(cluster, database, user, password) {
@@ -6,7 +6,6 @@ class DbManager {
         this.database = database;
         this.user = user;
         this.password = password;
-        this.client = mongodb.MongoClient;
         this.url = `mongodb+srv://${this.user}:${this.password}@${this.cluster}.95ult.mongodb.net/${this.database}?retryWrites=true&w=majority`;
     }
 
@@ -22,15 +21,12 @@ class DbManager {
         return this.instance;
     }
 
-    async connect() {
-        return this.client.connect(this.url, {
+    async getCollection(collection) {
+        const client = new MongoClient(this.url, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-    }
-
-    async getCollection(collection) {
-        const connection = await this.connect();
+        const connection = await client.connect();
         return connection.db(this.database).collection(collection);
     }
 

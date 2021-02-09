@@ -2,9 +2,7 @@
     <div class="index-container">
         <div class="index">
             <div class="items-container">
-                <div class="index-item" v-for="project in projects" :key="project.githubRepo">
-                    <a :href="link(project)">{{project.name}}</a>
-                </div>
+                <div class="index-item" v-for="project in projects" :key="project.githubRepo" @click=onIndexItemClick(project)>{{project.name}}</div>
             </div>
         </div>
     </div>
@@ -38,6 +36,7 @@
     width: 100%;
     border: 1px solid #e2e2e2;
     text-align: center;
+    cursor: pointer;
 }
 
 a {
@@ -53,8 +52,9 @@ export default {
         projects: Array
     },
     methods: {
-        link(project) {
-            return `#${project.githubRepo}`;
+        onIndexItemClick(project) {
+            const projectElement = document.getElementById(project.githubRepo);
+            projectElement.scrollIntoView();
         }
     }
 }
