@@ -74,7 +74,8 @@
 
 .image-container {
     width: 70%;
-    height: 500px;
+    height: 400px;
+    background-color: #0f0f0f;
 }
 
 .image {

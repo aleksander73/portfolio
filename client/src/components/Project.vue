@@ -27,13 +27,12 @@
 <style scoped>
 .project-container {
     padding: 2em 5em;
-    background-color: #0f0f0fec;
+    background-color: #0f0f0fdb;
 }
 
 .project-header {
     display: flex;
     justify-content: space-between;
-    align-items: top;
 }
 
 .title-container {
