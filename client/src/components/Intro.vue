@@ -55,7 +55,7 @@
 }
 
 .scroll-arrow-container {
-    height: 15vh;
+    height: 12vh;
     cursor: pointer;
     display: flex;
     justify-content: flex-start;
