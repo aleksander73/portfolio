@@ -2,7 +2,10 @@
     <div :id="githubRepo" class="project-container">
         <div class="project-header">
             <div class="title-container">
-                <h1 class="title">{{name}}</h1>
+                <div class="title-container-row1">
+                    <h1 class="title">{{name}}</h1>
+                    <img v-if="technology" class="logo" :src=logoSrc :title="technology.name + ' logo'">
+                </div>
                 <div class="title-container-row2">
                     <a :href=githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img src="../../assets/social/github.png"></a>
                     <img class="github-version" :src=versionUrl>
@@ -41,6 +44,16 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.title-container-row1 {
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    height: 60px;
+    margin-left: 20px;
 }
 
 .title {
@@ -106,11 +119,13 @@ export default {
     },
     data() {
         return {
+            technology: undefined,
             technologies: []
         }
     },
     props: {
         name: String,
+        technologyTag: String,
         githubRepo: String,
         technologyTags: Array,
         description: String,
@@ -118,6 +133,9 @@ export default {
         ytVideoId: String
     },
     computed: {
+        logoSrc() {
+            return require(`../../assets/technologies/${this.technology.icon}`);
+        },
         githubUrl() {
             return `https://github.com/aleksander73/${this.githubRepo}`;
         },
@@ -132,6 +150,9 @@ export default {
         }
     },
     created() {
+        if(this.technologyTag) {
+            this.technology = Storage.getTechnologies().find(technology => technology.tag === this.technologyTag);
+        }
         this.technologies = this.technologyTags.map((tag) => {
             return Storage.getTechnologies().find(technology => technology.tag === tag);
         });
