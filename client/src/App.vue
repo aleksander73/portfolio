@@ -71,6 +71,12 @@ export default {
       return p2.score - p1.score;
     });
   },
+  beforeMount() {
+    const isWindows = require('is-windows');
+    if(!isWindows()) {
+      document.body.style.zoom = '80%'; 
+    }
+  },
   components: {
     Intro,
     Index,
