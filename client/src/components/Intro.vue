@@ -4,7 +4,12 @@
             <img src="../../assets/social/profile.png">
             <p>{{ $t('intro') }}</p>
         </div>
-        <button class="button" @click=onButtonClick()>{{ $t('projects-btn') }}</button>
+        <div class="scroll-arrow-container" @click=onScrollArrowClick()>
+            <span class="scroll-label">{{ $t('see-projects-label') }}</span>
+            <div class="scroll-arrow">
+                <img src="../../assets/other/arrow-down.png" >
+            </div>
+        </div>
         <div class="social-links">
             <div class="social-link-container" v-for="link in socialLinks" :key="link.urlTag">
                 <a :href="$t(link.urlTag)" target="_blank">
@@ -49,17 +54,37 @@
     line-height: 1.5em;
 }
 
-.button {
-    font-family: 'Courier New', Courier, monospace;
-    color: #dadada;
-    border: 0;
-    background-color: #1a89e4;
-    width: 35vh;
-    height: 10vh;
-    font-size: 1.5em;
-    text-decoration: none;
+.scroll-arrow-container {
+    height: 15vh;
     cursor: pointer;
-    text-transform: uppercase;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.scroll-label {
+    font-size: 1.4em;   
+    margin-bottom: 0.5em;
+}
+
+.scroll-arrow {
+    animation: scroll-me 1.25s infinite alternate;
+}
+
+@keyframes scroll-me {
+    from {
+        opacity: 0;
+        margin-top: 0;
+    }
+    to {
+        opacity: 1;
+        margin-top: 2vh;
+    }
+}
+
+.scroll-arrow img {
+    height : 6vh;
 }
 
 .social-links {
@@ -106,7 +131,7 @@ export default {
         };
     },
     methods: {
-        onButtonClick() {
+        onScrollArrowClick() {
             const mainContent = document.getElementById('main-content');
             mainContent.scrollIntoView();
         }
