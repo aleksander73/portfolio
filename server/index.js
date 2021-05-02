@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const { projectRouter, technologyRouter } = require('./api');
+const { projectRouter, technologyRouter, userRouter } = require('./api');
 
 dotenv.config();
 
@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/api/projects', projectRouter);
 app.use('/api/technologies', technologyRouter);
+app.use('/api/user', userRouter);
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(__dirname + '/public'));
 }
