@@ -1,7 +1,7 @@
 <template>
     <div id="intro">
         <div class="top">
-            <img src="../../assets/social/profile.png">
+            <img src="../../assets/external/profile.png">
             <p>{{ $t('intro') }}</p>
         </div>
         <div class="scroll-arrow-container" @click=onScrollArrowClick()>
@@ -10,10 +10,10 @@
                 <img src="../../assets/other/arrow-down.png" >
             </div>
         </div>
-        <div class="social-links">
-            <div class="social-link-container" v-for="link in socialLinks" :key="link.urlTag">
+        <div class="external-links">
+            <div class="external-link-container" v-for="link in externalLinks" :key="link.urlTag">
                 <a :href="$t(link.urlTag)" target="_blank">
-                    <img :src="require(`../../assets/social/${link.src}`)">
+                    <img :src="require(`../../assets/external/${link.src}`)">
                 </a>
             </div>
         </div>
@@ -87,7 +87,7 @@
     height : 6vh;
 }
 
-.social-links {
+.external-links {
     position: absolute;
     right: 0;
     margin-right: 3em;
@@ -95,12 +95,12 @@
     flex-direction: column;
 }
 
-.social-link-container {
-    width: 70px;
-    margin: 1em 0;
+.external-link-container {
+    width: 60px;
+    margin: 0.75em 0;
 }
 
-.social-link-container img {
+.external-link-container img {
     width: 100%;
 }
 
@@ -114,10 +114,14 @@ export default {
     name: 'Intro',
     data() {
         return {
-            socialLinks: [
+            externalLinks: [
                 {
                     urlTag: "github-url",
                     src: "github.png"
+                },
+                {
+                    urlTag: "codewars-url",
+                    src: "codewars.png"
                 },
                 {
                     urlTag: "linkedin-url",

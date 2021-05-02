@@ -7,7 +7,7 @@
                     <img v-if="technology" class="logo" :src=logoSrc :title="technology.name + ' logo'">
                 </div>
                 <div class="title-container-row2">
-                    <a :href=githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img src="../../assets/social/github.png"></a>
+                    <a :href=githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img src="../../assets/external/github.png"></a>
                     <img class="github-version" :src=versionUrl>
                 </div>
             </div>
