@@ -1,18 +1,20 @@
 const MongoClient = require('mongodb').MongoClient;
 
-class DbManager {
-    constructor(cluster, database, user, password) {
-        this.cluster = cluster;
+class Database {
+    constructor(clusterName, clusterId, database, user, password) {
+        this.clusterName = clusterName;
+        this.clusterId = clusterId;
         this.database = database;
         this.user = user;
         this.password = password;
-        this.url = `mongodb+srv://${this.user}:${this.password}@${this.cluster}.95ult.mongodb.net/${this.database}?retryWrites=true&w=majority`;
+        this.url = `mongodb+srv://${this.user}:${this.password}@${this.clusterName}.${this.clusterId}.mongodb.net/${this.database}?retryWrites=true&w=majority`;
     }
 
     static getInstance() {
         if(!this.instance) {
-            this.instance = Object.freeze(new DbManager(
-                process.env.DB_CLUSTER,
+            this.instance = Object.freeze(new Database(
+                process.env.DB_CLUSTER_NAME,
+                process.env.DB_CLUSTER_ID,
                 process.env.DB_NAME,
                 process.env.DB_USER,
                 process.env.DB_PASSWORD
@@ -21,22 +23,28 @@ class DbManager {
         return this.instance;
     }
 
-    async getCollection(collection) {
+    async getConnection() {
         const client = new MongoClient(this.url, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-        const connection = await client.connect();
+        return client.connect();
+    }
+
+    async loadCollection(collection) {
+        const connection = await this.getConnection();
         return connection.db(this.database).collection(collection);
     }
 
-    async getProjectsCollection() {
-        return this.getCollection('projects');
+    async getCollection(collectionName, filter) {
+        const collection = await this.loadCollection(collectionName);
+        return collection.find(filter || {}).toArray();
     }
 
-    async getTechnologiesCollection() {
-        return this.getCollection('technologies');
+    async postDocument(collectionName, document) {
+        const collection = await this.loadCollection(collectionName);
+        return collection.insertOne(document);
     }
 }
 
-module.exports = DbManager;
+module.exports = Database;
