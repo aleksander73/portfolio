@@ -1,9 +1,9 @@
 const express = require('express');
-const DbManager = require('../db/DbManager');
+const { Database } = require('../database');
 
 const router = express.Router();
 router.get('/', async (req, res) => {
-    const projects = await DbManager.getInstance().getCollection('projects');
+    const projects = await Database.getInstance().getCollection('projects');
     res.send(projects);
 });
 
