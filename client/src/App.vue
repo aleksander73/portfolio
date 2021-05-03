@@ -5,6 +5,8 @@
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
 html {
   scroll-behavior: smooth;
 }
@@ -15,7 +17,7 @@ html {
 }
 
 body {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Open Sans', sans-serif;
   color: #e2e2e2;
 }
 
@@ -24,5 +26,20 @@ body {
   background-repeat: repeat;
   background-attachment: fixed;
   min-height: 100vh;
+}
+
+button {
+  background-color: rgb(22, 142, 255);
+  border: 0;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2em;
+  outline: none;
+  transition: background-color 0.25s ease;
+}
+
+button:hover {
+  background-color: rgb(0, 120, 233);
 }
 </style>
