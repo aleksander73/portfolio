@@ -119,7 +119,7 @@ export default {
       const password = this.getInputFieldById('password').model.value;
       const loginSucceeded = await apiClient.loginUser(username, password);
       if(loginSucceeded) {
-        this.$router.push('/');
+        this.$router.push('/control-panel');
       } else {
         this.showError('Invalid username or password');
       }

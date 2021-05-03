@@ -1,4 +1,4 @@
-import { Home, Login } from '../views';
+import { ControlPanel, Home, Login } from '../views';
 
 const router = {
     routes: [
@@ -11,6 +11,11 @@ const router = {
             name: 'login',
             path: '/admin',
             component: Login
+        },
+        {
+            name: 'control-panel',
+            path: '/control-panel',
+            component: ControlPanel
         }
     ]
 };
