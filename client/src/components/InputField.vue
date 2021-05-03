@@ -26,7 +26,6 @@
 
 .icon-container {
   align-items: center;
-  background-color: rgb(230, 230, 230);
   border-right: 1px solid rgb(230, 230, 230);
   display: flex;
   justify-content: center;
@@ -35,6 +34,7 @@
 
 .icon {
   height: 50%;
+  filter: invert(100%) sepia(3%) saturate(6%) hue-rotate(251deg) brightness(103%) contrast(100%);
 }
 
 .input-container {
