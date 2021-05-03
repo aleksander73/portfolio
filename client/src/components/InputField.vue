@@ -56,16 +56,6 @@ input {
 .shadow {
   box-shadow: 0 0 7px rgb(45, 165, 235);
 }
-
-.error-container {
-  display: flex;
-  height: 30px;
-  justify-content: flex-end;
-}
-
-.error-container > span {
-  color: rgb(250, 50, 50);
-}
 </style>
 
 <script>
@@ -92,12 +82,6 @@ export default {
     },
     async onBlur() {
       this.focused = false;
-      if(this.validateInput) {
-        await this.validate();
-      }
-      this.$emit('lostFocus', {
-        id: this.model.id
-      });
     }
   }
 }
