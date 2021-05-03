@@ -31,7 +31,7 @@
 </style>
 
 <script>
-import Storage from '../Storage'
+import storage from '../Storage'
 import Intro from '../components/Intro.vue'
 import Index from '../components/Index.vue';
 import Project from '../components/Project.vue';
@@ -45,8 +45,8 @@ export default {
     };
   },
   async created() {
-    await Storage.initialize();
-    this.projects = Storage.getProjects();
+    await storage.initialize();
+    this.projects = storage.getProjects();
     this.projects.sort((p1, p2) => {
       return p2.score - p1.score;
     });

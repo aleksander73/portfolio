@@ -7,7 +7,7 @@
       <div v-for="(inputField, index) in loginInputFields" :key=index class="input-field">
         <input-field :ref=inputField.id :model=inputField />
       </div>
-      <button>Log in</button>
+      <button @click=login>Log in</button>
       <div :class=errorClass><span>{{ error.message }}</span></div>
     </div>
   </div>
@@ -27,7 +27,7 @@
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  height: 420px;
+  height: 475px;
   justify-content: center;
   width: 550px;
 }
@@ -92,6 +92,7 @@ button {
 <script>
 import { InputField as InputFieldComponent } from '../components';
 import { InputField } from './utility';
+import apiClient from '../ApiClient';
 
 export default {
   data() {
@@ -111,7 +112,17 @@ export default {
   },
   methods: {
     getInputFieldById(id) {
-      return Object.values(this.$refs).find(ref => ref.model.id === id);
+      return Object.values(this.$refs).map(ref => ref[0]).find(ref => ref.model.id === id);
+    },
+    async login() {
+      const username = this.getInputFieldById('username').model.value;
+      const password = this.getInputFieldById('password').model.value;
+      const loginSucceeded = await apiClient.loginUser(username, password);
+      if(loginSucceeded) {
+        this.$router.push('/');
+      } else {
+        this.showError('Invalid username or password');
+      }
     },
     showError(message) {
       this.error.message = message;
