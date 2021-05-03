@@ -1,18 +1,23 @@
-import ApiService from './ApiService'
+import apiClient from './ApiClient'
 
 class Storage {
-    static async initialize() {
-        this.projects = await ApiService.getProjects();
-        this.technologies = await ApiService.getTechnologies();
+    constructor() {
+        this.projects = [];
+        this.technologies = [];
     }
 
-    static getProjects() {
+    async initialize() {
+        this.projects = await apiClient.getProjects();
+        this.technologies = await apiClient.getTechnologies();
+    }
+
+    getProjects() {
         return this.projects;
     }
 
-    static getTechnologies() {
+    getTechnologies() {
         return this.technologies;
     }
 }
 
-export default Storage;
+export default new Storage();
