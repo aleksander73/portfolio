@@ -80,7 +80,7 @@ export default {
     onFocus() {
       this.focused = true;
     },
-    async onBlur() {
+    onBlur() {
       this.focused = false;
     }
   }
