@@ -32,10 +32,12 @@
 
 <script>
 import storage from '../Storage'
-import Intro from '../components/Intro.vue'
-import Index from '../components/Index.vue';
-import Project from '../components/Project.vue';
-import Footer from '../components/Footer.vue';
+import {
+  Intro,
+  Index,
+  Project,
+  Footer
+} from '../components'
 
 export default {
   name: 'Home',
@@ -47,9 +49,7 @@ export default {
   async created() {
     await storage.initialize();
     this.projects = storage.getProjects();
-    this.projects.sort((p1, p2) => {
-      return p2.score - p1.score;
-    });
+    this.projects.sort((p1, p2) => p2.score - p1.score);
   },
   components: {
     Intro,
