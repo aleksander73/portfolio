@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="form-container pos-relative">
       <div class="title-container">
-        <h1>Admin panel</h1>
+        <h1>Control panel</h1>
       </div>
       <div v-for="(inputField, index) in loginInputFields" :key=index class="input-field">
         <input-field :ref=inputField.id :model=inputField />
@@ -39,8 +39,8 @@
 }
 
 .title-container > h1 {
-  margin-bottom: 1em;
-  text-transform: uppercase;
+  font-size: 40px;
+  margin-bottom: 10px;
 }
 
 .input-field {
@@ -49,10 +49,9 @@
 
 button {
   border-radius: 0;
-  height: 65px;
+  height: 40px;
   margin-top: 20px;
-  text-transform: uppercase;
-  width: 400px;
+  width: 100px;
 }
 
 .error {
@@ -60,7 +59,7 @@ button {
   bottom: 0;
   cursor: default;
   display: none;
-  margin-bottom: 1em;
+  margin-bottom: 25px;
   opacity: 0;
   padding: 0.5em 1em;
   position: absolute;

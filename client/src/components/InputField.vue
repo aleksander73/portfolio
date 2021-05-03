@@ -17,7 +17,7 @@
 }
 
 .input-field-container {
-  border: 1px solid rgb(230, 230, 230);
+  border: 1px solid white;
   border-radius: 0px;
   display: flex;
   height: 50px;
@@ -26,7 +26,7 @@
 
 .icon-container {
   align-items: center;
-  border-right: 1px solid rgb(230, 230, 230);
+  border-right: 1px solid white;
   display: flex;
   justify-content: center;
   width: 15%;
@@ -54,7 +54,7 @@ input {
 }
 
 .shadow {
-  box-shadow: 0 0 7px rgb(45, 165, 235);
+  box-shadow: 0 0 4px rgb(45, 165, 235);
 }
 </style>
 
