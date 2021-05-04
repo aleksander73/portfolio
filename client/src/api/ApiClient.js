@@ -20,12 +20,12 @@ class ApiClient {
         }
     }
 
-    async whoami() {
+    async getLoggedInUser() {
         try {
             const { data } = await axios.get('/api/user/whoami');
             return data.user;
         } catch(error) {
-            return undefined;
+            return null;
         }
     }
 }
