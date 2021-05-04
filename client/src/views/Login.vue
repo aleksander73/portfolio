@@ -91,7 +91,7 @@ button {
 <script>
 import { InputField as InputFieldComponent } from '../components';
 import { InputField } from './utility';
-import apiClient from '../ApiClient';
+import apiClient from '../api/ApiClient';
 
 export default {
   data() {

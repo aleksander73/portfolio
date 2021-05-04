@@ -5,5 +5,14 @@
 </template>
 
 <script>
-export default {}
+import { apiClient } from '../api';
+
+export default {
+  async created() {
+    const user = await apiClient.getLoggedInUser();
+    if(!user) {
+      this.$router.push('/');
+    }
+  }
+}
 </script>
