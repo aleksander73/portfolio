@@ -5,7 +5,7 @@
         <h1>Control panel</h1>
       </div>
       <div v-for="(inputField, index) in loginInputFields" :key=index class="input-field">
-        <input-field :ref=inputField.id :model=inputField />
+        <InputField :ref=inputField.id :model=inputField />
       </div>
       <button @click=login>Log in</button>
       <div :class=errorClass><span>{{ error.message }}</span></div>
@@ -107,7 +107,7 @@ export default {
     }
   },
   components: {
-    'input-field': InputFieldComponent
+    'InputField': InputFieldComponent
   },
   methods: {
     getInputFieldById(id) {
