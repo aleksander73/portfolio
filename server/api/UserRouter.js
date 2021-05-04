@@ -13,7 +13,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/logout', (req, res) => {
+router.post('/logout', (req, res) => {
     res.clearCookie('authentication-token');
     res.sendStatus(200);
 });

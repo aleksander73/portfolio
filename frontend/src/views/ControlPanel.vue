@@ -21,7 +21,22 @@ export default {
     Navigation
   },
   methods: {
-    navItemClicked(params) {}
+    async navItemClicked(params) {
+      const id = params.navItemId;
+      switch(id) {
+        case 'home': {
+          break;
+        }
+        case 'projects': {
+          break;
+        }
+        case 'logout': {
+          await apiClient.logoutUser();
+          this.$router.push('/');
+          break;
+        }
+      }
+    }
   },
   async created() {
     const user = await apiClient.getLoggedInUser();
