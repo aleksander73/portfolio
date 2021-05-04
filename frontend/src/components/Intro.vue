@@ -84,7 +84,7 @@
 }
 
 .scroll-arrow img {
-    height : 6vh;
+    height: 6vh;
 }
 
 .external-links {
@@ -102,10 +102,6 @@
 
 .external-link-container img {
     width: 100%;
-}
-
-.filter-white {
-    filter: invert(100%) sepia(3%) saturate(6%) hue-rotate(251deg) brightness(103%) contrast(100%);
 }
 </style>
 

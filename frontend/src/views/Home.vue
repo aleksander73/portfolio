@@ -31,7 +31,7 @@
 </style>
 
 <script>
-import storage from '../Storage'
+import { storage} from '../storage'
 import {
   Intro,
   Index,

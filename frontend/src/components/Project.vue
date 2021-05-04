@@ -107,7 +107,7 @@
 </style>
 
 <script>
-import Storage from '../Storage';
+import { storage } from '../storage';
 import Technology from './Technology.vue';
 import Gallery from './Gallery.vue';
 
@@ -151,10 +151,10 @@ export default {
     },
     created() {
         if(this.technologyTag) {
-            this.technology = Storage.getTechnologies().find(technology => technology.tag === this.technologyTag);
+            this.technology = storage.getTechnologies().find(technology => technology.tag === this.technologyTag);
         }
         this.technologies = this.technologyTags.map((tag) => {
-            return Storage.getTechnologies().find(technology => technology.tag === tag);
+            return storage.getTechnologies().find(technology => technology.tag === tag);
         });
     }
 }
