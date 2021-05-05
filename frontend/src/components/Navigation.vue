@@ -76,7 +76,7 @@ export default {
     methods: {
         itemClicked(id) {
             this.selectedItemId = id;
-            this.$emit('itemSelected', { navItemId: id });
+            this.$emit('itemSelected', id);
         },
         itemClass(id) {
             return [
