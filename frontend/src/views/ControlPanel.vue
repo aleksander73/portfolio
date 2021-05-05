@@ -1,6 +1,6 @@
 <template>
   <div class="control-panel-container">
-      <Navigation @itemClicked="navItemClicked" />
+      <Navigation @itemSelected="navItemSelected" />
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
     Navigation
   },
   methods: {
-    async navItemClicked(params) {
+    async navItemSelected(params) {
       const id = params.navItemId;
       switch(id) {
         case 'home': {

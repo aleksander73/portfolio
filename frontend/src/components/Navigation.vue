@@ -1,11 +1,10 @@
 <template>
     <div class="navigation-container">
-        <div class="item-container" @click="itemClicked('home')">
-            <img :src="require('../../assets/icons/home.svg')" title="home">
-        </div>
-        <div class="divide"></div>
-        <div v-for="item in items" :key="item.id" class="item-container" @click="itemClicked(item.id)">
-            <img :src="require(`../../assets/icons/${item.src}`)" :title=item.id>
+        <div class="navigation-slot" v-for="(item, i) in items" :key="item.id">
+            <div :class="itemClass(item.id)" @click="itemClicked(item.id)">
+                <img :src="require(`../../assets/icons/${item.src}`)" :title=item.id>
+            </div>
+            <div v-if="i === 0" class="divide"></div>
         </div>
     </div>
 </template>
@@ -20,25 +19,24 @@
     width: 70px;
 }
 
-.item-container {
-    border-color: rgb(255, 255, 255, 0);
-    border-radius: 5px;
-    border-style: solid;
-    border-width: 1px;
-    cursor: pointer;
+.navigation-slot {
     margin-top: 10px;
-    padding: 7px 7px 3px 7px;
-    transition: border-color 0.25s linear;
 }
 
-.item-container:hover {
-    border-color: rgb(255, 255, 255, 1);
-}
-
-.item-container:last-child {
+.navigation-slot:last-child {
     bottom: 0;
     margin-bottom: 10px;
     position: absolute;
+}
+
+.item-container {
+    cursor: pointer;
+    padding: 7px 7px 3px 7px;
+    transition: filter 0.25s linear;
+}
+
+.selected {
+    filter: invert(49%) sepia(94%) saturate(579%) hue-rotate(62deg) brightness(96%) contrast(107%);
 }
 
 .item-container > img {
@@ -50,7 +48,6 @@
 .divide {
     border-top: 1px  solid white;
     margin-top: 10px;
-    width: 75%;
 }
 </style>
 
@@ -61,6 +58,10 @@ export default {
         return {
             items: [
                 {
+                    id: 'home',
+                    src: 'home.svg'
+                },
+                {
                     id: 'projects',
                     src: 'project.svg'
                 },
@@ -68,12 +69,26 @@ export default {
                     id: 'logout',
                     src: 'logout.svg'
                 }
-            ]
+            ],
+            selectedItemId: 'home'
         }
     },
     methods: {
         itemClicked(id) {
-            this.$emit('itemClicked', { navItemId: id });
+            this.selectedItemId = id;
+            this.$emit('itemSelected', { navItemId: id });
+        },
+        itemClass(id) {
+            return [
+                {
+                    class: 'item-container',
+                    condition: () => true
+                },
+                {
+                    class: 'selected',
+                    condition: () => id === this.selectedItemId && id !== 'logout'
+                }
+            ].map(x => x.condition() ? x.class : '').join(' ');
         }
     }
 }
