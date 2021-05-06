@@ -20,6 +20,11 @@ class ApiClient {
         }
     }
 
+    async logoutUser() {
+        const { status } = await axios.post('/api/user/logout');
+        return status;
+    }
+
     async getLoggedInUser() {
         try {
             const { data } = await axios.get('/api/user/whoami');

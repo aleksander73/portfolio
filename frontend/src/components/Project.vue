@@ -151,10 +151,10 @@ export default {
     },
     created() {
         if(this.technologyTag) {
-            this.technology = storage.getTechnologies().find(technology => technology.tag === this.technologyTag);
+            this.technology = storage.technologies.find(technology => technology.tag === this.technologyTag);
         }
         this.technologies = this.technologyTags.map((tag) => {
-            return storage.getTechnologies().find(technology => technology.tag === tag);
+            return storage.technologies.find(technology => technology.tag === tag);
         });
     }
 }

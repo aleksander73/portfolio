@@ -62,6 +62,7 @@ input {
 import { InputField } from '../views/utility';
 
 export default {
+  name: 'InputField',
   data() {
     return {
       focused: false
