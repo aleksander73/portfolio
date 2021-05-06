@@ -1,6 +1,9 @@
 <template>
   <div class="list-container">
-    <div v-for="item in data" :key="getKey(item)" class="item">
+    <div class="item" @click="itemClicked(null)">
+      <div class="item-name">[+]</div>
+    </div>
+    <div v-for="item in data" :key="getKey(item)" class="item" @click="itemClicked(item)">
       <div class="item-name">{{ getName(item) }}</div>
     </div>
   </div>
@@ -46,6 +49,15 @@ export default {
     },
     sortFunc: {
       type: Function
+    }
+  },
+  methods: {
+    itemClicked(item) {
+      if(!item) {
+        this.$emit('addItemClicked');
+      } else {
+        this.$emit('itemClicked');
+      }
     }
   },
   created() {
