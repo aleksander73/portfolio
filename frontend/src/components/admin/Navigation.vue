@@ -17,6 +17,8 @@
     align-items: center;
     height: 100vh;
     width: 70px;
+    position: sticky;
+    top: 0;
 }
 
 .navigation-slot {
