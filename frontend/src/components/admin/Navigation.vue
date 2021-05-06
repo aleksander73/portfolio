@@ -2,7 +2,7 @@
     <div class="navigation-container">
         <div class="navigation-slot" v-for="(item, i) in items" :key="item.id">
             <div :class="itemClass(item.id)" @click="itemClicked(item.id)">
-                <img :src="require(`../../assets/icons/${item.src}`)" :title=item.id>
+                <img :src="require(`../../../assets/icons/${item.src}`)" :title=item.id>
             </div>
             <div v-if="i === 0" class="divide"></div>
         </div>

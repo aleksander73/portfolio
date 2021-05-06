@@ -2,7 +2,7 @@
   <div class="control-panel-container">
       <Navigation @itemSelected="navItemSelected" />
       <div class="main-content-container">
-
+        <ProjectSection v-if="sectionId === 'projects'" />
       </div>
   </div>
 </template>
@@ -10,18 +10,21 @@
 <style scoped>
 .control-panel-container {
   background-color: rgb(170, 170, 170);
+  color: white;
   display: flex;
+  position: relative;
 }
 
 .main-content-container {
   background-color: black;
   margin: 0 auto;
+  padding: 60px;
   width: 60%;
 }
 </style>
 
 <script>
-import { Navigation } from '../components';
+import { Navigation, ProjectSection } from '../components';
 import { apiClient } from '../api';
 import { storage } from '../storage';
 
@@ -29,32 +32,21 @@ export default {
   name: 'ControlPanel',
   data() {
     return {
-      sectionId: 'home',
-      list: []
+      sectionId: 'home'
     }
   },
   components: {
-    Navigation
+    Navigation,
+    ProjectSection
   },
   methods: {
     async navItemSelected(id) {
-      if(id === 'logout') {
+      if(id !== 'logout') {
+        this.sectionId = id;
+      } else {
         await apiClient.logoutUser();
         this.$router.push('/');
-        return;
-      } else {
-        if(id === 'home') {
-          this.list = [];
-        } else {
-          switch(id) {
-            case 'projects': {
-              this.list = storage.projects;
-              break;
-            }
-          }
-        }
       }      
-      this.sectionId = id;
     }
   },
   async created() {
