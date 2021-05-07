@@ -53,11 +53,7 @@ export default {
   },
   methods: {
     itemClicked(item) {
-      if(!item) {
-        this.$emit('addItemClicked');
-      } else {
-        this.$emit('itemClicked');
-      }
+      this.$emit('itemClicked', item);
     }
   },
   created() {
