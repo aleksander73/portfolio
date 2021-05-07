@@ -7,6 +7,9 @@
 </template>
 
 <style scoped>
+h1 {
+  margin-bottom: 40px;
+}
 </style>
 
 <script>
