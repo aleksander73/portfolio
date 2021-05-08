@@ -9,6 +9,10 @@
           <p>Project name</p>
           <TextInputField placeholder="project name" :initValue="projectName" @input="onNameChanged" />
         </div>
+        <div class="input-field-container">
+          <p>Project description</p>
+          <TextAreaInputField placeholder="project description" :initValue="projectDescription" @input="onDescriptionChanged" />
+        </div>
       </div>
       <div>
         <div class="divide"></div>
@@ -110,13 +114,14 @@ button.btn-update {
 </style>
 
 <script>
-import { TextInputField } from './input';
+import { TextInputField, TextAreaInputField } from './input';
 
 export default {
   name: 'ProjectUpsertWindow',
   data() {
     return {
-      projectName: ''
+      projectName: '',
+      projectDescription: ''
     }
   },
   props: {
@@ -125,7 +130,8 @@ export default {
     }
   },
   components: {
-    TextInputField
+    TextInputField,
+    TextAreaInputField
   },
   methods:  {
     actionButtonClass() {
@@ -146,6 +152,9 @@ export default {
     },
     onNameChanged(value) {
       this.projectName = value;
+    },
+    onDescriptionChanged(value) {
+      this.projectDescription = value;
     }
   },
   computed: {
@@ -159,6 +168,7 @@ export default {
   created() {
     if(this.project) {
       this.projectName = this.project.name;
+      this.projectDescription = this.project.description;
     }
   }
 }
