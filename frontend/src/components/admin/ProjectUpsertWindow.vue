@@ -13,6 +13,10 @@
           <p>Project description</p>
           <TextAreaInputField placeholder="project description" :initValue="projectDescription" @input="onDescriptionChanged" />
         </div>
+        <div class="input-field-container">
+          <p>GitHub repository</p>
+          <TextInputField placeholder="github repository" :initValue="githubRepo" @input="onGithubRepoChanged" />
+        </div>
       </div>
       <div>
         <div class="divide"></div>
@@ -121,7 +125,8 @@ export default {
   data() {
     return {
       projectName: '',
-      projectDescription: ''
+      projectDescription: '',
+      githubRepo: ''
     }
   },
   props: {
@@ -155,6 +160,9 @@ export default {
     },
     onDescriptionChanged(value) {
       this.projectDescription = value;
+    },
+    onGithubRepoChanged(value) {
+      this.githubRepo = value;
     }
   },
   computed: {
@@ -169,6 +177,7 @@ export default {
     if(this.project) {
       this.projectName = this.project.name;
       this.projectDescription = this.project.description;
+      this.githubRepo = this.project.githubRepo;
     }
   }
 }
