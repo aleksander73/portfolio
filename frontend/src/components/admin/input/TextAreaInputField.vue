@@ -1,6 +1,6 @@
 <template>
   <div :class="inputFieldClass()">
-    <textarea rows="5" :placeholder="placeholder.toLowerCase()" v-model.trim=input @focus=onFocus @input=onInput @blur=onBlur />
+    <textarea rows="4" :placeholder="placeholder.toLowerCase()" v-model.trim=input @focus=onFocus @input=onInput @blur=onBlur />
   </div>
 </template>
 

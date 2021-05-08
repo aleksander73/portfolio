@@ -4,22 +4,28 @@
       <div class="title-container">
         <h1>{{ title }}</h1>
       </div>
-      <div class="input-fields">
-        <div class="input-field-container">
-          <p>Project name</p>
-          <TextInputField placeholder="project name" :initValue="projectName" @input="onNameChanged" />
-        </div>
-        <div class="input-field-container">
-          <p>Project description</p>
-          <TextAreaInputField placeholder="project description" :initValue="projectDescription" @input="onDescriptionChanged" />
-        </div>
-        <div class="input-field-container">
-          <p>GitHub repository</p>
-          <TextInputField placeholder="github repository" :initValue="githubRepo" @input="onGithubRepoChanged" />
-        </div>
-        <div class="input-field-container">
-          <p>Technology tag</p>
-          <TextInputField placeholder="technology tag" :initValue="technologyTag" @input="onTechnologyTagChanged" />
+      <div class="input-fields-container">
+        <div class="input-fields">
+          <div class="input-field-container">
+            <p>Project name</p>
+            <TextInputField placeholder="project name" :initValue="projectName" @input="onNameChanged" />
+          </div>
+          <div class="input-field-container">
+            <p>Project description</p>
+            <TextAreaInputField placeholder="project description" :initValue="projectDescription" @input="onDescriptionChanged" />
+          </div>
+          <div class="input-field-container">
+            <p>GitHub repository</p>
+            <TextInputField placeholder="github repository" :initValue="githubRepo" @input="onGithubRepoChanged" />
+          </div>
+          <div class="input-field-container">
+            <p>Technology tag</p>
+            <TextInputField placeholder="technology tag" :initValue="technologyTag" @input="onTechnologyTagChanged" />
+          </div>
+          <div class="input-field-container">
+            <p>YouTube video ID</p>
+            <TextInputField placeholder="YouTube video ID" :initValue="ytVideoId" @input="onYtVideoIdChanged" />
+          </div>
         </div>
       </div>
       <div>
@@ -75,16 +81,22 @@
   margin: 5px 0;
 }
 
+.input-fields-container {
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+  height: 80%;
+}
+
 .input-fields {
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 20px 0;
   width: 80%;
 }
 
 .input-field-container {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: 100%;
 }
 
@@ -94,7 +106,7 @@
 
 .divide {
   border-top: 1px solid white;
-  margin: 20px auto 0 auto;
+  margin: 0px auto 0 auto;
   width: 80%;
 }
 
@@ -131,7 +143,8 @@ export default {
       projectName: '',
       projectDescription: '',
       githubRepo: '',
-      technologyTag: ''
+      technologyTag: '',
+      ytVideoId: ''
     }
   },
   props: {
@@ -171,6 +184,9 @@ export default {
     },
     onTechnologyTagChanged(value) {
       this.technologyTag = value;
+    },
+    onYtVideoIdChanged(value) {
+      this.ytVideoId = value;
     }
   },
   computed: {
@@ -187,6 +203,7 @@ export default {
       this.projectDescription = this.project.description;
       this.githubRepo = this.project.githubRepo;
       this.technologyTag = this.project.technologyTag;
+      this.ytVideoId = this.project.ytVideoId;
     }
   }
 }

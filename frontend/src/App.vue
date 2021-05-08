@@ -44,4 +44,23 @@ button {
 button:hover {
   background-color: rgb(0, 120, 233);
 }
+
+/* Scroll bar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 3px grey; 
+  border-radius: 4px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background-color: rgb(90, 90, 90);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(60, 60, 60); 
+}
 </style>
