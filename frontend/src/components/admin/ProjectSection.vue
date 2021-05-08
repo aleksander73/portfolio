@@ -1,8 +1,8 @@
 <template>
   <div class="project-section-container">
     <h1>{{ 'Projects'.toUpperCase() }}</h1>
-    <List :data="projects" :getKey="x => x._id" :getName="x => x.name" :sortFunc="(x, y) => x.name.localeCompare(y.name)" @itemClicked="onListItemClicked" />
-    <ProjectUpsertWindow v-if="showUpsertWindow" :project="project" />
+    <List :data="projects" :getKey="x => x._id" :getName="x => x.name" :sortFunc="(x, y) => x.name.localeCompare(y.name)" @itemClicked="openUpsertWindow" />
+    <ProjectUpsertWindow v-if="showUpsertWindow" :project="project" @requestClose="closeUpsertWindow" />
   </div>
 </template>
 
@@ -30,9 +30,13 @@ export default {
     ProjectUpsertWindow
   },
   methods: {
-    onListItemClicked(item) {
+    openUpsertWindow(item) {
       this.project = item;
       this.showUpsertWindow = true;
+    },
+    closeUpsertWindow() {
+      this.project = null;
+      this.showUpsertWindow = false;
     }
   }
 }

@@ -48,7 +48,7 @@
 }
 
 .divide {
-    border-top: 1px  solid white;
+    border-top: 1px solid white;
     margin-top: 10px;
 }
 </style>

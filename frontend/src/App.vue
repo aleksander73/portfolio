@@ -36,6 +36,8 @@ button {
   cursor: pointer;
   font-size: 1.2em;
   outline: none;
+  padding: 10px;
+  min-width: 100px;
   transition: background-color 0.25s ease;
 }
 
