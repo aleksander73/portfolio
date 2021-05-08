@@ -17,6 +17,10 @@
           <p>GitHub repository</p>
           <TextInputField placeholder="github repository" :initValue="githubRepo" @input="onGithubRepoChanged" />
         </div>
+        <div class="input-field-container">
+          <p>Technology tag</p>
+          <TextInputField placeholder="technology tag" :initValue="technologyTag" @input="onTechnologyTagChanged" />
+        </div>
       </div>
       <div>
         <div class="divide"></div>
@@ -126,7 +130,8 @@ export default {
     return {
       projectName: '',
       projectDescription: '',
-      githubRepo: ''
+      githubRepo: '',
+      technologyTag: ''
     }
   },
   props: {
@@ -163,6 +168,9 @@ export default {
     },
     onGithubRepoChanged(value) {
       this.githubRepo = value;
+    },
+    onTechnologyTagChanged(value) {
+      this.technologyTag = value;
     }
   },
   computed: {
@@ -178,6 +186,7 @@ export default {
       this.projectName = this.project.name;
       this.projectDescription = this.project.description;
       this.githubRepo = this.project.githubRepo;
+      this.technologyTag = this.project.technologyTag;
     }
   }
 }
