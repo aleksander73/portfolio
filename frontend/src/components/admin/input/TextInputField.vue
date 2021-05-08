@@ -8,8 +8,8 @@
 .text-input-field-container {
   border: 1px solid white;
   display: flex;
-  height: 50px;
   justify-content: center;
+  padding: 15px;
 }
 
 input {
@@ -17,9 +17,9 @@ input {
   border: 0;
   color: white;
   font-family: inherit;
-  font-size: 1.1em;
+  font-size: 1em;
   outline: none;
-  width: 90%;
+  width: 100%;
 }
 
 .shadow {

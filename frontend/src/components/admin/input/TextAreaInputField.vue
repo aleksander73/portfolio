@@ -9,7 +9,7 @@
   border: 1px solid white;
   display: flex;
   justify-content: center;
-  padding: 15px 0;
+  padding: 15px;
 }
 
 textarea {
@@ -17,9 +17,9 @@ textarea {
   border: 0;
   color: white;
   font-family: inherit;
-  font-size: 1.1em;
+  font-size: 1em;
   outline: none;
-  width: 90%;
+  width: 100%;
   resize: none;
 }
 
