@@ -6,6 +6,7 @@ import Intro from './Intro';
 import List from './admin/List';
 import Navigation from './admin/Navigation'
 import Project from './Project';
+import TextInputField from './admin/input/TextInputField';
 import ProjectUpsertWindow from './admin/ProjectUpsertWindow';
 import ProjectSection from './admin/ProjectSection';
 import Technology from './Technology';
@@ -19,6 +20,7 @@ export {
     List,
     Navigation,
     Project,
+    TextInputField,
     ProjectUpsertWindow,
     ProjectSection,
     Technology

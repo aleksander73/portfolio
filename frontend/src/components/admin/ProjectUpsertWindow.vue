@@ -4,6 +4,12 @@
       <div class="title-container">
         <h1>{{ title }}</h1>
       </div>
+      <div class="input-fields">
+        <div class="input-field-container">
+          <p>Project name</p>
+          <TextInputField placeholder="project name" :initValue="projectName" @input="onNameChanged" />
+        </div>
+      </div>
       <div>
         <div class="divide"></div>
         <div class="button-panel">
@@ -34,24 +40,8 @@
   width: 33%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   position: relative;
-}
-
-.title-container {
-  display: flex;
-  justify-content: center;
-  font-size: 0.55em;
-  border-bottom: 1px solid white;
-}
-
-.title-container > h1 {
-  margin: 5px 0;
-}
-
-.divide {
-  border-top: 1px solid white;
-  margin: 20px auto 0 auto;
-  width: 80%;
 }
 
 .window > * {
@@ -63,11 +53,43 @@
   bottom: 0;
 }
 
+.title-container {
+  text-align: center;
+  font-size: 0.55em;
+  border-bottom: 1px solid white;
+}
+
+.title-container > h1 {
+  margin: 5px 0;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  width: 80%;
+}
+
+.input-field-container {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.input-field-container > p {
+  margin: 5px 0;
+}
+
+.divide {
+  border-top: 1px solid white;
+  margin: 20px auto 0 auto;
+  width: 80%;
+}
+
 .button-panel {
   display: flex;
   justify-content: center;
   margin: 20px 0;
-  width: 100%;
 }
 
 .button-panel > button {
@@ -88,12 +110,22 @@ button.btn-update {
 </style>
 
 <script>
+import { TextInputField } from './input';
+
 export default {
   name: 'ProjectUpsertWindow',
+  data() {
+    return {
+      projectName: ''
+    }
+  },
   props: {
     project: {
       type: Object
     }
+  },
+  components: {
+    TextInputField
   },
   methods:  {
     actionButtonClass() {
@@ -111,6 +143,9 @@ export default {
     },
     cancel() {
       this.$emit('requestClose');
+    },
+    onNameChanged(value) {
+      this.projectName = value;
     }
   },
   computed: {
@@ -119,6 +154,11 @@ export default {
     },
     buttonLabel() {
       return !this.project ? 'Create' : 'Update';
+    }
+  },
+  created() {
+    if(this.project) {
+      this.projectName = this.project.name;
     }
   }
 }
