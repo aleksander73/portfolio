@@ -1,15 +1,19 @@
 <template>
   <div class="multiple-choice-field-container">
-    <div :class="mainRowClass()">
-      <input type="text" disabled />
+    <div :class="mainRowClass()" @click="dropList()">
+      <input type="text" v-model.trim="inputLabel" disabled />
       <div class="drop-down-button-container">
-        <img src="../../../../assets/other/arrow-down.png" @click="dropList()">
+        <img src="../../../../assets/other/arrow-down.png">
       </div>
     </div>
     <div v-if="expanded" class="list">
-      <div v-for="item in items" :key="getKey(item)">
-        <p>{{ getName(item) }}</p>
-      </div>
+      <CheckboxInputField v-for="item in items.sort(sortFunc)" :key="getName(item)" 
+        :item="item" 
+        :getName="getName" 
+        :initSelected="selectedItems.includes(item)"
+        @selected="onItemSelected"
+        @unselected="onItemUnselected"
+      />
     </div>
   </div>
 </template>
@@ -27,6 +31,7 @@
   border: 1px solid white;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 input {
@@ -37,6 +42,7 @@ input {
   font-size: 1em;
   outline: none;
   width: 100%;
+  cursor: pointer;
 }
 
 .drop-down-button-container {
@@ -50,7 +56,6 @@ input {
 .drop-down-button-container > img {
   height: 60%;
   width: 100%;
-  cursor: pointer;
 }
 
 .shadow {
@@ -65,10 +70,13 @@ input {
   width: 100%;
   max-height: 200px;
   overflow-y: auto;
+  padding: 5px 0;
 }
 </style>
 
 <script>
+import CheckboxInputField from './CheckboxInputField';
+
 export default {
   name: 'MultipleChoiceInputField',
   data() {
@@ -97,6 +105,9 @@ export default {
       type: Function
     }
   },
+  components: {
+    CheckboxInputField
+  },
   methods: {
     mainRowClass() {
       return [
@@ -107,12 +118,21 @@ export default {
     dropList() {
       this.expanded = !this.expanded;
     },
-    onInput() {
+    onItemSelected(item) {
+      this.selectedItems.push(item);
+      this.$emit('input', this.selectedItems);
+    },
+    onItemUnselected(item) {
+      this.selectedItems = this.selectedItems.filter(x => x !== item);
       this.$emit('input', this.selectedItems);
     }
   },
+  computed: {
+    inputLabel() {
+      return this.selectedItems.map(x => x.name).sort((x, y) => x.localeCompare(y)).join(', ');
+    }
+  },
   created() {
-    this.items.sort(this.sortFunc);
     this.selectedItems = this.initSelectedItems;
     this.$emit('input', this.selectedItems);
   }

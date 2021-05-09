@@ -22,10 +22,11 @@
             <p>Technologies</p>
             <MultipleChoiceInputField
               :items="[...allTechnologies]"
-              :initSelectedItems="technologies"
+              :initSelectedItems="[...technologies]"
               :getKey="x => x.name"
               :getName="x => x.name"
               :sortFunc="(x, y) => x.name.localeCompare(y.name)"
+              @input="onTechnologiesChanged"
             />
           </div>
           <div class="input-field-container">
@@ -200,6 +201,9 @@ export default {
     onGithubRepoChanged(value) {
       this.githubRepo = value;
     },
+    onTechnologiesChanged(value) {
+      this.technologies = value;
+    },
     onTechnologyTagChanged(value) {
       this.technologyTag = value;
     },
@@ -221,7 +225,7 @@ export default {
       this.projectName = this.project.name;
       this.projectDescription = this.project.description;
       this.githubRepo = this.project.githubRepo;
-      this.technologies = this.project.technologies;
+      this.technologies = this.project.technologies.map(tag => this.allTechnologies.find(x => x.tag === tag));
       this.technologyTag = this.project.technologyTag;
       this.ytVideoId = this.project.ytVideoId;
     }
