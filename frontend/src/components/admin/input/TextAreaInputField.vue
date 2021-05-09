@@ -55,7 +55,6 @@ export default {
     },
     onInput() {
       this.$emit('input', this.input);
-      console.log(this.input);
     },
     onBlur() {
       this.focused = false;

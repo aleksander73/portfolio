@@ -19,6 +19,16 @@
             <TextInputField :initValue="githubRepo" @input="onGithubRepoChanged" />
           </div>
           <div class="input-field-container">
+            <p>Technologies</p>
+            <MultipleChoiceInputField
+              :items="[...allTechnologies]"
+              :initSelectedItems="technologies"
+              :getKey="x => x.name"
+              :getName="x => x.name"
+              :sortFunc="(x, y) => x.name.localeCompare(y.name)"
+            />
+          </div>
+          <div class="input-field-container">
             <p>Technology tag</p>
             <TextInputField :initValue="technologyTag" @input="onTechnologyTagChanged" />
           </div>
@@ -134,7 +144,12 @@ button.btn-update {
 </style>
 
 <script>
-import { TextInputField, TextAreaInputField } from './input';
+import {
+  TextInputField,
+  TextAreaInputField,
+  MultipleChoiceInputField
+} from './input';
+import { storage } from '../../storage';
 
 export default {
   name: 'ProjectUpsertWindow',
@@ -143,6 +158,8 @@ export default {
       projectName: '',
       projectDescription: '',
       githubRepo: '',
+      allTechnologies: [],
+      technologies: [],
       technologyTag: '',
       ytVideoId: ''
     }
@@ -154,7 +171,8 @@ export default {
   },
   components: {
     TextInputField,
-    TextAreaInputField
+    TextAreaInputField,
+    MultipleChoiceInputField
   },
   methods:  {
     actionButtonClass() {
@@ -198,10 +216,12 @@ export default {
     }
   },
   created() {
+    this.allTechnologies = storage.technologies;
     if(this.project) {
       this.projectName = this.project.name;
       this.projectDescription = this.project.description;
       this.githubRepo = this.project.githubRepo;
+      this.technologies = this.project.technologies;
       this.technologyTag = this.project.technologyTag;
       this.ytVideoId = this.project.ytVideoId;
     }
