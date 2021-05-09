@@ -39,7 +39,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="bottom-panel">
         <div class="divide"></div>
         <div class="button-panel">
           <button class="btn-cancel" @click="cancel()">Cancel</button>
@@ -113,6 +113,10 @@
 
 .input-field-container > p {
   margin: 5px 0;
+}
+
+.bottom-panel {
+  background-color: black;
 }
 
 .divide {

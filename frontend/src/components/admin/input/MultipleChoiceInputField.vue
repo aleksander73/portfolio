@@ -7,7 +7,7 @@
       </div>
     </div>
     <div v-if="expanded" class="list">
-      <CheckboxInputField v-for="item in items.sort(sortFunc)" :key="getName(item)" 
+      <CheckboxInputField v-for="item in items.sort(sortFunc)" :key="getKey(item)" 
         :item="item" 
         :getName="getName" 
         :initSelected="selectedItems.includes(item)"
@@ -65,6 +65,7 @@ input {
 .list {
   background-color: black;
   border: 1px solid white;
+  border-top: 0;
   position: absolute;
   top: 45px;
   width: 100%;
