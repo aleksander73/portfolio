@@ -1,6 +1,6 @@
 <template>
   <div :class="inputFieldClass()">
-    <input type="text" :placeholder="placeholder.toLowerCase()" v-model.trim=input @focus=onFocus @input=onInput @blur=onBlur />
+    <input type="text" v-model.trim=input @focus=onFocus @input=onInput @blur=onBlur />
   </div>
 </template>
 
@@ -9,7 +9,7 @@
   border: 1px solid white;
   display: flex;
   justify-content: center;
-  padding: 15px;
+  padding: 10px;
 }
 
 input {
@@ -37,10 +37,6 @@ export default {
     }
   },
   props: {
-    placeholder: {
-      type: String,
-      required: true
-    },
     initValue: {
       type: String,
       required: true

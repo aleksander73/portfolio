@@ -8,23 +8,23 @@
         <div class="input-fields">
           <div class="input-field-container">
             <p>Project name</p>
-            <TextInputField placeholder="project name" :initValue="projectName" @input="onNameChanged" />
+            <TextInputField :initValue="projectName" @input="onNameChanged" />
           </div>
           <div class="input-field-container">
             <p>Project description</p>
-            <TextAreaInputField placeholder="project description" :initValue="projectDescription" @input="onDescriptionChanged" />
+            <TextAreaInputField :initValue="projectDescription" @input="onDescriptionChanged" />
           </div>
           <div class="input-field-container">
             <p>GitHub repository</p>
-            <TextInputField placeholder="github repository" :initValue="githubRepo" @input="onGithubRepoChanged" />
+            <TextInputField :initValue="githubRepo" @input="onGithubRepoChanged" />
           </div>
           <div class="input-field-container">
             <p>Technology tag</p>
-            <TextInputField placeholder="technology tag" :initValue="technologyTag" @input="onTechnologyTagChanged" />
+            <TextInputField :initValue="technologyTag" @input="onTechnologyTagChanged" />
           </div>
           <div class="input-field-container">
             <p>YouTube video ID</p>
-            <TextInputField placeholder="YouTube video ID" :initValue="ytVideoId" @input="onYtVideoIdChanged" />
+            <TextInputField :initValue="ytVideoId" @input="onYtVideoIdChanged" />
           </div>
         </div>
       </div>

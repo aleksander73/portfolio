@@ -1,6 +1,6 @@
 <template>
   <div :class="inputFieldClass()">
-    <textarea rows="4" :placeholder="placeholder.toLowerCase()" v-model.trim=input @focus=onFocus @input=onInput @blur=onBlur />
+    <textarea rows="4" v-model.trim=input @focus=onFocus @input=onInput @blur=onBlur />
   </div>
 </template>
 
@@ -9,7 +9,7 @@
   border: 1px solid white;
   display: flex;
   justify-content: center;
-  padding: 15px;
+  padding: 10px;
 }
 
 textarea {
@@ -38,10 +38,6 @@ export default {
     }
   },
   props: {
-    placeholder: {
-      type: String,
-      required: true
-    },
     initValue: {
       type: String,
       required: true
