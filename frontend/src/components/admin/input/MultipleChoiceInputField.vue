@@ -2,7 +2,7 @@
   <div class="multiple-choice-field-container">
     <div :class="mainRowClass()" @click="dropList()">
       <input type="text" v-model.trim="inputLabel" disabled />
-      <div class="drop-down-button-container">
+      <div :class="dropDownButtonClass()">
         <img src="../../../../assets/other/arrow-down.png">
       </div>
     </div>
@@ -51,6 +51,11 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: transform 0.15s linear;
+}
+
+.flipped {
+  transform: scaleY(-1);
 }
 
 .drop-down-button-container > img {
@@ -114,6 +119,12 @@ export default {
       return [
         { class: 'main-row', condition: () => true },
         { class: 'shadow', condition: () => this.expanded }
+      ].map(x => x.condition() ? x.class : '').join(' ');
+    },
+    dropDownButtonClass() {
+      return [
+        { class: 'drop-down-button-container', condition: () => true },
+        { class: 'flipped', condition: () => this.expanded }
       ].map(x => x.condition() ? x.class : '').join(' ');
     },
     dropList() {
