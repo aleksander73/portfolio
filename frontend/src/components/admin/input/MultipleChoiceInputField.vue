@@ -75,7 +75,7 @@ input {
   top: 45px;
   width: 100%;
   max-height: 200px;
-  overflow-y: auto;
+  overflow-y: overlay;
   padding: 5px 0;
 }
 </style>

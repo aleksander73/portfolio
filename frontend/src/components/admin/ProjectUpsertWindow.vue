@@ -95,7 +95,7 @@
 .input-fields-container {
   display: flex;
   justify-content: center;
-  overflow-y: auto;
+  overflow-y: overlay;
   height: 80%;
 }
 
