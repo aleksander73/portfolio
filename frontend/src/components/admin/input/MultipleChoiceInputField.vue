@@ -77,6 +77,7 @@ input {
   max-height: 200px;
   overflow-y: overlay;
   padding: 5px 0;
+  z-index: 1;
 }
 </style>
 
