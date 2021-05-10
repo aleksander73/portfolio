@@ -1,6 +1,6 @@
 <template>
   <div class="multiple-choice-field-container">
-    <div :class="mainRowClass()" @click="dropList()">
+    <div :class="mainRowClass()" @click="toggleList()">
       <input type="text" v-model.trim="inputLabel" disabled />
       <div :class="dropDownButtonClass()">
         <img src="../../../../assets/other/arrow-down.png">
@@ -127,7 +127,7 @@ export default {
         { class: 'flipped', condition: () => this.expanded }
       ].map(x => x.condition() ? x.class : '').join(' ');
     },
-    dropList() {
+    toggleList() {
       this.expanded = !this.expanded;
     },
     onItemSelected(item) {
