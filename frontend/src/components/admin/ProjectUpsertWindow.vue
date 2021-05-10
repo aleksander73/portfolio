@@ -159,6 +159,7 @@ import {
   MultipleChoiceInputField,
   FileUploadInputField
 } from './input';
+import { apiClient } from '../../api';
 import { storage } from '../../storage';
 
 export default {
@@ -193,12 +194,20 @@ export default {
         { class: 'btn-update', condition: () => this.project }
       ].map(x => x.condition() ? x.class : '').join(' ');
     },
-    mainAction() {
+    async mainAction() {
       if(!this.project) {
-        console.log('Adding new project');
+        await apiClient.addProject(
+          this.name,
+          this.description,
+          this.githubRepo,
+          this.technologies.map(x => x.tag),
+          this.technologyTag, this.pictures,
+          this.ytVideoId
+        );
       } else {
         console.log('Updating', this.project.name);
       }
+      this.$emit('requestClose');
     },
     cancel() {
       this.$emit('requestClose');

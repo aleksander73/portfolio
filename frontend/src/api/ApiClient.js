@@ -6,6 +6,29 @@ class ApiClient {
         return data;
     }
 
+    async addProject(name, description, githubRepo, technologies, technologyTag, pictures, ytVideoId) {
+        try {
+            const data = new FormData();
+            data.append('name', name);
+            data.append('description', description);
+            data.append('githubRepo', githubRepo);
+            data.append('technologies', technologies);
+            data.append('technologyTag', technologyTag);
+            pictures.forEach((picture, i) => {
+                data.append('pictures[' + i + ']', picture);
+            });
+            data.append('ytVideoId', ytVideoId);
+            const { status } = await axios.post('/api/projects/add', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return status === 200;
+        } catch (error) {
+            return false;
+        }
+    }
+
     async getTechnologies() {
         const { data } = await axios.get('/api/technologies');
         return data;
