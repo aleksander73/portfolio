@@ -7,11 +7,11 @@
       <div class="input-fields-container">
         <div class="input-fields">
           <div class="input-field-container">
-            <p>Project name</p>
+            <p>Name</p>
             <TextInputField :initValue="name" @input="onNameChanged" />
           </div>
           <div class="input-field-container">
-            <p>Project description</p>
+            <p>Description</p>
             <TextAreaInputField :initValue="description" @input="onDescriptionChanged" />
           </div>
           <div class="input-field-container">
