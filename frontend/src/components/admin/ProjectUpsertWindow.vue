@@ -34,6 +34,10 @@
             <TextInputField :initValue="technologyTag" @input="onTechnologyTagChanged" />
           </div>
           <div class="input-field-container">
+            <p>Pictures</p>
+            <FileUploadInputField @input="onPicturesChanged" />
+          </div>
+          <div class="input-field-container">
             <p>YouTube video ID</p>
             <TextInputField :initValue="ytVideoId" @input="onYtVideoIdChanged" />
           </div>
@@ -152,7 +156,8 @@ button.btn-update {
 import {
   TextInputField,
   TextAreaInputField,
-  MultipleChoiceInputField
+  MultipleChoiceInputField,
+  FileUploadInputField
 } from './input';
 import { storage } from '../../storage';
 
@@ -166,6 +171,7 @@ export default {
       allTechnologies: [],
       technologies: [],
       technologyTag: '',
+      pictures: [],
       ytVideoId: ''
     }
   },
@@ -177,7 +183,8 @@ export default {
   components: {
     TextInputField,
     TextAreaInputField,
-    MultipleChoiceInputField
+    MultipleChoiceInputField,
+    FileUploadInputField
   },
   methods:  {
     actionButtonClass() {
@@ -210,6 +217,9 @@ export default {
     },
     onTechnologyTagChanged(value) {
       this.technologyTag = value;
+    },
+    onPicturesChanged(value) {
+      this.pictures = value;
     },
     onYtVideoIdChanged(value) {
       this.ytVideoId = value;
