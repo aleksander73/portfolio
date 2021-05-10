@@ -4,7 +4,9 @@
       <p v-for="fileName in fileList" :key="fileName" class="file">{{ fileName }}</p>
     </div>
     <div class="control">
-      <label for="files">Upload</label>
+      <label for="files">
+        <img src="../../../../assets/icons/upload.svg">
+      </label>
       <input id="files" name="files" type="file" multiple ref="files" @input="onFilesChosen()" >
     </div>
   </div>
@@ -36,12 +38,20 @@
 
 /* ... and style the lablel instead */
 .control > label {
-  background-color: rgb(0, 115, 175);
-  border-radius: 3px;
-  color: white;
+  border: 1px solid white;
+  border-radius: 7px;
   cursor: pointer;
-  font-size: 1em;
-  padding: 5px 10px;
+  height: 30px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control > label > img {
+  height: 20px;
+  width: 20px;
+  filter: invert(100%) sepia(3%) saturate(6%) hue-rotate(251deg) brightness(103%) contrast(100%);
 }
 </style>
 
