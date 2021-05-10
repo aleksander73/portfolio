@@ -8,11 +8,11 @@
         <div class="input-fields">
           <div class="input-field-container">
             <p>Project name</p>
-            <TextInputField :initValue="projectName" @input="onNameChanged" />
+            <TextInputField :initValue="name" @input="onNameChanged" />
           </div>
           <div class="input-field-container">
             <p>Project description</p>
-            <TextAreaInputField :initValue="projectDescription" @input="onDescriptionChanged" />
+            <TextAreaInputField :initValue="description" @input="onDescriptionChanged" />
           </div>
           <div class="input-field-container">
             <p>GitHub repository</p>
@@ -166,8 +166,8 @@ export default {
   name: 'ProjectUpsertWindow',
   data() {
     return {
-      projectName: '',
-      projectDescription: '',
+      name: '',
+      description: '',
       githubRepo: '',
       allTechnologies: [],
       technologies: [],
@@ -201,7 +201,8 @@ export default {
           this.description,
           this.githubRepo,
           this.technologies.map(x => x.tag),
-          this.technologyTag, this.pictures,
+          this.technologyTag,
+          this.pictures,
           this.ytVideoId
         );
       } else {
@@ -213,10 +214,10 @@ export default {
       this.$emit('requestClose');
     },
     onNameChanged(value) {
-      this.projectName = value;
+      this.name = value;
     },
     onDescriptionChanged(value) {
-      this.projectDescription = value;
+      this.description = value;
     },
     onGithubRepoChanged(value) {
       this.githubRepo = value;
@@ -245,8 +246,8 @@ export default {
   created() {
     this.allTechnologies = storage.technologies;
     if(this.project) {
-      this.projectName = this.project.name;
-      this.projectDescription = this.project.description;
+      this.name = this.project.name;
+      this.description = this.project.description;
       this.githubRepo = this.project.githubRepo;
       this.technologies = this.project.technologies.map(tag => this.allTechnologies.find(x => x.tag === tag));
       this.technologyTag = this.project.technologyTag;

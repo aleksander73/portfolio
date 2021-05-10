@@ -4,7 +4,8 @@
       <p v-for="fileName in fileList" :key="fileName" class="file">{{ fileName }}</p>
     </div>
     <div class="control">
-      <input name="pictures" id="pictures" type="file" multiple ref="files" @input="onFilesChosen()" >
+      <label for="files">Upload</label>
+      <input id="files" name="files" type="file" multiple ref="files" @input="onFilesChosen()" >
     </div>
   </div>
 </template>
@@ -21,19 +22,26 @@
 
 .control {
   display: flex;
+  margin-top: 7px;
   justify-content: flex-end;
 }
 
-.control {
-  display: flex;
-  margin-top: 10px;
-  justify-content: flex-start;
+/* Remove the input field ... */
+.control > input[type="file"] {
+  height: 0;
+  width: 0;
+  opacity: 0;
+  z-index: -1;
 }
 
-.control > input[type="file"] {
-  font-size: 0.8em;
-  outline: none;
-  width: 91px;
+/* ... and style the lablel instead */
+.control > label {
+  background-color: rgb(0, 115, 175);
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 5px 10px;
 }
 </style>
 
