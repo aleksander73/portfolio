@@ -210,7 +210,7 @@ export default {
           this.description,
           this.githubRepo,
           this.technologies.map(x => x.tag),
-          this.technology.tag,
+          this.technology ? this.technology.tag : '',
           this.pictures,
           this.ytVideoId
         );
