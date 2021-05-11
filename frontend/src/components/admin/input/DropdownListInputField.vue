@@ -1,5 +1,5 @@
 <template>
-  <div class="multiple-choice-field-container">
+  <div class="dropdown-list-input-field-container">
     <div :class="mainRowClass()" @click="toggleList()">
       <input type="text" v-model.trim="inputLabel" disabled />
       <div :class="dropDownButtonClass()">
@@ -7,19 +7,14 @@
       </div>
     </div>
     <div v-if="expanded" class="list">
-      <CheckboxInputField v-for="item in items.sort(sortFunc)" :key="getKey(item)" 
-        :item="item" 
-        :getName="getName" 
-        :initSelected="selectedItems.includes(item)"
-        @selected="onItemSelected"
-        @unselected="onItemUnselected"
-      />
+      <p v-if="!required" @click="onItemSelected(null)">none</p>
+      <p v-for="item in items.sort(sortFunc)" :key="getKey(item)" @click="onItemSelected(item)">{{ getName(item) }}</p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.multiple-choice-field-container {
+.dropdown-list-input-field-container {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -79,16 +74,23 @@ input {
   padding: 5px 0;
   z-index: 1;
 }
+
+.list > p {
+  padding: 5px 10px;
+  cursor: default;
+}
+
+.list > p:hover {
+  background-color: rgb(85, 85, 85);
+}
 </style>
 
 <script>
-import CheckboxInputField from './CheckboxInputField';
-
 export default {
-  name: 'MultipleChoiceInputField',
+  name: 'DropdownListInputField',
   data() {
     return {
-      selectedItems: [],
+      selectedItem: null,
       expanded: false
     }
   },
@@ -97,8 +99,12 @@ export default {
       type: Array,
       required: true
     },
-    initSelectedItems: {
-      type: Array
+    required: {
+      type: Boolean,
+      required: true
+    },
+    initSelectedItem: {
+      type: Object
     },
     getKey: {
       type: Function,
@@ -111,9 +117,6 @@ export default {
     sortFunc: {
       type: Function
     }
-  },
-  components: {
-    CheckboxInputField
   },
   methods: {
     mainRowClass() {
@@ -132,22 +135,23 @@ export default {
       this.expanded = !this.expanded;
     },
     onItemSelected(item) {
-      this.selectedItems.push(item);
-      this.$emit('input', this.selectedItems);
-    },
-    onItemUnselected(item) {
-      this.selectedItems = this.selectedItems.filter(x => x !== item);
-      this.$emit('input', this.selectedItems);
+      this.selectedItem = item;
+      this.expanded = false;
+      this.$emit('input', this.selectedItem);
     }
   },
   computed: {
     inputLabel() {
-      return this.selectedItems.map(x => this.getName(x)).sort((x, y) => x.localeCompare(y)).join(', ');
+      return this.selectedItem ? this.getName(this.selectedItem) : 'no selection';
     }
   },
   created() {
-    this.selectedItems = this.initSelectedItems;
-    this.$emit('input', this.selectedItems);
+    if(this.initSelectedItem) {
+      this.selectedItem = this.initSelectedItem;
+    } else {
+      this.selectedItem = this.required ? this.items.sort(this.sortFunc)[0] : null;
+    }
+    this.$emit('input', this.selectedItem);
   }
 }
 </script>

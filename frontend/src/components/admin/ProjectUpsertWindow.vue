@@ -29,9 +29,20 @@
               @input="onTechnologiesChanged"
             />
           </div>
-          <div class="input-field-container">
+          <!-- <div class="input-field-container">
             <p>Technology tag</p>
             <TextInputField :initValue="technologyTag" @input="onTechnologyTagChanged" />
+          </div> -->
+          <div class="input-field-container">
+            <p>Technology</p>
+            <DropdownListInputField
+              :items="[...allTechnologies]"
+              :required="false"
+              :initSelectedItem="technology"
+              :getKey="x => x.name"
+              :getName="x => x.name"
+              :sortFunc="(x, y) => x.name.localeCompare(y.name)"
+              @input="onTechnologyChanged" />
           </div>
           <div class="input-field-container">
             <p>Pictures</p>
@@ -156,6 +167,7 @@ button.btn-update {
 import {
   TextInputField,
   TextAreaInputField,
+  DropdownListInputField,
   MultipleChoiceInputField,
   FileUploadInputField
 } from './input';
@@ -171,7 +183,7 @@ export default {
       githubRepo: '',
       allTechnologies: [],
       technologies: [],
-      technologyTag: '',
+      technology: null,
       pictures: [],
       ytVideoId: ''
     }
@@ -184,6 +196,7 @@ export default {
   components: {
     TextInputField,
     TextAreaInputField,
+    DropdownListInputField,
     MultipleChoiceInputField,
     FileUploadInputField
   },
@@ -201,7 +214,7 @@ export default {
           this.description,
           this.githubRepo,
           this.technologies.map(x => x.tag),
-          this.technologyTag,
+          this.technology.tag,
           this.pictures,
           this.ytVideoId
         );
@@ -225,8 +238,8 @@ export default {
     onTechnologiesChanged(value) {
       this.technologies = value;
     },
-    onTechnologyTagChanged(value) {
-      this.technologyTag = value;
+    onTechnologyChanged(value) {
+      this.technology = value;
     },
     onPicturesChanged(value) {
       this.pictures = value;
@@ -250,7 +263,7 @@ export default {
       this.description = this.project.description;
       this.githubRepo = this.project.githubRepo;
       this.technologies = this.project.technologies.map(tag => this.allTechnologies.find(x => x.tag === tag));
-      this.technologyTag = this.project.technologyTag;
+      this.technology = this.allTechnologies.find(x => x.tag === this.project.technologyTag);
       this.ytVideoId = this.project.ytVideoId;
     }
   }
