@@ -20,7 +20,7 @@
         <div class="description">
             <p>{{description}}</p>
         </div>
-        <Gallery :images="images" />
+        <Gallery :images="pictures" />
         <div v-if="ytVideoId" class="yt-video-container">
             <iframe class="yt-video-item" width='70%' :height="888 / 1.77" :src=ytVideoSrc frameborder='0' allowfullscreen />
         </div>
@@ -129,7 +129,7 @@ export default {
         githubRepo: String,
         technologyTags: Array,
         description: String,
-        images: Array,
+        pictures: Array,
         ytVideoId: String
     },
     computed: {

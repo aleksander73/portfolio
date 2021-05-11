@@ -12,7 +12,7 @@ class ApiClient {
             data.append('name', name);
             data.append('description', description);
             data.append('githubRepo', githubRepo);
-            data.append('technologies', JSON.stringify({ technologies }));
+            data.append('technologies', JSON.stringify(technologies));
             data.append('technologyTag', technologyTag);
             pictures.forEach(picture => {
                 data.append('pictures', picture);
