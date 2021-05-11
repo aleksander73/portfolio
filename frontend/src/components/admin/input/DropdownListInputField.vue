@@ -7,7 +7,7 @@
       </div>
     </div>
     <div v-if="expanded" class="list">
-      <p v-if="!required" @click="onItemSelected(null)">none</p>
+      <p v-if="!required" @click="onItemSelected(null)">{{ noneSelectedLabel }}</p>
       <p v-for="item in items.sort(sortFunc)" :key="getKey(item)" @click="onItemSelected(item)">{{ getName(item) }}</p>
     </div>
   </div>
@@ -91,7 +91,8 @@ export default {
   data() {
     return {
       selectedItem: null,
-      expanded: false
+      expanded: false,
+      noneSelectedLabel: 'no selection'
     }
   },
   props: {
@@ -142,7 +143,7 @@ export default {
   },
   computed: {
     inputLabel() {
-      return this.selectedItem ? this.getName(this.selectedItem) : 'no selection';
+      return this.selectedItem ? this.getName(this.selectedItem) : this.noneSelectedLabel;
     }
   },
   created() {
