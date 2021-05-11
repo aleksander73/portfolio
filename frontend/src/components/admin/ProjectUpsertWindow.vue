@@ -29,10 +29,6 @@
               @input="onTechnologiesChanged"
             />
           </div>
-          <!-- <div class="input-field-container">
-            <p>Technology tag</p>
-            <TextInputField :initValue="technologyTag" @input="onTechnologyTagChanged" />
-          </div> -->
           <div class="input-field-container">
             <p>Technology</p>
             <DropdownListInputField
