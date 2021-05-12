@@ -7,24 +7,12 @@
 <style scoped>
 .text-area-input-field-container {
   border: 1px solid white;
-  display: flex;
-  justify-content: center;
   padding: 10px;
 }
 
 textarea {
-  background-color: inherit;
-  border: 0;
-  color: white;
-  font-family: inherit;
-  font-size: 1em;
-  outline: none;
   width: 100%;
   resize: none;
-}
-
-.shadow {
-  box-shadow: 0 0 4px rgb(45, 165, 235);
 }
 </style>
 
@@ -46,7 +34,7 @@ export default {
   methods: {
     inputFieldClass() {
       return [
-        { class: 'text-area-input-field-container', condition: () => true },
+        { class: 'text-area-input-field-container center-x', condition: () => true },
         { class: 'shadow', condition: () => this.focused }
       ].map(x => x.condition() ? x.class : '').join(' ');
     },

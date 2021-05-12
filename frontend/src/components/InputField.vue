@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div :class="inputFieldClass('input-field-container')">
-      <div class='icon-container'>
-        <img class="icon" :src=model.icon :title=model.placeholder>
+      <div class='icon-container center-xy'>
+        <img class="icon svg-white" :src=model.icon :title=model.placeholder>
       </div>
-      <div class="input-container">
+      <div class="input-container center-x">
         <input :type=model.inputType :placeholder=model.placeholder.toLowerCase() v-model.trim=model.value @focus=onFocus @blur=onBlur />
       </div>
     </div>
@@ -25,36 +25,16 @@
 }
 
 .icon-container {
-  align-items: center;
   border-right: 1px solid white;
-  display: flex;
-  justify-content: center;
   width: 15%;
 }
 
 .icon {
   height: 50%;
-  filter: invert(100%) sepia(3%) saturate(6%) hue-rotate(251deg) brightness(103%) contrast(100%);
 }
 
 .input-container {
-  display: flex;
-  justify-content: center;
   width: 85%;
-}
-
-input {
-  background-color: inherit;
-  border: 0;
-  color: white;
-  font-family: inherit;
-  font-size: 1.1em;
-  outline: none;
-  width: 90%;
-}
-
-.shadow {
-  box-shadow: 0 0 4px rgb(45, 165, 235);
 }
 </style>
 

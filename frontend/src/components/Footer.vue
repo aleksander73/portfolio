@@ -1,17 +1,14 @@
 <template>
-    <div class="footer">
+    <div class="footer center-xy">
         <p>{{ $t('footer-text') }}</p>
-        <p>{{ $t('footer-year') }}</p>
+        <p>{{ yearLabel }}</p>
     </div>
 </template>
 
 <style scoped>
 .footer {
     height: 20vh;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background-color: #0f0f0fad;
     border-top: 2px solid #e2e2e2
 }
@@ -24,6 +21,13 @@ p {
 
 <script>
 export default {
-    name: 'Footer'
+    name: 'Footer',
+    computed: {
+        yearLabel() {
+            const origin = 2021;
+            const currYear = new Date().getFullYear();
+            return `@ ${origin < currYear ? `${origin} - ${currYear}` : origin}`;
+        }
+    }
 }
 </script>

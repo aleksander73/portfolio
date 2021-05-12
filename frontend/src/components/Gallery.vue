@@ -1,6 +1,6 @@
 <template>
-    <div class="gallery-container" @mouseenter=onMouseEnterGallery @mouseleave=onMouseLeaveGallery>
-        <div class="row-content" v-if="images.length > 0">
+    <div class="gallery-container center-y" @mouseenter=onMouseEnterGallery @mouseleave=onMouseLeaveGallery>
+        <div class="center-xy" v-if="images.length > 0">
             <div :class=navigationClass>
                 <div class="arrow-container">
                     <img :src=arrowImage @mouseenter=toogleArrow @mouseleave=toogleArrow @click=move(-1)>
@@ -15,8 +15,8 @@
                 </div>
             </div>
         </div>
-        <div class="dots" v-if="images.length > 1">
-            <div class="dot-container" v-for="(image, index) in images" :key=index>
+        <div class="center-xy" v-if="images.length > 1">
+            <div class="dot-container center-xy" v-for="(image, index) in images" :key=index>
                 <span :class=dotClass(index) @click=select(index)></span>
             </div>
         </div>
@@ -25,15 +25,7 @@
 
 <style scoped>
 .gallery-container {
-    display: flex;
     flex-direction: column;
-    align-items: center;
-}
-
-.row-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .navigation {
@@ -61,7 +53,7 @@
 
 .arrow-container > img {
     width: 30%;
-    transition: transform 0.5s ease;
+    transition: transform 0.35s ease;
 }
 
 .arrow-container > img:hover {
@@ -69,7 +61,7 @@
 }
 
 .arrow-active {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 .image-container {
@@ -84,23 +76,14 @@
     object-fit: contain;
 }
 
-.dots {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .dot-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-top: 1em;
 }
 
 .dot {
-    width: 20px;
-    height: 20px;
-    border: 2px solid white;
+    width: 17px;
+    height: 17px;
+    border: 1px solid white;
     border-radius: 50%;
     margin: 0 0.3em;
     opacity: 0;
@@ -116,8 +99,8 @@
 }
 
 .dot-active {
-    background-color: #0060a0;
-    border-color:#0060a0;
+    background-color: rgb(30, 100, 155);
+    border-color: rgb(30, 100, 155);
 }
 </style>
 
@@ -157,16 +140,11 @@ export default {
             event.target.classList.toggle('arrow-active');
         },
         dotClass(index) {
-            let staticClasses = 'dot';
-            let dynamicClasses = '';
-            if(this.galleryAwake) {
-                dynamicClasses += ' dot-awake';
-            }
-            if(index === this.index) { 
-                dynamicClasses += ' dot-active';
-            }
-
-            return `${staticClasses} ${dynamicClasses}`;
+            return [
+                { class: 'dot', condition: () => true },
+                { class: 'dot-awake', condition: () => this.galleryAwake },
+                { class: 'dot-active', condition: () => index === this.index }
+            ].map(x => x.condition() ? x.class : '').join(' ');
         },
         select(index) {
             this.index = index;
@@ -177,14 +155,11 @@ export default {
             return require('../../assets/other/arrow-left.png');
         },
         navigationClass() {
-            let staticClasses = 'navigation';
-            let dynamicClasses = '';
-            if(this.images.length <= 1) {
-                dynamicClasses += ' hidden'
-            } else if(!this.galleryAwake) {
-                dynamicClasses += ' inactive';
-            }
-            return `${staticClasses} ${dynamicClasses}`;
+            return [
+                { class: 'navigation', condition: () => true },
+                { class: 'hidden', condition: () => this.images.length <= 1 },
+                { class: 'inactive', condition: () => !this.galleryAwake }
+            ].map(x => x.condition() ? x.class : '').join(' ');
         }
     }
 }

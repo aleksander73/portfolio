@@ -2,11 +2,11 @@
     <div :id="githubRepo" class="project-container">
         <div class="project-header">
             <div class="title-container">
-                <div class="title-container-row1">
+                <div class="center-x">
                     <h1 class="title">{{name}}</h1>
                     <img v-if="technology" class="logo" :src=logoSrc :title="technology.name + ' logo'">
                 </div>
-                <div class="title-container-row2">
+                <div class="center-y">
                     <a :href=githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img src="../../assets/external/github.png"></a>
                     <img class="github-version" :src=versionUrl>
                 </div>
@@ -21,7 +21,7 @@
             <p>{{description}}</p>
         </div>
         <Gallery :images="pictures" />
-        <div v-if="ytVideoId" class="yt-video-container">
+        <div v-if="ytVideoId" class="center-x">
             <iframe class="yt-video-item" width='70%' :height="888 / 1.77" :src=ytVideoSrc frameborder='0' allowfullscreen />
         </div>
     </div>
@@ -46,25 +46,15 @@
     align-items: flex-start;
 }
 
-.title-container-row1 {
-    display: flex;
-    justify-content: center;
-}
-
 .logo {
-    height: 60px;
-    margin-left: 20px;
+    height: 50px;
+    margin: auto 20px;
 }
 
 .title {
     text-transform: uppercase;
-    font-size: 3.5em;
+    font-size: 3em;
     font-weight: 100;
-}
-
-.title-container-row2 {
-    display: flex;
-    align-items: center;
 }
 
 .github-version {
@@ -87,18 +77,13 @@
 }
 
 .description {
-    margin: 1.5em auto;
+    margin: 1.25em auto;
     padding: 2em 15%;
-    font-size: 1.5em;
+    font-size: 1.25em;
     text-align: center;
     line-height: 1.5em;
     border-top: 2px solid #e2e2e2;
     border-bottom: 2px solid #e2e2e2;
-}
-
-.yt-video-container {
-    display: flex;
-    justify-content: center;
 }
 
 .yt-video-item {

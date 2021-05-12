@@ -13,17 +13,8 @@
 }
 
 input {
-  background-color: inherit;
-  border: 0;
-  color: white;
-  font-family: inherit;
   font-size: 1em;
-  outline: none;
   width: 100%;
-}
-
-.shadow {
-  box-shadow: 0 0 4px rgb(45, 165, 235);
 }
 </style>
 

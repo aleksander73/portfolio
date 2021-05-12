@@ -1,10 +1,10 @@
 <template>
-    <div id="intro">
-        <div class="top">
+    <div id="intro" class="center-xy">
+        <div class="top center-xy">
             <img src="../../assets/external/profile.png">
             <p>{{ $t('intro') }}</p>
         </div>
-        <div class="scroll-arrow-container" @click=onScrollArrowClick()>
+        <div class="scroll-arrow-container center-y" @click=onScrollArrowClick()>
             <span class="scroll-label">{{ $t('see-projects-label') }}</span>
             <div class="scroll-arrow">
                 <img src="../../assets/other/arrow-down.png" >
@@ -24,17 +24,11 @@
 #intro {
     height: 100vh;
     position: relative;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background-color: #0f0f0fad;
 }
 
 .top {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 75%;
     height: 30vh;
     margin-bottom: 10vh;
@@ -57,9 +51,7 @@
 .scroll-arrow-container {
     height: 12vh;
     cursor: pointer;
-    display: flex;
     justify-content: flex-start;
-    align-items: center;
     flex-direction: column;
 }
 
@@ -96,8 +88,8 @@
 }
 
 .external-link-container {
-    width: 60px;
-    margin: 0.75em 0;
+    width: 50px;
+    margin: 0.65em 0;
 }
 
 .external-link-container img {

@@ -28,21 +28,106 @@ body {
   min-height: 100vh;
 }
 
-button {
-  background-color: rgb(22, 142, 255);
+.relative {
+  position: relative;
+}
+
+.center-x {
+  display: flex;
+  justify-content: center;
+}
+
+.center-y {
+  display: flex;
+  align-items: center;
+}
+
+.center-xy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  background-color: inherit;
   border: 0;
-  border-radius: 3px;
+  color: white;
+  font-family: inherit;
+  font-size: 1.1em;
+  outline: none;
+  width: 90%;
+}
+
+textarea {
+  background-color: inherit;
+  border: 0;
+  color: white;
+  font-family: inherit;
+  font-size: 1em;
+  outline: none;
+  width: 100%;
+}
+
+button {
+  border: 0;
+  border-radius: 1px;
   color: white;
   cursor: pointer;
   font-size: 1.2em;
   outline: none;
-  padding: 10px;
+  height: 42px;
+  padding: 0 10px;
   min-width: 100px;
   transition: background-color 0.25s ease;
 }
 
-button:hover {
-  background-color: rgb(0, 120, 233);
+button.btn-cancel {
+  background-color: rgb(75, 75, 75);
+}
+
+button.btn-cancel:hover {
+  background-color: rgb(95, 95, 95);
+}
+
+button.btn-add {
+  background-color: rgb(30, 155, 50);
+}
+
+button.btn-add:hover {
+  background-color: rgb(50, 175, 70);
+}
+
+button, button.btn-update {
+  background-color: rgb(30, 100, 155);
+}
+
+button:hover, button.btn-update:hover {
+  background-color: rgb(50, 115, 165);
+}
+
+.dropdown {
+  background-color: black;
+  border: 1px solid white;
+  border-top: 0;
+  position: absolute;
+  top: 45px;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: overlay;
+  padding: 5px 0;
+  z-index: 1;
+}
+
+.shadow {
+  box-shadow: 0 0 4px rgb(45, 165, 235);
+}
+
+.svg-white {
+  filter: invert(100%) sepia(3%) saturate(6%) hue-rotate(251deg) brightness(103%) contrast(100%);
+}
+
+.svg-green {
+  filter: invert(49%) sepia(94%) saturate(579%) hue-rotate(62deg) brightness(96%) contrast(107%);
 }
 
 /* Scroll bar styling */

@@ -1,5 +1,5 @@
 <template>
-  <div class="window-container">
+  <div class="window-container center-xy">
     <div class="window">
       <div class="title-container">
         <h1>{{ title }}</h1>
@@ -67,9 +67,6 @@
 
 <style scoped>
 .window-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: fixed;
   top: 0;
   left: 70px;
@@ -148,18 +145,6 @@
 
 .button-panel > button {
   margin: 0 10px;
-}
-
-button.btn-cancel {
-  background-color: rgb(130, 130, 130);
-}
-
-button.btn-add {
-  background-color: rgb(60, 195, 35);
-}
-
-button.btn-update {
-  background-color: rgb(0, 115, 175);
 }
 </style>
 

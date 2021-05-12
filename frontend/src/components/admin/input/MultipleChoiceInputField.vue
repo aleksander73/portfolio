@@ -1,12 +1,12 @@
 <template>
-  <div class="multiple-choice-field-container">
+  <div class="multiple-choice-field-container relative">
     <div :class="mainRowClass()" @click="toggleList()">
       <input type="text" v-model.trim="inputLabel" disabled />
       <div :class="dropDownButtonClass()">
         <img src="../../../../assets/other/arrow-down.png">
       </div>
     </div>
-    <div v-if="expanded" class="list">
+    <div v-if="expanded" class="dropdown">
       <CheckboxInputField v-for="item in items.sort(sortFunc)" :key="getKey(item)" 
         :item="item" 
         :getName="getName" 
@@ -20,7 +20,6 @@
 
 <style scoped>
 .multiple-choice-field-container {
-  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -35,12 +34,7 @@
 }
 
 input {
-  background-color: inherit;
-  border: 0;
-  color: white;
-  font-family: inherit;
   font-size: 1em;
-  outline: none;
   width: 100%;
   cursor: pointer;
 }
@@ -48,9 +42,6 @@ input {
 .drop-down-button-container {
   width: 25px;
   margin-left: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   transition: transform 0.15s linear;
 }
 
@@ -61,23 +52,6 @@ input {
 .drop-down-button-container > img {
   height: 60%;
   width: 100%;
-}
-
-.shadow {
-  box-shadow: 0 0 4px rgb(45, 165, 235);
-}
-
-.list {
-  background-color: black;
-  border: 1px solid white;
-  border-top: 0;
-  position: absolute;
-  top: 45px;
-  width: 100%;
-  max-height: 200px;
-  overflow-y: overlay;
-  padding: 5px 0;
-  z-index: 1;
 }
 </style>
 
@@ -124,7 +98,7 @@ export default {
     },
     dropDownButtonClass() {
       return [
-        { class: 'drop-down-button-container', condition: () => true },
+        { class: 'drop-down-button-container center-xy', condition: () => true },
         { class: 'flipped', condition: () => this.expanded }
       ].map(x => x.condition() ? x.class : '').join(' ');
     },

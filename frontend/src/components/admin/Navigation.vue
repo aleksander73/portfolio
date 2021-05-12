@@ -1,8 +1,8 @@
 <template>
-    <div class="navigation-container">
+    <div class="navigation-container center-y">
         <div class="navigation-slot" v-for="(item, i) in items" :key="item.id">
             <div :class="itemClass(item.id)" @click="itemClicked(item.id)">
-                <img :src="require(`../../../assets/icons/${item.src}`)" :title=item.id>
+                <img :src="require(`../../../assets/icons/${item.src}`)" class="svg-white" :title=item.id>
             </div>
             <div v-if="i === 0" class="divide"></div>
         </div>
@@ -12,9 +12,7 @@
 <style scoped>
 .navigation-container {
     background-color: black;
-    display: flex;
     flex-direction: column;
-    align-items: center;
     height: 100vh;
     width: 70px;
     position: sticky;
@@ -37,12 +35,7 @@
     transition: filter 0.25s linear;
 }
 
-.selected {
-    filter: invert(49%) sepia(94%) saturate(579%) hue-rotate(62deg) brightness(96%) contrast(107%);
-}
-
 .item-container > img {
-    filter: invert(100%) sepia(3%) saturate(6%) hue-rotate(251deg) brightness(103%) contrast(100%);
     height: 30px;
     width: 30px;
 }
@@ -59,22 +52,10 @@ export default {
     data() {
         return {
             items: [
-                {
-                    id: 'home',
-                    src: 'home.svg'
-                },
-                {
-                    id: 'projects',
-                    src: 'project.svg'
-                },
-                {
-                    id: 'technologies',
-                    src: 'technology.svg'
-                },
-                {
-                    id: 'logout',
-                    src: 'logout.svg'
-                }
+                { id: 'home', src: 'home.svg' },
+                { id: 'projects', src: 'project.svg' },
+                { id: 'technologies', src: 'technology.svg' },
+                { id: 'logout', src: 'logout.svg' }
             ],
             selectedItemId: 'home'
         }
@@ -86,14 +67,8 @@ export default {
         },
         itemClass(id) {
             return [
-                {
-                    class: 'item-container',
-                    condition: () => true
-                },
-                {
-                    class: 'selected',
-                    condition: () => id === this.selectedItemId && id !== 'logout'
-                }
+                { class: 'item-container', condition: () => true },
+                { class: 'svg-green', condition: () => id === this.selectedItemId && id !== 'logout' }
             ].map(x => x.condition() ? x.class : '').join(' ');
         }
     }

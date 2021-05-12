@@ -4,8 +4,8 @@
       <p v-for="fileName in fileList" :key="fileName" class="file">{{ fileName }}</p>
     </div>
     <div class="control">
-      <label for="files" title="upload files">
-        <img src="../../../../assets/icons/upload.svg">
+      <label for="files" title="upload files" class="center-xy">
+        <img src="../../../../assets/icons/upload.svg" class="svg-white">
       </label>
       <input v-if="!multiple" id="files" name="files" type="file" ref="files" :accept="acceptProperty" @input="onFilesChosen()" >
       <input v-else id="files" name="files" type="file" multiple ref="files" :accept="acceptProperty" @input="onFilesChosen()" >
@@ -17,6 +17,7 @@
 .file-list {
   border: 1px solid white;
   padding: 5px 10px;
+  cursor: default;
 }
 
 .file {
@@ -43,15 +44,11 @@
   cursor: pointer;
   height: 30px;
   width: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .control > label > img {
   height: 17px;
   width: 17px;
-  filter: invert(100%) sepia(3%) saturate(6%) hue-rotate(251deg) brightness(103%) contrast(100%);
 }
 </style>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="index-container">
         <div class="index">
-            <div class="items-container">
+            <div class="items-container center-y">
                 <div class="index-item" v-for="project in projects" :key="project.githubRepo" @click=onIndexItemClick(project)>{{project.name}}</div>
             </div>
         </div>
@@ -24,14 +24,12 @@
 }
 
 .items-container {
-    display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .index-item {
-    margin-bottom: 1em;
-    padding: 0.5em;
+    margin-bottom: 0.75em;
+    padding: 0.3em;
     font-size: 1.25em;
     width: 100%;
     border: 1px solid #e2e2e2;

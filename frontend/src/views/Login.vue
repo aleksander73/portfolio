@@ -1,8 +1,8 @@
 <template>
-  <div class="login-container">
-    <div class="form-container pos-relative">
-      <div class="title-container">
-        <h1>Control panel</h1>
+  <div class="login-container center-xy">
+    <div class="form-container center-xy relative">
+      <div class="center-x">
+        <h1 class="title">Control panel</h1>
       </div>
       <div v-for="(inputField, index) in loginInputFields" :key=index class="input-field">
         <InputField :ref=inputField.id :model=inputField />
@@ -15,30 +15,18 @@
 
 <style scoped>
 .login-container {
-  align-items: center;
-  display: flex;
-  justify-content: center;
   height: 100vh;
 }
 
 .form-container {
-  align-items: center;
   background-color: rgb(30, 30, 30);
   border-radius: 5px;
-  display: flex;
   flex-direction: column;
   height: 475px;
-  justify-content: center;
   width: 550px;
 }
 
-.title-container {
-  display: flex;
-  justify-content: center;
-  width: inherit;
-}
-
-.title-container > h1 {
+.title {
   font-size: 40px;
   margin-bottom: 10px;
 }
@@ -48,17 +36,13 @@
 }
 
 button {
-  border-radius: 0;
-  height: 40px;
   margin-top: 20px;
-  width: 100px;
 }
 
 .error {
   border: 1px solid rgb(250, 50, 50);
   bottom: 0;
   cursor: default;
-  display: none;
   margin-bottom: 25px;
   opacity: 0;
   padding: 0.5em 1em;
@@ -70,10 +54,7 @@ button {
 }
 
 .error-active {
-  align-items: center;
   animation: show-error 3s linear;
-  display: flex;
-  justify-content: center;
 }
 
 @keyframes show-error {
@@ -81,10 +62,6 @@ button {
   5% { opacity: 1; }
   85% { opacity: 1; }
   100% { opacity: 0; }
-}
-
-.pos-relative {
-  position: relative;
 }
 </style>
 
@@ -132,9 +109,10 @@ export default {
   },
   computed: {
     errorClass() {
-      const staticClasses = 'error';
-      let dynamicClasses = this.error.message ? 'error-active' : '';
-      return `${staticClasses} ${dynamicClasses}`;
+      return [
+        { class: 'error center-xy', condition: () => true },
+        { class: 'error-active', condition: () => this.error.message }
+      ].map(x => x.condition() ? x.class : '').join(' ');
     }
   }
 }

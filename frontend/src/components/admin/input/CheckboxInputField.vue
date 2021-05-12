@@ -1,8 +1,6 @@
 <template>
   <div class="checkbox-input-field-container">
-    <div class="checkbox-container" @click="onCheckboxClicked()">
-      <div :class="checkboxClass()"></div>
-    </div>
+    <div class="checkbox-container center-xy" :class="checkboxClass()" @click="onCheckboxClicked()"></div>
     <div class="label-container">
       <p>{{ getName(item) }}</p>
     </div>
@@ -20,19 +18,10 @@
   border-radius: 3px;
   width: 20px;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.checkbox {
-  height: 75%;
-  width: 75%;
-  border-radius: 3px;
 }
 
 .selected {
-  background-color: white;
+  background-color: rgb(30, 100, 155);
 }
 
 .label-container {
@@ -64,7 +53,6 @@ export default {
   methods: {
     checkboxClass() {
       return [
-        { class: 'checkbox', condition: () => true },
         { class: 'selected', condition: () => this.selected }
       ].map(x => x.condition() ? x.class : '').join(' ');
     },
