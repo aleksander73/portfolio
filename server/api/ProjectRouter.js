@@ -10,9 +10,13 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/add', upload.array('pictures'), async (req, res) => {
-    const { name, description, githubRepo, technologies, technologyTag, ytVideoId } = req.body;
-    await projectService.addProject(name, description, githubRepo, JSON.parse(technologies), technologyTag, req.files.map(file => file.filename), ytVideoId);
-    res.status(200).send();
+    try {
+        const { name, description, githubRepo, technologies, technologyTag, ytVideoId } = req.body;
+        await projectService.addProject(name, description, githubRepo, JSON.parse(technologies), technologyTag, req.files.map(file => file.filename), ytVideoId);
+        res.sendStatus(200);
+    } catch(error) {
+        res.status(400).send(error.message);
+    }
 });
 
 module.exports = router;
