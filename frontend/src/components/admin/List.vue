@@ -1,7 +1,7 @@
 <template>
   <div class="list-container">
     <div class="item" @click="itemClicked(null)">
-      <div class="item-name">[+]</div>
+        <img src="../../../assets/icons/plus.png" alt="">
     </div>
     <div v-for="item in data" :key="getKey(item)" class="item" @click="itemClicked(item)">
       <div class="item-name">{{ getName(item) }}</div>
@@ -22,8 +22,15 @@
   cursor: pointer;
   margin: 5px 0;
   padding: 10px 0;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
   width: 50%;
+}
+
+.item > img {
+  height: 100%;
 }
 
 .item > .item-name {

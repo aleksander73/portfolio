@@ -12,7 +12,8 @@ router.get('/', async (req, res) => {
 router.post('/add', upload.array('pictures'), async (req, res) => {
     try {
         const { name, description, githubRepo, technologies, technologyTag, ytVideoId, score } = req.body;
-        await projectService.addProject(name, description, githubRepo, JSON.parse(technologies), technologyTag, req.files.map(file => file.filename), ytVideoId, score);
+        const pictures = req.files.map(file => file.filename);
+        await projectService.addProject(name, description, githubRepo, JSON.parse(technologies), technologyTag, pictures, ytVideoId, score);
         res.sendStatus(200);
     } catch(error) {
         res.status(400).send(error.message);
