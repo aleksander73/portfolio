@@ -134,7 +134,7 @@ export default {
     },
     computed: {
         logoSrc() {
-            return require(`../../assets/technologies/${this.technology.icon}`);
+            return require(`../../../server/uploads/${this.technology.icon}`);
         },
         githubUrl() {
             return `https://github.com/aleksander73/${this.githubRepo}`;

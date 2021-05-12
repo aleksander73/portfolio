@@ -9,6 +9,8 @@ import Project from './Project';
 import ProjectUpsertWindow from './admin/ProjectUpsertWindow';
 import ProjectSection from './admin/ProjectSection';
 import Technology from './Technology';
+import TechnologyUpsertWindow from './admin/TechnologyUpsertWindow';
+import TechnologySection from './admin/TechnologySection';
 
 export {
     Footer,
@@ -21,5 +23,7 @@ export {
     Project,
     ProjectUpsertWindow,
     ProjectSection,
-    Technology
+    Technology,
+    TechnologyUpsertWindow,
+    TechnologySection
 };

@@ -23,7 +23,7 @@ export default {
     },
     methods: {
         iconPath() {
-            return require('../../assets/technologies/' + this.icon);
+            return require('../../../server/uploads/' + this.icon);
         }
     }
 }

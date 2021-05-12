@@ -35,6 +35,23 @@ class ApiClient {
         return data;
     }
 
+    async addTechnology(tag, name, icon) {
+        try {
+            const data = new FormData();
+            data.append('tag', tag);
+            data.append('name', name);
+            data.append('icon', icon);
+            const { status } = await axios.post('/api/technologies/add', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return status === 200;
+        } catch (error) {
+            return false;
+        }
+    }
+
     async loginUser(username, password) {
         try {
             const { status } = await axios.post('/api/user/login', { username, password });

@@ -12,6 +12,8 @@ const storage = multer.diskStorage({
         let prefix = '';
         if(req.originalUrl.includes('projects')) {
             prefix = 'project.' + req.body.githubRepo + '.';
+        } else if(req.originalUrl.includes('technologies')) {
+            prefix = 'technology.' + req.body.tag.toLowerCase() + '.';
         }
         const id = intFormat(flakeId.next(), 'hex', { prefix: '0x' });
         const i = file.originalname.lastIndexOf('.');
