@@ -48,6 +48,10 @@
             <p>YouTube video ID</p>
             <TextInputField :initValue="ytVideoId" @input="onYtVideoIdChanged" />
           </div>
+          <div class="input-field-container">
+            <p>Score</p>
+            <TextInputField :initValue="score" @input="onScoreChanged" />
+          </div>
         </div>
       </div>
       <div class="bottom-panel">
@@ -181,7 +185,8 @@ export default {
       technologies: [],
       technology: null,
       pictures: [],
-      ytVideoId: ''
+      ytVideoId: '',
+      score: '-1'
     }
   },
   props: {
@@ -212,7 +217,8 @@ export default {
           this.technologies.map(x => x.tag),
           this.technology ? this.technology.tag : '',
           this.pictures,
-          this.ytVideoId
+          this.ytVideoId,
+          Number(this.score)
         );
       } else {
         console.log('Updating', this.project.name);
@@ -242,6 +248,9 @@ export default {
     },
     onYtVideoIdChanged(value) {
       this.ytVideoId = value;
+    },
+    onScoreChanged(value) {
+      this.score = value;
     }
   },
   computed: {
@@ -261,6 +270,7 @@ export default {
       this.technologies = this.project.technologies.map(tag => this.allTechnologies.find(x => x.tag === tag));
       this.technology = this.allTechnologies.find(x => x.tag === this.project.technologyTag);
       this.ytVideoId = this.project.ytVideoId;
+      this.score = this.project.score;
     }
   }
 }

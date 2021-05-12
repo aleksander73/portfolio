@@ -6,7 +6,7 @@ class ApiClient {
         return data;
     }
 
-    async addProject(name, description, githubRepo, technologies, technologyTag, pictures, ytVideoId) {
+    async addProject(name, description, githubRepo, technologies, technologyTag, pictures, ytVideoId, score) {
         try {
             const data = new FormData();
             data.append('name', name);
@@ -18,6 +18,7 @@ class ApiClient {
                 data.append('pictures', picture);
             });
             data.append('ytVideoId', ytVideoId);
+            data.append('score', score);
             const { status } = await axios.post('/api/projects/add', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
