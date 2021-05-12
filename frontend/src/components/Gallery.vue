@@ -145,7 +145,7 @@ export default {
             }
         },
         src(i) {
-            return require(`../../assets/projects/${this.images[i]}`);
+            return require(`../../../server/uploads/${this.images[i]}`);
         },
         onMouseEnterGallery() {
             this.galleryAwake = true;

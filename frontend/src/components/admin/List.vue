@@ -1,6 +1,9 @@
 <template>
   <div class="list-container">
-    <div v-for="item in data" :key="getKey(item)" class="item">
+    <div class="item" @click="itemClicked(null)">
+        <img src="../../../assets/icons/plus.png" alt="">
+    </div>
+    <div v-for="item in data" :key="getKey(item)" class="item" @click="itemClicked(item)">
       <div class="item-name">{{ getName(item) }}</div>
     </div>
   </div>
@@ -16,10 +19,18 @@
 
 .item {
   border: 1px solid white;
+  cursor: pointer;
   margin: 5px 0;
   padding: 10px 0;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
   width: 50%;
+}
+
+.item > img {
+  height: 100%;
 }
 
 .item > .item-name {
@@ -46,6 +57,11 @@ export default {
     },
     sortFunc: {
       type: Function
+    }
+  },
+  methods: {
+    itemClicked(item) {
+      this.$emit('itemClicked', item);
     }
   },
   created() {
