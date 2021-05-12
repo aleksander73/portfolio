@@ -15,6 +15,7 @@
   flex-direction: column;
   align-items: center;
   max-height: 80vh;
+  overflow-y: overlay;
 }
 
 .item {

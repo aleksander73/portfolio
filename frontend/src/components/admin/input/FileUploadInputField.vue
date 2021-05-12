@@ -7,7 +7,8 @@
       <label for="files" title="upload files">
         <img src="../../../../assets/icons/upload.svg">
       </label>
-      <input id="files" name="files" type="file" multiple ref="files" :accept="acceptProperty" @input="onFilesChosen()" >
+      <input v-if="!multiple" id="files" name="files" type="file" ref="files" :accept="acceptProperty" @input="onFilesChosen()" >
+      <input v-else id="files" name="files" type="file" multiple ref="files" :accept="acceptProperty" @input="onFilesChosen()" >
     </div>
   </div>
 </template>
@@ -65,12 +66,16 @@ export default {
   props: {
     acceptedExt: {
       type: Array 
+    },
+    multiple: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
     onFilesChosen() {
       this.files = Object.values(this.$refs.files.files);
-      this.$emit('input', this.files);
+      this.$emit('input', !this.multiple ? this.files[0] : this.files);
     }
   },
   computed: {

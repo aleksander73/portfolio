@@ -69,7 +69,7 @@ export default {
                 },
                 {
                     id: 'technologies',
-                    src: 'project.svg'
+                    src: 'technology.svg'
                 },
                 {
                     id: 'logout',

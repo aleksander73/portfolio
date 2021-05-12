@@ -183,7 +183,7 @@ export default {
       this.name = value;
     },
     onIconChanged(value) {
-      this.icon = value[0];
+      this.icon = value;
     }
   },
   computed: {
