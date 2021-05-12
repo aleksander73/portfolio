@@ -3,6 +3,7 @@
       <Navigation @itemSelected="navItemSelected" />
       <div class="main-content-container">
         <ProjectSection v-if="sectionId === 'projects'" />
+        <TechnologySection v-if="sectionId === 'technologies'" />
       </div>
   </div>
 </template>
@@ -24,7 +25,7 @@
 </style>
 
 <script>
-import { Navigation, ProjectSection } from '../components';
+import { Navigation, ProjectSection, TechnologySection } from '../components';
 import { apiClient } from '../api';
 import { storage } from '../storage';
 
@@ -37,7 +38,8 @@ export default {
   },
   components: {
     Navigation,
-    ProjectSection
+    ProjectSection,
+    TechnologySection
   },
   methods: {
     async navItemSelected(id) {

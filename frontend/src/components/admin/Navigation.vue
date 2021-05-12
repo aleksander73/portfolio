@@ -68,6 +68,10 @@ export default {
                     src: 'project.svg'
                 },
                 {
+                    id: 'technologies',
+                    src: 'project.svg'
+                },
+                {
                     id: 'logout',
                     src: 'logout.svg'
                 }
