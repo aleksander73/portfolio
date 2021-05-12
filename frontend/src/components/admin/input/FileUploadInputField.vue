@@ -7,7 +7,7 @@
       <label for="files" title="upload files">
         <img src="../../../../assets/icons/upload.svg">
       </label>
-      <input id="files" name="files" type="file" multiple ref="files" @input="onFilesChosen()" >
+      <input id="files" name="files" type="file" multiple ref="files" :accept="acceptProperty" @input="onFilesChosen()" >
     </div>
   </div>
 </template>
@@ -62,6 +62,11 @@ export default {
       files: []
     }
   },
+  props: {
+    acceptedExt: {
+      type: Array 
+    }
+  },
   methods: {
     onFilesChosen() {
       this.files = Object.values(this.$refs.files.files);
@@ -69,6 +74,9 @@ export default {
     }
   },
   computed: {
+    acceptProperty() {
+      return this.acceptedExt.join(',');
+    },
     fileList() {
       return this.files.length > 0 ? this.files.map(x => x.name) : ['nothing uploaded'];
     }

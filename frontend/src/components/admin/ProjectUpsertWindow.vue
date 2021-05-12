@@ -42,7 +42,7 @@
           </div>
           <div class="input-field-container">
             <p>Pictures</p>
-            <FileUploadInputField @input="onPicturesChanged" />
+            <FileUploadInputField :acceptedExt="['image/*']" @input="onPicturesChanged" />
           </div>
           <div class="input-field-container">
             <p>YouTube video ID</p>
