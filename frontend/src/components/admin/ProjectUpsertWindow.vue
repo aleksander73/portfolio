@@ -199,8 +199,9 @@ export default {
       ].map(x => x.condition() ? x.class : '').join(' ');
     },
     async mainAction() {
+      let success = false;
       if(!this.project) {
-        await apiClient.addProject(
+        success = await apiClient.addProject(
           this.name,
           this.description,
           this.features,
@@ -212,9 +213,23 @@ export default {
           this.score
         );
       } else {
-        console.log('Updating', this.project.name);
+        success = await apiClient.editProject(
+          this.project._id,
+          this.name,
+          this.description,
+          this.features,
+          this.githubRepo,
+          this.technologies.map(x => x.tag),
+          this.technology ? this.technology.tag : '',
+          this.ytVideoId,
+          this.score
+        );
       }
-      this.$emit('requestClose');
+      if(success) {
+        this.$emit('requestClose');
+      } else {
+        console.log('Couldn\'t add / upload...');
+      }
     },
     cancel() {
       this.$emit('requestClose');
@@ -258,6 +273,7 @@ export default {
   created() {
     this.allTechnologies = storage.technologies;
     if(this.project) {
+      this._id = this.project._id;
       this.name = this.project.name;
       this.description = this.project.description;
       this.features = this.project.features;

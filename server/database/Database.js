@@ -1,4 +1,6 @@
-const MongoClient = require('mongodb').MongoClient;
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
+const ObjectId = mongodb.ObjectId;
 
 class Database {
     constructor(clusterName, clusterId, database, user, password) {
@@ -44,6 +46,13 @@ class Database {
     async postDocument(collectionName, document) {
         const collection = await this.loadCollection(collectionName);
         return collection.insertOne(document);
+    }
+
+    async updateDocument(collectionName, _id, values) {
+        const collection = await this.loadCollection(collectionName);
+        return collection.updateOne({ _id: ObjectId(_id) }, {
+            $set: values
+        });
     }
 }
 

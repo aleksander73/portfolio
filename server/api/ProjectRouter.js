@@ -20,4 +20,14 @@ router.post('/add', upload.array('pictures'), async (req, res) => {
     }
 });
 
+router.post('/edit', upload.any(), async (req, res) => {
+    try {
+        const { _id, name, description, features, githubRepo, technologies, technologyTag, ytVideoId, score } = req.body;
+        await projectService.editProject(_id, name, description, JSON.parse(features), githubRepo, JSON.parse(technologies), technologyTag, ytVideoId, score);
+        res.sendStatus(200);
+    } catch(error) {
+        res.status(400).send(error.message);
+    }
+});
+
 module.exports = router;
