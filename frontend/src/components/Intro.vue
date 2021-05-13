@@ -11,9 +11,9 @@
             </div>
         </div>
         <div class="external-links">
-            <div class="external-link-container" v-for="link in externalLinks" :key="link.urlTag">
-                <a :href="$t(link.urlTag)" target="_blank">
-                    <img :src="require(`../../assets/external/${link.src}`)">
+            <div class="external-link-container" v-for="link in links" :key="link._id">
+                <a :href="link.url" target="_blank">
+                    <img :src="require(`../../../server/uploads/${link.logo}`)">
                 </a>
             </div>
         </div>
@@ -100,27 +100,11 @@
 <script>
 export default {
     name: 'Intro',
-    data() {
-        return {
-            externalLinks: [
-                {
-                    urlTag: "github-url",
-                    src: "github.png"
-                },
-                {
-                    urlTag: "codewars-url",
-                    src: "codewars.png"
-                },
-                {
-                    urlTag: "linkedin-url",
-                    src: "linkedin.png"
-                },
-                {
-                    urlTag: "youtube-url",
-                    src: "youtube.png"
-                }
-            ]
-        };
+    props: {
+        links: {
+            type: Array,
+            required: true
+        }
     },
     methods: {
         onScrollArrowClick() {

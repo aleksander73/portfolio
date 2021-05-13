@@ -1,6 +1,6 @@
 <template>
   <div id="home-container">
-    <Intro/>
+    <Intro :links="links"/>
     <section id="main-content">
       <Index :projects="projects"/>
       <div id="projects">
@@ -43,11 +43,13 @@ export default {
   name: 'Home',
   data() {
     return {
+      links: [],
       projects: []
     };
   },
   async created() {
     await storage.initialize();
+    this.links = [...storage.links].sort((l1, l2) => l1.priority - l2.priority);
     this.projects = [...storage.projects].sort((p1, p2) => p2.score - p1.score);
   },
   components: {

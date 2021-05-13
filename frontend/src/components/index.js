@@ -11,6 +11,8 @@ import ProjectSection from './admin/ProjectSection';
 import Technology from './Technology';
 import TechnologyUpsertWindow from './admin/TechnologyUpsertWindow';
 import TechnologySection from './admin/TechnologySection';
+import LinkUpsertWindow from './admin/LinkUpsertWindow';
+import LinkSection from './admin/LinkSection';
 
 export {
     Footer,
@@ -25,5 +27,7 @@ export {
     ProjectSection,
     Technology,
     TechnologyUpsertWindow,
-    TechnologySection
+    TechnologySection,
+    LinkUpsertWindow,
+    LinkSection
 };
