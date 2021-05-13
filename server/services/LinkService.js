@@ -6,8 +6,8 @@ class LinkService {
         return Database.getInstance().getCollection('links', filter);
     }
 
-    async addLink(name, logo, priority) {
-        const link = new Link(name, logo, priority);
+    async addLink(name, url, logo, priority) {
+        const link = new Link(name, url, logo, priority);
         Database.getInstance().postDocument('links', link);
     }
 }
