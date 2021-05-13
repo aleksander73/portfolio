@@ -2,11 +2,13 @@ import apiClient from '../api/ApiClient'
 
 class Storage {
     constructor() {
+        this.links = [];
         this.projects = [];
         this.technologies = [];
     }
 
     async initialize() {
+        this.links = await apiClient.getLinks();
         this.projects = await apiClient.getProjects();
         this.technologies = await apiClient.getTechnologies();
     }

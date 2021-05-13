@@ -4,6 +4,7 @@
       <div class="main-content-container">
         <ProjectSection v-if="sectionId === 'projects'" />
         <TechnologySection v-if="sectionId === 'technologies'" />
+        <LinkSection v-if="sectionId === 'links'" />
       </div>
   </div>
 </template>
@@ -25,7 +26,7 @@
 </style>
 
 <script>
-import { Navigation, ProjectSection, TechnologySection } from '../components';
+import { Navigation, ProjectSection, TechnologySection, LinkSection } from '../components';
 import { apiClient } from '../api';
 import { storage } from '../storage';
 
@@ -39,7 +40,8 @@ export default {
   components: {
     Navigation,
     ProjectSection,
-    TechnologySection
+    TechnologySection,
+    LinkSection
   },
   methods: {
     async navItemSelected(id) {

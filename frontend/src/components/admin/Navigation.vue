@@ -55,6 +55,7 @@ export default {
                 { id: 'home', src: 'home.svg' },
                 { id: 'projects', src: 'project.svg' },
                 { id: 'technologies', src: 'technology.svg' },
+                { id: 'links', src: 'link.svg' },
                 { id: 'logout', src: 'logout.svg' }
             ],
             selectedItemId: 'home'
