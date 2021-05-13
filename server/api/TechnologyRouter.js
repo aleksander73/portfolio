@@ -1,5 +1,5 @@
 const express = require('express');
-const { technologyService } = require('../services');
+const { cryptographyService, technologyService } = require('../services');
 const { upload } = require('../middleware');
 
 const router = express.Router();
@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     res.send(technologies);
 });
 
-router.post('/add', upload.single('icon'), async (req, res) => {
+router.post('/add', cryptographyService.authorize, upload.single('icon'), async (req, res) => {
     try {
         const { tag, name } = req.body;
         const icon = req.file.filename;
