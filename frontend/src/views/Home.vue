@@ -5,7 +5,7 @@
       <Index :projects="projects"/>
       <div id="projects">
         <div v-for="(project, index) in projects" :key=index>
-          <Project :name=project.name :technologyTag="project.technologyTag" :githubRepo=project.githubRepo :technologyTags=project.technologies :description=project.description :pictures=project.pictures :ytVideoId=project.ytVideoId />
+          <Project :name="project.name" :description="project.description" :features="project.features" :githubRepo="project.githubRepo" :technologyTags="project.technologies" :technologyTag="project.technologyTag" :pictures="project.pictures" :ytVideoId="project.ytVideoId" />
           <div v-if="index < projects.length - 1" class="horizontal-line"></div>
         </div>
       </div>

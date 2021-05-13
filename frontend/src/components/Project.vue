@@ -20,6 +20,7 @@
         <div class="description">
             <p>{{description}}</p>
         </div>
+        <p v-for="feature in features" :key="feature">{{ feature }}</p>
         <Gallery :images="pictures" />
         <div v-if="ytVideoId" class="center-x">
             <iframe class="yt-video-item" width='70%' :height="888 / 1.77" :src=ytVideoSrc frameborder='0' allowfullscreen />
@@ -110,10 +111,11 @@ export default {
     },
     props: {
         name: String,
-        technologyTag: String,
+        description: String,
+        features: Array,
         githubRepo: String,
         technologyTags: Array,
-        description: String,
+        technologyTag: String,
         pictures: Array,
         ytVideoId: String
     },
