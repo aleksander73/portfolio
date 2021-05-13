@@ -1,5 +1,5 @@
 const express = require('express');
-const { projectService } = require('../services');
+const { cryptographyService, projectService } = require('../services');
 const { upload } = require('../middleware');
 
 const router = express.Router();
@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     res.send(projects);
 });
 
-router.post('/add', upload.array('pictures'), async (req, res) => {
+router.post('/add', cryptographyService.authorize, upload.array('pictures'), async (req, res) => {
     try {
         const { name, description, features, githubRepo, technologies, technologyTag, ytVideoId, score } = req.body;
         const pictures = req.files.map(file => file.filename);
@@ -20,7 +20,7 @@ router.post('/add', upload.array('pictures'), async (req, res) => {
     }
 });
 
-router.post('/edit', upload.any(), async (req, res) => {
+router.post('/edit', cryptographyService.authorize, upload.any(), async (req, res) => {
     try {
         const { _id, name, description, features, githubRepo, technologies, technologyTag, ytVideoId, score } = req.body;
         await projectService.editProject(_id, name, description, JSON.parse(features), githubRepo, JSON.parse(technologies), technologyTag, ytVideoId, score);
