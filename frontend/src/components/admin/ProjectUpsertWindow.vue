@@ -15,6 +15,10 @@
             <TextAreaInputField :initValue="description" @input="onDescriptionChanged" />
           </div>
           <div class="input-field-container">
+            <p>Features (separate by \n)</p>
+            <TextAreaInputField :initValue="features.join('\n')" @input="onFeaturesChanged" />
+          </div>
+          <div class="input-field-container">
             <p>GitHub repository</p>
             <TextInputField :initValue="githubRepo" @input="onGithubRepoChanged" />
           </div>
@@ -50,7 +54,7 @@
           </div>
           <div class="input-field-container">
             <p>Score</p>
-            <TextInputField :initValue="score" @input="onScoreChanged" />
+            <TextInputField :initValue="score.toString()" @input="onScoreChanged" />
           </div>
         </div>
       </div>
@@ -165,13 +169,14 @@ export default {
     return {
       name: '',
       description: '',
+      features: [],
       githubRepo: '',
       allTechnologies: [],
       technologies: [],
       technology: null,
       pictures: [],
       ytVideoId: '',
-      score: '-1'
+      score: -1
     }
   },
   props: {
@@ -198,12 +203,13 @@ export default {
         await apiClient.addProject(
           this.name,
           this.description,
+          this.features,
           this.githubRepo,
           this.technologies.map(x => x.tag),
           this.technology ? this.technology.tag : '',
           this.pictures,
           this.ytVideoId,
-          Number(this.score)
+          this.score
         );
       } else {
         console.log('Updating', this.project.name);
@@ -218,6 +224,9 @@ export default {
     },
     onDescriptionChanged(value) {
       this.description = value;
+    },
+    onFeaturesChanged(value) {
+      this.features = value.split('\n').filter(x => x);
     },
     onGithubRepoChanged(value) {
       this.githubRepo = value;
@@ -235,7 +244,7 @@ export default {
       this.ytVideoId = value;
     },
     onScoreChanged(value) {
-      this.score = value;
+      this.score = Number(value);
     }
   },
   computed: {
@@ -251,6 +260,7 @@ export default {
     if(this.project) {
       this.name = this.project.name;
       this.description = this.project.description;
+      this.features = this.project.features;
       this.githubRepo = this.project.githubRepo;
       this.technologies = this.project.technologies.map(tag => this.allTechnologies.find(x => x.tag === tag));
       this.technology = this.allTechnologies.find(x => x.tag === this.project.technologyTag);

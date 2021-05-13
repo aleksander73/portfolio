@@ -6,11 +6,12 @@ class ApiClient {
         return data;
     }
 
-    async addProject(name, description, githubRepo, technologies, technologyTag, pictures, ytVideoId, score) {
+    async addProject(name, description, features, githubRepo, technologies, technologyTag, pictures, ytVideoId, score) {
         try {
             const data = new FormData();
             data.append('name', name);
             data.append('description', description);
+            data.append('features', JSON.stringify(features));
             data.append('githubRepo', githubRepo);
             data.append('technologies', JSON.stringify(technologies));
             data.append('technologyTag', technologyTag);

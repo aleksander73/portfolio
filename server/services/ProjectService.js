@@ -6,8 +6,8 @@ class ProjectService {
         return Database.getInstance().getCollection('projects', filter);
     }
 
-    async addProject(name, description, githubRepo, technologies, technologyTag, pictures, ytVideoId, score) {
-        const project = new Project(name, description, githubRepo, technologies, technologyTag, pictures, ytVideoId, score);
+    async addProject(name, description, features, githubRepo, technologies, technologyTag, pictures, ytVideoId, score) {
+        const project = new Project(name, description, features, githubRepo, technologies, technologyTag, pictures, ytVideoId, score);
         Database.getInstance().postDocument('projects', project);
     }
 }
