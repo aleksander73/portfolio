@@ -52,6 +52,29 @@ class ApiClient {
         }
     }
 
+    async getLinks() {
+        const { data } = await axios.get('/api/links');
+        return data;
+    }
+
+    async addLink(name, url, logo, priority) {
+        try {
+            const data = new FormData();
+            data.append('name', name);
+            data.append('url', url);
+            data.append('logo', logo);
+            data.append('priority', priority);
+            const { status } = await axios.post('/api/links/add', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return status === 200;
+        } catch (error) {
+            return false;
+        }
+    }
+
     async loginUser(username, password) {
         try {
             const { status } = await axios.post('/api/user/login', { username, password });
