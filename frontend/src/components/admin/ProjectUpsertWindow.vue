@@ -15,8 +15,8 @@
             <TextAreaInputField :initValue="description" @input="onDescriptionChanged" />
           </div>
           <div class="input-field-container">
-            <p>Features (separate by \n)</p>
-            <TextAreaInputField :initValue="features.join('\n')" @input="onFeaturesChanged" />
+            <p>Features</p>
+            <TextListInputField :initItems="features" @input="onFeaturesChanged" />
           </div>
           <div class="input-field-container">
             <p>GitHub repository</p>
@@ -156,6 +156,7 @@
 import {
   TextInputField,
   TextAreaInputField,
+  TextListInputField,
   DropdownListInputField,
   MultipleChoiceInputField,
   FileUploadInputField
@@ -187,6 +188,7 @@ export default {
   components: {
     TextInputField,
     TextAreaInputField,
+    TextListInputField,
     DropdownListInputField,
     MultipleChoiceInputField,
     FileUploadInputField
@@ -241,7 +243,7 @@ export default {
       this.description = value;
     },
     onFeaturesChanged(value) {
-      this.features = value.split('\n').filter(x => x);
+      this.features = value;
     },
     onGithubRepoChanged(value) {
       this.githubRepo = value;
