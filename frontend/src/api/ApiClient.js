@@ -31,7 +31,7 @@ class ApiClient {
         }
     }
 
-    async editProject(_id, name, description, features, githubRepo, technologies, technologyTag, ytVideoId, score) {
+    async editProject(_id, name, description, features, githubRepo, technologies, technologyTag, allPictures, deletedPictures, uploadedPictures, ytVideoId, score) {
         try {
             const data = new FormData();
             data.append('_id', _id);
@@ -41,6 +41,11 @@ class ApiClient {
             data.append('githubRepo', githubRepo);
             data.append('technologies', JSON.stringify(technologies));
             data.append('technologyTag', technologyTag);
+            data.append('allPictures', JSON.stringify(allPictures));
+            data.append('deletedPictures', JSON.stringify(deletedPictures));
+            uploadedPictures.forEach(picture => {
+                data.append('uploadedPictures', picture);
+            });
             data.append('ytVideoId', ytVideoId);
             data.append('score', score);
             const { status } = await axios.post('/api/projects/edit', data, {

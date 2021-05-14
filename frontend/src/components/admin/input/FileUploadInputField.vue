@@ -62,7 +62,7 @@ export default {
   },
   props: {
     acceptedExt: {
-      type: Array 
+      type: Array
     },
     multiple: {
       type: Boolean,
@@ -77,7 +77,7 @@ export default {
   },
   computed: {
     acceptProperty() {
-      return this.acceptedExt.join(',');
+      return this.acceptedExt ? this.acceptedExt.join(',') : ['*'];
     },
     fileList() {
       return this.files.length > 0 ? this.files.map(x => x.name) : ['nothing uploaded'];
