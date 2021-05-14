@@ -122,12 +122,20 @@ button:hover, button.btn-update:hover {
   box-shadow: 0 0 4px rgb(45, 165, 235);
 }
 
-.svg-white {
-  filter: invert(100%) sepia(3%) saturate(6%) hue-rotate(251deg) brightness(103%) contrast(100%);
+.svg-blue {
+  filter: invert(43%) sepia(86%) saturate(1660%) hue-rotate(197deg) brightness(90%) contrast(87%);
 }
 
 .svg-green {
   filter: invert(49%) sepia(94%) saturate(579%) hue-rotate(62deg) brightness(96%) contrast(107%);
+}
+
+.svg-red {
+  filter: invert(24%) sepia(75%) saturate(2753%) hue-rotate(344deg) brightness(117%) contrast(106%);
+}
+
+.svg-white {
+  filter: invert(100%) sepia(3%) saturate(6%) hue-rotate(251deg) brightness(103%) contrast(100%);
 }
 
 /* Scroll bar styling */
