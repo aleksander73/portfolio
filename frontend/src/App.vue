@@ -123,7 +123,7 @@ button:hover, button.btn-update:hover {
 }
 
 .svg-blue {
-  filter: invert(43%) sepia(86%) saturate(1660%) hue-rotate(197deg) brightness(90%) contrast(87%);
+  filter: invert(29%) sepia(98%) saturate(615%) hue-rotate(170deg) brightness(91%) contrast(88%);
 }
 
 .svg-green {
