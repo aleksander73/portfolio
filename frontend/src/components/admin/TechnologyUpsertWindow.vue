@@ -7,10 +7,6 @@
       <div class="input-fields-container">
         <div class="input-fields">
           <div class="input-field-container">
-            <p>Tag</p>
-            <TextInputField :initValue="tag" @input="onTagChanged" />
-          </div>
-          <div class="input-field-container">
             <p>Name</p>
             <TextInputField :initValue="name" @input="onNameChanged" />
           </div>
@@ -125,7 +121,6 @@ export default {
   name: 'ProjectUpsertWindow',
   data() {
     return {
-      tag: '',
       name: '',
       icon: null
     }
@@ -149,7 +144,6 @@ export default {
     async mainAction() {
       if(!this.technology) {
         await apiClient.addTechnology(
-          this.tag,
           this.name,
           this.icon
         );
@@ -160,9 +154,6 @@ export default {
     },
     cancel() {
       this.$emit('requestClose');
-    },
-    onTagChanged(value) {
-      this.tag = value;
     },
     onNameChanged(value) {
       this.name = value;
@@ -181,7 +172,6 @@ export default {
   },
   created() {
     if(this.technology) {
-      this.tag = this.technology.tag;
       this.name = this.technology.name;
     }
   }

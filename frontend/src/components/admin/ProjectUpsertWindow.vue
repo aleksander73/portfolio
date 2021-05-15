@@ -228,8 +228,8 @@ export default {
           this.features,
           this.highlights,
           this.githubRepo,
-          this.technologies.map(x => x.tag),
-          this.technology ? this.technology.tag : '',
+          this.technologies.map(x => x._id),
+          this.technology ? this.technology._id : '',
           this.status,
           this.pictures.uploaded,
           this.ytVideoId,
@@ -244,8 +244,8 @@ export default {
           this.features,
           this.highlights,
           this.githubRepo,
-          this.technologies.map(x => x.tag),
-          this.technology ? this.technology.tag : '',
+          this.technologies.map(x => x._id),
+          this.technology ? this.technology._id : '',
           this.status,
           this.pictures.all,
           this.pictures.deleted,
@@ -314,14 +314,13 @@ export default {
   created() {
     this.allTechnologies = storage.technologies;
     if(this.project) {
-      this._id = this.project._id;
       this.name = this.project.name;
       this.description = this.project.description;
       this.features = this.project.features;
       this.highlights = this.project.highlights;
       this.githubRepo = this.project.githubRepo;
-      this.technologies = this.project.technologies.map(tag => this.allTechnologies.find(x => x.tag === tag));
-      this.technology = this.allTechnologies.find(x => x.tag === this.project.technologyTag);
+      this.technologies = this.project.technologies.map(_id => this.allTechnologies.find(x => x._id === _id));
+      this.technology = this.allTechnologies.find(x => x._id === this.project.technologyId);
       this.status = this.project.status;
       this.pictures.all = this.project.pictures;
       this.ytVideoId = this.project.ytVideoId;

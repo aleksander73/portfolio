@@ -11,9 +11,9 @@ router.get('/', async (req, res) => {
 
 router.post('/add', cryptographyService.authorize, upload.single('icon'), async (req, res) => {
     try {
-        const { tag, name } = req.body;
+        const { name } = req.body;
         const icon = req.file.filename;
-        await technologyService.addTechnology(tag, name, icon);
+        await technologyService.addTechnology(name, icon);
         res.sendStatus(200);
     } catch(error) {
         res.status(400).send(error.message);

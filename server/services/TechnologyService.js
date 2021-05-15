@@ -6,8 +6,8 @@ class TechnologyService {
         return Database.getInstance().getCollection('technologies', filter);
     }
 
-    async addTechnology(tag, name, icon) {
-        const technology = new Technology(tag, name, icon);
+    async addTechnology(name, icon) {
+        const technology = new Technology(name, icon);
         Database.getInstance().postDocument('technologies', technology);
     }
 }

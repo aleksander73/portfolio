@@ -70,10 +70,9 @@ class ApiClient {
         return data;
     }
 
-    async addTechnology(tag, name, icon) {
+    async addTechnology(name, icon) {
         try {
             const data = new FormData();
-            data.append('tag', tag);
             data.append('name', name);
             data.append('icon', icon);
             const { status } = await axios.post('/api/technologies/add', data, {
