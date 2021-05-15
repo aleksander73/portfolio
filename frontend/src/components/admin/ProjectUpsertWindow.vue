@@ -19,6 +19,10 @@
             <TextListInputField :initItems="features" @input="onFeaturesChanged" />
           </div>
           <div class="input-field-container">
+            <p>Highlights</p>
+            <TextListInputField :initItems="highlights" @input="onHighlightsChanged" />
+          </div>
+          <div class="input-field-container">
             <p>GitHub repository</p>
             <TextInputField :initValue="githubRepo" @input="onGithubRepoChanged" />
           </div>
@@ -175,6 +179,7 @@ export default {
       name: '',
       description: '',
       features: [],
+      highlights: [],
       githubRepo: '',
       allTechnologies: [],
       technologies: [],
@@ -216,6 +221,7 @@ export default {
           this.name,
           this.description,
           this.features,
+          this.highlights,
           this.githubRepo,
           this.technologies.map(x => x.tag),
           this.technology ? this.technology.tag : '',
@@ -230,6 +236,7 @@ export default {
           this.name,
           this.description,
           this.features,
+          this.highlights,
           this.githubRepo,
           this.technologies.map(x => x.tag),
           this.technology ? this.technology.tag : '',
@@ -258,6 +265,9 @@ export default {
     },
     onFeaturesChanged(value) {
       this.features = value;
+    },
+    onHighlightsChanged(value) {
+      this.highlights = value;
     },
     onGithubRepoChanged(value) {
       this.githubRepo = value;
@@ -298,6 +308,7 @@ export default {
       this.name = this.project.name;
       this.description = this.project.description;
       this.features = this.project.features;
+      this.highlights = this.project.highlights;
       this.githubRepo = this.project.githubRepo;
       this.technologies = this.project.technologies.map(tag => this.allTechnologies.find(x => x.tag === tag));
       this.technology = this.allTechnologies.find(x => x.tag === this.project.technologyTag);

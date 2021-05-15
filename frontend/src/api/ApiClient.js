@@ -6,12 +6,13 @@ class ApiClient {
         return data;
     }
 
-    async addProject(name, description, features, githubRepo, technologies, technologyTag, status, pictures, ytVideoId, score) {
+    async addProject(name, description, features, highlights, githubRepo, technologies, technologyTag, status, pictures, ytVideoId, score) {
         try {
             const data = new FormData();
             data.append('name', name);
             data.append('description', description);
             data.append('features', JSON.stringify(features));
+            data.append('highlights', JSON.stringify(highlights));
             data.append('githubRepo', githubRepo);
             data.append('technologies', JSON.stringify(technologies));
             data.append('technologyTag', technologyTag);
@@ -32,13 +33,14 @@ class ApiClient {
         }
     }
 
-    async editProject(_id, name, description, features, githubRepo, technologies, technologyTag, status, allPictures, deletedPictures, uploadedPictures, ytVideoId, score) {
+    async editProject(_id, name, description, features, highlights, githubRepo, technologies, technologyTag, status, allPictures, deletedPictures, uploadedPictures, ytVideoId, score) {
         try {
             const data = new FormData();
             data.append('_id', _id);
             data.append('name', name);
             data.append('description', description);
             data.append('features', JSON.stringify(features));
+            data.append('highlights', JSON.stringify(highlights));
             data.append('githubRepo', githubRepo);
             data.append('technologies', JSON.stringify(technologies));
             data.append('technologyTag', technologyTag);
