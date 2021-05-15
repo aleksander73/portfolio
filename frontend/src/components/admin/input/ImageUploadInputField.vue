@@ -46,8 +46,7 @@
 }
 
 .uploaded {
-  /* border-color: green; */
-  box-shadow: 0 0 4px rgb(21, 168, 41);
+  box-shadow: 0 0 4px rgb(0, 255, 0);
 }
 
 .control-buttons {
