@@ -6,7 +6,7 @@ class ApiClient {
         return data;
     }
 
-    async addProject(name, description, features, highlights, githubRepo, technologies, technologyTag, status, pictures, ytVideoId, score) {
+    async addProject(name, description, features, highlights, githubRepo, technologies, technologyTag, status, pictures, ytVideoId, score, color) {
         try {
             const data = new FormData();
             data.append('name', name);
@@ -22,6 +22,7 @@ class ApiClient {
             });
             data.append('ytVideoId', ytVideoId);
             data.append('score', score);
+            data.append('color', color);
             const res = await axios.post('/api/projects/add', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -33,7 +34,7 @@ class ApiClient {
         }
     }
 
-    async editProject(_id, name, description, features, highlights, githubRepo, technologies, technologyTag, status, allPictures, deletedPictures, uploadedPictures, ytVideoId, score) {
+    async editProject(_id, name, description, features, highlights, githubRepo, technologies, technologyTag, status, allPictures, deletedPictures, uploadedPictures, ytVideoId, score, color) {
         try {
             const data = new FormData();
             data.append('_id', _id);
@@ -52,6 +53,7 @@ class ApiClient {
             });
             data.append('ytVideoId', ytVideoId);
             data.append('score', score);
+            data.append('color', color);
             const res = await axios.post('/api/projects/edit', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'

@@ -64,6 +64,10 @@
             <p>Score</p>
             <TextInputField :initValue="score.toString()" @input="onScoreChanged" />
           </div>
+          <div class="input-field-container">
+            <p>Color</p>
+            <TextInputField :initValue="color" @input="onColorChanged" />
+          </div>
         </div>
       </div>
       <div class="bottom-panel">
@@ -191,7 +195,8 @@ export default {
         uploaded: []
       },
       ytVideoId: '',
-      score: -1
+      score: -1,
+      color: '#000000'
     }
   },
   props: {
@@ -228,7 +233,8 @@ export default {
           this.status,
           this.pictures.uploaded,
           this.ytVideoId,
-          this.score
+          this.score,
+          this.color
         );
       } else {
         success = await apiClient.editProject(
@@ -245,7 +251,8 @@ export default {
           this.pictures.deleted,
           this.pictures.uploaded,
           this.ytVideoId,
-          this.score
+          this.score,
+          this.color
         );
       }
       if(success) {
@@ -291,6 +298,9 @@ export default {
     },
     onScoreChanged(value) {
       this.score = Number(value);
+    },
+    onColorChanged(value) {
+      this.color = value;
     }
   },
   computed: {
@@ -316,6 +326,7 @@ export default {
       this.pictures.all = this.project.pictures;
       this.ytVideoId = this.project.ytVideoId;
       this.score = this.project.score;
+      this.color = this.project.color;
     }
   }
 }
