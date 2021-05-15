@@ -14,8 +14,6 @@ class ProjectService {
 
     async editProject(_id, name, description, features, githubRepo, technologies, technologyTag, allPictures, deletedPictures, uploadedPictures, ytVideoId, score) {
         deletedPictures.forEach(picture => fs.unlinkSync(`${__dirname}/../uploads/${picture}`));
-        let pictures = allPictures.filter(x => !deletedPictures.includes(x));
-        uploadedPictures.forEach(x => pictures.push(x));
         Database.getInstance().updateDocument('projects', _id, {
             name,
             description,
@@ -23,7 +21,7 @@ class ProjectService {
             githubRepo,
             technologies,
             technologyTag,
-            pictures,
+            pictures: allPictures.diff(deletedPictures).concat(uploadedPictures),
             ytVideoId,
             score
         });

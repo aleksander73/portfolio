@@ -4,8 +4,10 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const { linkRouter, projectRouter, technologyRouter, userRouter } = require('./api');
+const { utility } = require('./util');
 
 dotenv.config();
+utility.config();
 
 const app = express();
 app.use(bodyParser.json());
