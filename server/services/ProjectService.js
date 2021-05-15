@@ -7,12 +7,12 @@ class ProjectService {
         return Database.getInstance().getCollection('projects', filter);
     }
 
-    async addProject(name, description, features, githubRepo, technologies, technologyTag, pictures, ytVideoId, score) {
-        const project = new Project(name, description, features, githubRepo, technologies, technologyTag, pictures, ytVideoId, score);
+    async addProject(name, description, features, githubRepo, technologies, technologyTag, status, pictures, ytVideoId, score) {
+        const project = new Project(name, description, features, githubRepo, technologies, technologyTag, status, pictures, ytVideoId, score);
         Database.getInstance().postDocument('projects', project);
     }
 
-    async editProject(_id, name, description, features, githubRepo, technologies, technologyTag, allPictures, deletedPictures, uploadedPictures, ytVideoId, score) {
+    async editProject(_id, name, description, features, githubRepo, technologies, technologyTag, status, allPictures, deletedPictures, uploadedPictures, ytVideoId, score) {
         deletedPictures.forEach(picture => fs.unlinkSync(`${__dirname}/../uploads/${picture}`));
         Database.getInstance().updateDocument('projects', _id, {
             name,
@@ -21,6 +21,7 @@ class ProjectService {
             githubRepo,
             technologies,
             technologyTag,
+            status,
             pictures: allPictures.diff(deletedPictures).concat(uploadedPictures),
             ytVideoId,
             score

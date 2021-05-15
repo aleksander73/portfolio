@@ -11,9 +11,9 @@ router.get('/', async (req, res) => {
 
 router.post('/add', cryptographyService.authorize, upload.array('pictures'), async (req, res) => {
     try {
-        const { name, description, features, githubRepo, technologies, technologyTag, ytVideoId, score } = req.body;
+        const { name, description, features, githubRepo, technologies, technologyTag, status, ytVideoId, score } = req.body;
         const pictures = req.files.map(file => file.filename);
-        await projectService.addProject(name, description, JSON.parse(features), githubRepo, JSON.parse(technologies), technologyTag, pictures, ytVideoId, score);
+        await projectService.addProject(name, description, JSON.parse(features), githubRepo, JSON.parse(technologies), technologyTag, status, pictures, ytVideoId, score);
         res.sendStatus(200);
     } catch(error) {
         res.status(400).send(error.message);
@@ -22,7 +22,7 @@ router.post('/add', cryptographyService.authorize, upload.array('pictures'), asy
 
 router.post('/edit', cryptographyService.authorize, upload.array('uploadedPictures'), async (req, res) => {
     try {
-        const { _id, name, description, features, githubRepo, technologies, technologyTag, allPictures, deletedPictures, ytVideoId, score } = req.body;
+        const { _id, name, description, features, githubRepo, technologies, technologyTag, status, allPictures, deletedPictures, ytVideoId, score } = req.body;
         const uploadedPictures = req.files.map(file => file.filename);
         await projectService.editProject(
             _id,
@@ -32,6 +32,7 @@ router.post('/edit', cryptographyService.authorize, upload.array('uploadedPictur
             githubRepo,
             JSON.parse(technologies),
             technologyTag,
+            status,
             JSON.parse(allPictures),
             JSON.parse(deletedPictures),
             uploadedPictures,
