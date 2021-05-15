@@ -19,6 +19,10 @@
             <TextListInputField :initItems="features" @input="onFeaturesChanged" />
           </div>
           <div class="input-field-container">
+            <p>Highlights</p>
+            <TextListInputField :initItems="highlights" @input="onHighlightsChanged" />
+          </div>
+          <div class="input-field-container">
             <p>GitHub repository</p>
             <TextInputField :initValue="githubRepo" @input="onGithubRepoChanged" />
           </div>
@@ -45,6 +49,10 @@
               @input="onTechnologyChanged" />
           </div>
           <div class="input-field-container">
+            <p>Status</p>
+            <TextInputField :initValue="status" @input="onStatusChanged" />
+          </div>
+          <div class="input-field-container">
             <p>Pictures</p>
             <ImageUploadInputField :initImages="pictures.all" @input="onPicturesChanged" />
           </div>
@@ -55,6 +63,10 @@
           <div class="input-field-container">
             <p>Score</p>
             <TextInputField :initValue="score.toString()" @input="onScoreChanged" />
+          </div>
+          <div class="input-field-container">
+            <p>Color</p>
+            <TextInputField :initValue="color" @input="onColorChanged" />
           </div>
         </div>
       </div>
@@ -171,17 +183,20 @@ export default {
       name: '',
       description: '',
       features: [],
+      highlights: [],
       githubRepo: '',
       allTechnologies: [],
       technologies: [],
       technology: null,
+      status,
       pictures: {
         all: [],
         deleted: [],
         uploaded: []
       },
       ytVideoId: '',
-      score: -1
+      score: -1,
+      color: '#000000'
     }
   },
   props: {
@@ -211,12 +226,15 @@ export default {
           this.name,
           this.description,
           this.features,
+          this.highlights,
           this.githubRepo,
           this.technologies.map(x => x.tag),
           this.technology ? this.technology.tag : '',
+          this.status,
           this.pictures.uploaded,
           this.ytVideoId,
-          this.score
+          this.score,
+          this.color
         );
       } else {
         success = await apiClient.editProject(
@@ -224,14 +242,17 @@ export default {
           this.name,
           this.description,
           this.features,
+          this.highlights,
           this.githubRepo,
           this.technologies.map(x => x.tag),
           this.technology ? this.technology.tag : '',
+          this.status,
           this.pictures.all,
           this.pictures.deleted,
           this.pictures.uploaded,
           this.ytVideoId,
-          this.score
+          this.score,
+          this.color
         );
       }
       if(success) {
@@ -252,6 +273,9 @@ export default {
     onFeaturesChanged(value) {
       this.features = value;
     },
+    onHighlightsChanged(value) {
+      this.highlights = value;
+    },
     onGithubRepoChanged(value) {
       this.githubRepo = value;
     },
@@ -260,6 +284,9 @@ export default {
     },
     onTechnologyChanged(value) {
       this.technology = value;
+    },
+    onStatusChanged(value) {
+      this.status = value;
     },
     onPicturesChanged(value) {
       const { deleted, uploaded } = value;
@@ -271,6 +298,9 @@ export default {
     },
     onScoreChanged(value) {
       this.score = Number(value);
+    },
+    onColorChanged(value) {
+      this.color = value;
     }
   },
   computed: {
@@ -288,12 +318,15 @@ export default {
       this.name = this.project.name;
       this.description = this.project.description;
       this.features = this.project.features;
+      this.highlights = this.project.highlights;
       this.githubRepo = this.project.githubRepo;
       this.technologies = this.project.technologies.map(tag => this.allTechnologies.find(x => x.tag === tag));
       this.technology = this.allTechnologies.find(x => x.tag === this.project.technologyTag);
+      this.status = this.project.status;
       this.pictures.all = this.project.pictures;
       this.ytVideoId = this.project.ytVideoId;
       this.score = this.project.score;
+      this.color = this.project.color;
     }
   }
 }
