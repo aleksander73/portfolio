@@ -20,7 +20,7 @@ router.post('/add', cryptographyService.authorize, upload.array('pictures'), asy
     }
 });
 
-router.post('/edit', upload.array('uploadedPictures'), async (req, res) => {
+router.post('/edit', cryptographyService.authorize, upload.array('uploadedPictures'), async (req, res) => {
     try {
         const { _id, name, description, features, githubRepo, technologies, technologyTag, allPictures, deletedPictures, ytVideoId, score } = req.body;
         const uploadedPictures = req.files.map(file => file.filename);
