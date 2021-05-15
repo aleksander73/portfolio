@@ -4,6 +4,7 @@ import TextListInputField from './TextListInputField';
 import DropdownListInputField from './DropdownListInputField';
 import MultipleChoiceInputField from './MultipleChoiceInputField';
 import FileUploadInputField from './FileUploadInputField';
+import ImageUploadInputField from './ImageUploadInputField';
 
 export {
     TextInputField,
@@ -11,5 +12,6 @@ export {
     TextListInputField,
     DropdownListInputField,
     MultipleChoiceInputField,
-    FileUploadInputField
+    FileUploadInputField,
+    ImageUploadInputField
 };

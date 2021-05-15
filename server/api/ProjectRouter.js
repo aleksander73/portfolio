@@ -20,10 +20,24 @@ router.post('/add', cryptographyService.authorize, upload.array('pictures'), asy
     }
 });
 
-router.post('/edit', cryptographyService.authorize, upload.any(), async (req, res) => {
+router.post('/edit', cryptographyService.authorize, upload.array('uploadedPictures'), async (req, res) => {
     try {
-        const { _id, name, description, features, githubRepo, technologies, technologyTag, ytVideoId, score } = req.body;
-        await projectService.editProject(_id, name, description, JSON.parse(features), githubRepo, JSON.parse(technologies), technologyTag, ytVideoId, score);
+        const { _id, name, description, features, githubRepo, technologies, technologyTag, allPictures, deletedPictures, ytVideoId, score } = req.body;
+        const uploadedPictures = req.files.map(file => file.filename);
+        await projectService.editProject(
+            _id,
+            name,
+            description,
+            JSON.parse(features),
+            githubRepo,
+            JSON.parse(technologies),
+            technologyTag,
+            JSON.parse(allPictures),
+            JSON.parse(deletedPictures),
+            uploadedPictures,
+            ytVideoId,
+            score
+        );
         res.sendStatus(200);
     } catch(error) {
         res.status(400).send(error.message);

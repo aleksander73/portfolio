@@ -62,7 +62,7 @@ export default {
   },
   props: {
     acceptedExt: {
-      type: Array 
+      type: Array
     },
     multiple: {
       type: Boolean,
@@ -73,11 +73,14 @@ export default {
     onFilesChosen() {
       this.files = Object.values(this.$refs.files.files);
       this.$emit('input', !this.multiple ? this.files[0] : this.files);
+    },
+    removeFile(file) {
+      this.files = this.files.filter(x => x !== file);
     }
   },
   computed: {
     acceptProperty() {
-      return this.acceptedExt.join(',');
+      return this.acceptedExt ? this.acceptedExt.join(',') : ['*'];
     },
     fileList() {
       return this.files.length > 0 ? this.files.map(x => x.name) : ['nothing uploaded'];

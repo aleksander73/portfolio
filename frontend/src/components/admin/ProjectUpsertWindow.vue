@@ -46,7 +46,7 @@
           </div>
           <div class="input-field-container">
             <p>Pictures</p>
-            <FileUploadInputField :acceptedExt="['image/*']" :multiple="true" @input="onPicturesChanged" />
+            <ImageUploadInputField :initImages="pictures.all" @input="onPicturesChanged" />
           </div>
           <div class="input-field-container">
             <p>YouTube video ID</p>
@@ -159,7 +159,7 @@ import {
   TextListInputField,
   DropdownListInputField,
   MultipleChoiceInputField,
-  FileUploadInputField
+  ImageUploadInputField
 } from './input';
 import { apiClient } from '../../api';
 import { storage } from '../../storage';
@@ -175,7 +175,11 @@ export default {
       allTechnologies: [],
       technologies: [],
       technology: null,
-      pictures: [],
+      pictures: {
+        all: [],
+        deleted: [],
+        uploaded: []
+      },
       ytVideoId: '',
       score: -1
     }
@@ -191,7 +195,7 @@ export default {
     TextListInputField,
     DropdownListInputField,
     MultipleChoiceInputField,
-    FileUploadInputField
+    ImageUploadInputField
   },
   methods:  {
     actionButtonClass() {
@@ -210,7 +214,7 @@ export default {
           this.githubRepo,
           this.technologies.map(x => x.tag),
           this.technology ? this.technology.tag : '',
-          this.pictures,
+          this.pictures.uploaded,
           this.ytVideoId,
           this.score
         );
@@ -223,6 +227,9 @@ export default {
           this.githubRepo,
           this.technologies.map(x => x.tag),
           this.technology ? this.technology.tag : '',
+          this.pictures.all,
+          this.pictures.deleted,
+          this.pictures.uploaded,
           this.ytVideoId,
           this.score
         );
@@ -255,7 +262,9 @@ export default {
       this.technology = value;
     },
     onPicturesChanged(value) {
-      this.pictures = value;
+      const { deleted, uploaded } = value;
+      this.pictures.deleted = deleted;
+      this.pictures.uploaded = uploaded;
     },
     onYtVideoIdChanged(value) {
       this.ytVideoId = value;
@@ -282,6 +291,7 @@ export default {
       this.githubRepo = this.project.githubRepo;
       this.technologies = this.project.technologies.map(tag => this.allTechnologies.find(x => x.tag === tag));
       this.technology = this.allTechnologies.find(x => x.tag === this.project.technologyTag);
+      this.pictures.all = this.project.pictures;
       this.ytVideoId = this.project.ytVideoId;
       this.score = this.project.score;
     }
