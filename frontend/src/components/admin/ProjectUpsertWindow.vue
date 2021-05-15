@@ -46,7 +46,7 @@
           </div>
           <div class="input-field-container">
             <p>Pictures</p>
-            <ImageUploadInputField :initPictures="pictures.all" @input="onPicturesChanged" />
+            <ImageUploadInputField :initImages="pictures.all" @input="onPicturesChanged" />
           </div>
           <div class="input-field-container">
             <p>YouTube video ID</p>

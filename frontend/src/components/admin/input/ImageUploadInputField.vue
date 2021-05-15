@@ -1,16 +1,84 @@
 <template>
   <div>
-    <img v-for="(image, index) in initPictures" :key="image" :src="imageSrc(image)" @click="toggleDeletedImage(index)">
-    <FileUploadInputField :acceptedExt="['image/*']" :multiple="true" @input="onUploadedImages" />
-    <img v-for="image in uploadedImages" :key="image.file.name" :src="image.preview">
+    <div v-if="showImageSection" class="images-container center-y">
+      <div v-for="(image, i) in images" :key="i" :class="imageContainerClass(i)" @mouseenter="showItemControls(i)" @mouseleave="hideItemControls(i)">
+        <img :src="image.src" :class="imageClass(image, i)" :title="imageTitle(image)">
+        <div :class="controlButtonClass(i)">
+          <button class="delete-button center-xy" @click="deleteImage(image, i)">
+            <img v-if="!isDeleted(i)" src="../../../../assets/icons/delete.svg" class="svg-red">
+            <img v-else src="../../../../assets/icons/back.svg" class="svg-white">
+          </button>
+        </div>
+      </div>
+    </div>
+    <FileUploadInputField :acceptedExt="['image/*']" :multiple="true" @input="onUploadedImages" ref="fileInput" />
   </div>
 </template>
 
 <style scoped>
-img {
-  height: 100px;
-  width: 250px;
+.images-container {
+  flex-direction: column;
+  border: 1px solid white;
+  border-bottom: 0;
+  padding: 15px 30px;
+  max-height: 300px;
+  overflow-y: overlay;
+}
+
+.image-container {
+  border: 1px solid rgb(60, 60, 60);
+  height: 220px;
+  width: 100%;
+  margin: 15px 0;
+  position: relative;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  box-shadow: 0 0 0px rgb(104, 104, 104);
+  transition: filter 0.25s linear;
+}
+
+.delete {
+  filter: grayscale(100%);
+}
+
+.uploaded {
+  /* border-color: green; */
+  box-shadow: 0 0 4px rgb(21, 168, 41);
+}
+
+.control-buttons {
+  border-left: 1px solid gray;
+  border-bottom: 1px solid gray;
+  border-bottom-left-radius: 5px;
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.25s linear;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.show-controls {
+  opacity: 1;
+}
+
+.control-buttons > button {
+  background-color: inherit;
+  min-width: 0;
+  height: 20px;
+  width: 20px;
+  padding: 0;
   margin: 5px;
+}
+
+.control-buttons > button > img {
+  height: 90%;
 }
 </style>
 
@@ -21,13 +89,19 @@ export default {
   name: 'ImageUploadInputField',
   data() {
     return {
-      deletedImages: [],
-      uploadedImages: []
+      images: this.initImages.map(filename => ({
+        new: false,
+        src: require(`../../../../../server/uploads/${filename}`),
+        filename
+      })),
+      delete: new Array(this.initImages.length).fill(false),
+      active: []
     }
   },
   props: {
-    initPictures: {
-      type: Array
+    initImages: {
+      type: Array,
+      default: () => []
     }
   },
   components: {
@@ -36,27 +110,61 @@ export default {
   methods: {
     emitInputEvent() {
       this.$emit('input', {
-        deleted: this.initPictures.filter((picture, index) => this.deletedImages[index]),
-        uploaded: this.uploadedImages.map(image => image.file)
+        deleted: this.images.filter((image, index) => this.delete[index]).map(image => image.filename),
+        uploaded: this.images.filter(image => image.new).map(image => image.file)
       });
     },
-    toggleDeletedImage(index) {
-      this.deletedImages[index] = !this.deletedImages[index];
+    deleteImage(image) {
+      if(!image.new) {
+        const index = this.images.indexOf(image);
+        this.delete[index] = !this.delete[index];
+        this.delete = [...this.delete];
+      } else {
+        this.$refs['fileInput'].removeFile(image.file);
+        this.images = this.images.filter(x => x !== image);
+      }
       this.emitInputEvent();
     },
     onUploadedImages(value) {
-      value.forEach(file => {
-        this.uploadedImages.push({ file, preview: URL.createObjectURL(file) });
-      });
+      this.images = this.images.filter(x => !x.new).concat(value.map(file => ({ new: true, src: URL.createObjectURL(file), file })));
       this.emitInputEvent();
     },
-    imageSrc(image) {
-      return require(`../../../../../server/uploads/${image}`);
+    showItemControls(i) {
+      this.active[i] = true;
+      this.active = [...this.active];
+    },
+    hideItemControls(i) {
+      this.active[i] = false;
+      this.active = [...this.active];
+    },
+    imageContainerClass(i) {
+      return [
+        { class: 'image-container', condition: () => true },
+        { class: 'uploaded', condition: () => this.images[i].file }
+      ].map(x => x.condition() ? x.class : '').join(' ');
+    },
+    imageClass(image, i) {
+      return [
+        { class: 'image', condition: () => true },
+        { class: 'delete', condition: () => this.delete[i] }
+      ].map(x => x.condition() ? x.class : '').join(' ');
+    },
+    imageTitle(image) {
+      return !image.new ? image.filename : image.file.name;
+    },
+    controlButtonClass(i) {
+      return [
+        { class: 'control-buttons center-x', condition: () => true },
+        { class: 'show-controls', condition: () => this.active[i] }
+      ].map(x => x.condition() ? x.class : '').join(' ');
+    },
+    isDeleted(i) {
+      return this.delete[i];
     }
   },
-  created() {
-    for(let i = 0; i < this.initPictures.length; i++) {
-      this.deletedImages[i] = false;
+  computed: {
+    showImageSection() {
+      return this.images.length > 0;
     }
   }
 }

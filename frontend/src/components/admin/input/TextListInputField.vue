@@ -213,7 +213,7 @@ export default {
     controlButtonClass(i) {
       return [
         { class: 'control-buttons center-x', condition: () => true },
-        { class: 'show-controls', condition: () => this.active[i] && this.mode == this.modes.ADDITION}
+        { class: 'show-controls', condition: () => this.active[i] && this.mode == this.modes.ADDITION }
       ].map(x => x.condition() ? x.class : '').join(' ');
     },
     mainRowClass() {
