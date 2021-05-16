@@ -236,7 +236,6 @@ export default {
           this.color
         );
         if(project) {
-          console.log(project);
           this.$emit('requestClose');
         } else {
           console.log('Couldn\'t add project');

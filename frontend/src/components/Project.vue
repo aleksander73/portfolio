@@ -7,7 +7,7 @@
                     <img v-if="technology" class="logo" :src=logoSrc :title="technology.name + ' logo'">
                 </div>
                 <div class="center-y">
-                    <a :href=githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img src="../../assets/external/github.png"></a>
+                    <a :href=githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img :src="githubIcon"></a>
                     <img class="github-version" :src=versionUrl>
                 </div>
             </div>
@@ -122,6 +122,10 @@ export default {
     computed: {
         logoSrc() {
             return require(`../../../server/uploads/${this.technology.icon}`);
+        },
+        githubIcon() {
+            const link = storage.links.find(link => link.name === 'GitHub');
+            return require(`../../../server/uploads/${link.logo}`);
         },
         githubUrl() {
             return `https://github.com/aleksander73/${this.githubRepo}`;
