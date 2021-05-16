@@ -16,11 +16,11 @@
           </div>
           <div class="input-field-container">
             <p>Logo</p>
-            <FileUploadInputField :acceptedExt="['image/*']" @input="onLogoChanged" />
+            <SingleImageUploadInputField :initIcon="logo.init" @input="onLogoChanged" />
           </div>
           <div class="input-field-container">
             <p>Priority</p>
-            <TextInputField :initValue="priority" @input="onPriorityChanged" />
+            <TextInputField :initValue="priority.toString()" @input="onPriorityChanged" />
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@
 <script>
 import {
   TextInputField,
-  FileUploadInputField
+  SingleImageUploadInputField
 } from './input';
 import { apiClient } from '../../api';
 
@@ -131,8 +131,12 @@ export default {
     return {
       name: '',
       url: '',
-      logo: null,
-      priority: '-1'
+      logo: {
+        init: '',
+        deleted: '',
+        uploaded: ''
+      },
+      priority: -1
     }
   },
   props: {
@@ -142,7 +146,7 @@ export default {
   },
   components: {
     TextInputField,
-    FileUploadInputField
+    SingleImageUploadInputField
   },
   methods:  {
     actionButtonClass() {
@@ -153,16 +157,20 @@ export default {
     },
     async mainAction() {
       if(!this.link) {
-        await apiClient.addLink(
-          this.name,
-          this.url,
-          this.logo,
-          Number(this.priority)
-        );
+        const link =  await apiClient.addLink(this.name, this.url, this.logo.uploaded, this.priority);
+        if(link) {
+          this.$emit('requestClose');
+        } else {
+          console.log('Couldn\'t add link');
+        }
       } else {
-        console.log('Updating', this.technology.name);
+        const success = await apiClient.editLink(this.link._id, this.name, this.url, this.logo.init, this.logo.deleted, this.logo.uploaded, this.priority);
+        if(success) {
+          this.$emit('requestClose');
+        } else {
+          console.log('Couldn\'t edit link');
+        }
       }
-      this.$emit('requestClose');
     },
     cancel() {
       this.$emit('requestClose');
@@ -174,10 +182,12 @@ export default {
       this.url = value;
     },
     onLogoChanged(value) {
-      this.logo = value;
+      const { deleted, uploaded } = value;
+      this.logo.deleted = deleted;
+      this.logo.uploaded = uploaded;
     },
     onPriorityChanged(value) {
-      this.priority = value;
+      this.priority = Number(value);
     }
   },
   computed: {
@@ -192,6 +202,7 @@ export default {
     if(this.link) {
       this.name = this.link.name;
       this.url = this.link.url;
+      this.logo.init = this.link.logo;
       this.priority = this.link.priority;
     }
   }
