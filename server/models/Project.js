@@ -1,12 +1,12 @@
 class Project {
-    constructor(name, description, features, highlights, githubRepo, technologies, technologyTag, status, pictures, ytVideoId, score, color) {
+    constructor(name, description, features, highlights, githubRepo, technologies, technologyId, status, pictures, ytVideoId, score, color) {
         this.name = name;
         this.description = description;
         this.features = features;
         this.highlights = highlights;
         this.githubRepo = githubRepo;
         this.technologies = technologies;
-        this.technologyTag = technologyTag;
+        this.technologyId = technologyId;
         this.status = status;
         this.pictures = pictures;
         this.ytVideoId = ytVideoId;

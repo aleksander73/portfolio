@@ -7,16 +7,12 @@
       <div class="input-fields-container">
         <div class="input-fields">
           <div class="input-field-container">
-            <p>Tag</p>
-            <TextInputField :initValue="tag" @input="onTagChanged" />
-          </div>
-          <div class="input-field-container">
             <p>Name</p>
             <TextInputField :initValue="name" @input="onNameChanged" />
           </div>
           <div class="input-field-container">
             <p>Icon</p>
-            <FileUploadInputField :acceptedExt="['image/*']" @input="onIconChanged" />
+            <SingleImageUploadInputField :initIcon="icon.init" @input="onIconChanged" />
           </div>
         </div>
       </div>
@@ -117,17 +113,20 @@
 <script>
 import {
   TextInputField,
-  FileUploadInputField
+  SingleImageUploadInputField
 } from './input';
 import { apiClient } from '../../api';
 
 export default {
-  name: 'ProjectUpsertWindow',
+  name: 'TechnologyUpsertWindow',
   data() {
     return {
-      tag: '',
       name: '',
-      icon: null
+      icon: {
+        init: '',
+        deleted: '',
+        uploaded: ''
+      }
     }
   },
   props: {
@@ -137,7 +136,7 @@ export default {
   },
   components: {
     TextInputField,
-    FileUploadInputField
+    SingleImageUploadInputField
   },
   methods:  {
     actionButtonClass() {
@@ -148,27 +147,32 @@ export default {
     },
     async mainAction() {
       if(!this.technology) {
-        await apiClient.addTechnology(
-          this.tag,
-          this.name,
-          this.icon
-        );
+        const technology = await apiClient.addTechnology(this.name, this.icon.uploaded);
+        if(technology) {
+          this.$emit('requestClose');
+        } else {
+          console.log('Couldn\'t add project');
+        }
       } else {
-        console.log('Updating', this.technology.name);
+        const success = await apiClient.editTechnology(this.technology._id, this.name, this.icon.init, this.icon.deleted, this.icon.uploaded);
+        if(success) {
+          this.$emit('requestClose');
+        } else {
+          console.log('Couldn\'t add project');
+        }
       }
       this.$emit('requestClose');
     },
     cancel() {
       this.$emit('requestClose');
     },
-    onTagChanged(value) {
-      this.tag = value;
-    },
     onNameChanged(value) {
       this.name = value;
     },
     onIconChanged(value) {
-      this.icon = value;
+      const { deleted, uploaded } = value;
+      this.icon.deleted = deleted;
+      this.icon.uploaded = uploaded;
     }
   },
   computed: {
@@ -181,8 +185,8 @@ export default {
   },
   created() {
     if(this.technology) {
-      this.tag = this.technology.tag;
       this.name = this.technology.name;
+      this.icon.init = this.technology.icon;
     }
   }
 }

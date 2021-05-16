@@ -1,6 +1,5 @@
 class Technology {
-    constructor(tag, name, icon) {
-        this.tag = tag;
+    constructor(name, icon) {
         this.name = name;
         this.icon = icon;
     }

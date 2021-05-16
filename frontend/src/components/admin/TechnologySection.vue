@@ -17,7 +17,7 @@ import { List, TechnologyUpsertWindow } from '../../components';
 import { storage } from '../../storage';
 
 export default {
-  name: 'ProjectSection',
+  name: 'TechnologySection',
   data() {
     return {
       technologies: [...storage.technologies],

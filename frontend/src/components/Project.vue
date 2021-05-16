@@ -114,8 +114,8 @@ export default {
         description: String,
         features: Array,
         githubRepo: String,
-        technologyTags: Array,
-        technologyTag: String,
+        technologyIds: Array,
+        technologyId: String,
         pictures: Array,
         ytVideoId: String
     },
@@ -137,12 +137,11 @@ export default {
         }
     },
     created() {
-        if(this.technologyTag) {
-            this.technology = storage.technologies.find(technology => technology.tag === this.technologyTag);
+        if(this.technologyId) {
+            this.technology = storage.technologies.find(technology => technology._id === this.technologyId);
         }
-        this.technologies = this.technologyTags.map((tag) => {
-            return storage.technologies.find(technology => technology.tag === tag);
-        });
+        this.technologies = this.technologyIds.map(_id => storage.technologies.find(technology => technology._id === _id));
+        this.technologies.sort((x, y) => x.name.localeCompare(y.name));
     }
 }
 </script>

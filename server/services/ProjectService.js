@@ -1,33 +1,35 @@
 const { Project } = require('../models');
 const { Database } = require('../database');
-const fs =require('fs');
+const fs = require('fs');
 
 class ProjectService {
     async getProjects(filter) {
-        return Database.getInstance().getCollection('projects', filter);
+        return await Database.getInstance().getCollection('projects', filter);
     }
 
-    async addProject(name, description, features, highlights, githubRepo, technologies, technologyTag, status, pictures, ytVideoId, score, color) {
-        const project = new Project(name, description, features, highlights, githubRepo, technologies, technologyTag, status, pictures, ytVideoId, score, color);
-        Database.getInstance().postDocument('projects', project);
+    async addProject(name, description, features, highlights, githubRepo, technologies, technologyId, status, pictures, ytVideoId, score, color) {
+        const project = new Project(name, description, features, highlights, githubRepo, technologies, technologyId, status, pictures, ytVideoId, score, color);
+        const result = await Database.getInstance().postDocument('projects', project);
+        return result.ops[0];
     }
 
-    async editProject(_id, name, description, features, highlights, githubRepo, technologies, technologyTag, status, allPictures, deletedPictures, uploadedPictures, ytVideoId, score, color) {
+    async editProject(_id, name, description, features, highlights, githubRepo, technologies, technologyId, status, allPictures, deletedPictures, uploadedPictures, ytVideoId, score, color) {
         deletedPictures.forEach(picture => fs.unlinkSync(`${__dirname}/../uploads/${picture}`));
-        Database.getInstance().updateDocument('projects', _id, {
+        const { result } = await Database.getInstance().updateDocument('projects', _id, {
             name,
             description,
             features,
             highlights,
             githubRepo,
             technologies,
-            technologyTag,
+            technologyId,
             status,
             pictures: allPictures.diff(deletedPictures).concat(uploadedPictures),
             ytVideoId,
             score,
             color
         });
+        return Boolean(result.ok);
     }
 }
 

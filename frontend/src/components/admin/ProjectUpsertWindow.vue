@@ -220,32 +220,37 @@ export default {
       ].map(x => x.condition() ? x.class : '').join(' ');
     },
     async mainAction() {
-      let success = false;
       if(!this.project) {
-        success = await apiClient.addProject(
+        const project = await apiClient.addProject(
           this.name,
           this.description,
           this.features,
           this.highlights,
           this.githubRepo,
-          this.technologies.map(x => x.tag),
-          this.technology ? this.technology.tag : '',
+          this.technologies.map(x => x._id),
+          this.technology ? this.technology._id : '',
           this.status,
           this.pictures.uploaded,
           this.ytVideoId,
           this.score,
           this.color
         );
+        if(project) {
+          console.log(project);
+          this.$emit('requestClose');
+        } else {
+          console.log('Couldn\'t add project');
+        }
       } else {
-        success = await apiClient.editProject(
+        const success = await apiClient.editProject(
           this.project._id,
           this.name,
           this.description,
           this.features,
           this.highlights,
           this.githubRepo,
-          this.technologies.map(x => x.tag),
-          this.technology ? this.technology.tag : '',
+          this.technologies.map(x => x._id),
+          this.technology ? this.technology._id : '',
           this.status,
           this.pictures.all,
           this.pictures.deleted,
@@ -254,11 +259,11 @@ export default {
           this.score,
           this.color
         );
-      }
-      if(success) {
-        this.$emit('requestClose');
-      } else {
-        console.log('Couldn\'t add / upload...');
+        if(success) {
+          this.$emit('requestClose');
+        } else {
+          console.log('Couldn\'t edit project');
+        }
       }
     },
     cancel() {
@@ -314,14 +319,13 @@ export default {
   created() {
     this.allTechnologies = storage.technologies;
     if(this.project) {
-      this._id = this.project._id;
       this.name = this.project.name;
       this.description = this.project.description;
       this.features = this.project.features;
       this.highlights = this.project.highlights;
       this.githubRepo = this.project.githubRepo;
-      this.technologies = this.project.technologies.map(tag => this.allTechnologies.find(x => x.tag === tag));
-      this.technology = this.allTechnologies.find(x => x.tag === this.project.technologyTag);
+      this.technologies = this.project.technologies.map(_id => this.allTechnologies.find(x => x._id === _id));
+      this.technology = this.allTechnologies.find(x => x._id === this.project.technologyId);
       this.status = this.project.status;
       this.pictures.all = this.project.pictures;
       this.ytVideoId = this.project.ytVideoId;
