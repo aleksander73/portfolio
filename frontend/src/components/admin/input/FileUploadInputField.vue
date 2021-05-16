@@ -4,7 +4,7 @@
       <p v-for="fileName in fileList" :key="fileName" class="file">{{ fileName }}</p>
     </div>
     <div class="control">
-      <label for="files" title="upload files" class="center-xy">
+      <label for="files" :title="'upload file' + (multiple ? 's' : '')" class="center-xy">
         <img src="../../../../assets/icons/upload.svg" class="svg-white">
         <p>Upload</p>
       </label>

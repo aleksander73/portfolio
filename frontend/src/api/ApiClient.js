@@ -34,7 +34,7 @@ class ApiClient {
         }
     }
 
-    async editProject(_id, name, description, features, highlights, githubRepo, technologies, technologyTag, status, allPictures, deletedPictures, uploadedPictures, ytVideoId, score, color) {
+    async editProject(_id, name, description, features, highlights, githubRepo, technologies, technologyId, status, allPictures, deletedPictures, uploadedPictures, ytVideoId, score, color) {
         try {
             const data = new FormData();
             data.append('_id', _id);
@@ -44,7 +44,7 @@ class ApiClient {
             data.append('highlights', JSON.stringify(highlights));
             data.append('githubRepo', githubRepo);
             data.append('technologies', JSON.stringify(technologies));
-            data.append('technologyTag', technologyTag);
+            data.append('technologyId', technologyId);
             data.append('status', status);
             data.append('allPictures', JSON.stringify(allPictures));
             data.append('deletedPictures', JSON.stringify(deletedPictures));
