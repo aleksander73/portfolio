@@ -128,6 +128,27 @@ class ApiClient {
         }
     }
 
+    async editLink(_id, name, url, logo, deletedLogo, uploadedLogo, priority) {
+        try {
+            const data = new FormData();
+            data.append('_id', _id);
+            data.append('name', name);
+            data.append('url', url);
+            data.append('logo', logo);
+            data.append('deletedLogo', deletedLogo);
+            data.append('uploadedLogo', uploadedLogo);
+            data.append('priority', priority);
+            const res = await axios.post('/api/links/edit', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return res.data.success;
+        } catch (error) {
+            return false;
+        }
+    }
+
     async loginUser(username, password) {
         try {
             const { status } = await axios.post('/api/user/login', { username, password });

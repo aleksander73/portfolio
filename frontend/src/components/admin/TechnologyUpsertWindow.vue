@@ -158,10 +158,9 @@ export default {
         if(success) {
           this.$emit('requestClose');
         } else {
-          console.log('Couldn\'t add project');
+          console.log('Couldn\'t edit project');
         }
       }
-      this.$emit('requestClose');
     },
     cancel() {
       this.$emit('requestClose');

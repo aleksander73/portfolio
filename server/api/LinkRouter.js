@@ -20,4 +20,15 @@ router.post('/add', cryptographyService.authorize, upload.single('logo'), async 
     }
 });
 
+router.post('/edit', cryptographyService.authorize, upload.single('uploadedLogo'), async (req, res) => {
+    try {
+        const { _id, name, url, logo, deletedLogo, priority } = req.body;
+        const uploadedLogo = req.file ? req.file.filename : '';
+        const success = await linkService.editLink(_id, name, url, logo, deletedLogo, uploadedLogo, priority);
+        res.status(200).send({ success });
+    } catch(error) {
+        res.status(400).send(error.message);
+    }
+});
+
 module.exports = router;
