@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div class="file-list">
+    <div v-if="showFileList" class="file-list">
       <p v-for="fileName in fileList" :key="fileName" class="file">{{ fileName }}</p>
     </div>
     <div class="control">
       <label for="files" title="upload files" class="center-xy">
         <img src="../../../../assets/icons/upload.svg" class="svg-white">
+        <p>Upload</p>
       </label>
       <input v-if="!multiple" id="files" name="files" type="file" ref="files" :accept="acceptProperty" @input="onFilesChosen()" >
       <input v-else id="files" name="files" type="file" multiple ref="files" :accept="acceptProperty" @input="onFilesChosen()" >
@@ -16,6 +17,7 @@
 <style scoped>
 .file-list {
   border: 1px solid white;
+  margin-bottom: 7px;
   padding: 5px 10px;
   cursor: default;
 }
@@ -26,7 +28,6 @@
 
 .control {
   display: flex;
-  margin-top: 7px;
   justify-content: flex-end;
 }
 
@@ -42,13 +43,16 @@
 .control > label {
   border: 1px solid white;
   cursor: pointer;
-  height: 30px;
-  width: 35px;
+  padding: 6px 10px;
 }
 
 .control > label > img {
   height: 17px;
   width: 17px;
+}
+
+.control > label > p {
+  margin-left: 6px;
 }
 </style>
 
@@ -67,6 +71,10 @@ export default {
     multiple: {
       type: Boolean,
       default: false
+    },
+    showFileList: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {

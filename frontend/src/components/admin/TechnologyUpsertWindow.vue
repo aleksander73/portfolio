@@ -12,7 +12,7 @@
           </div>
           <div class="input-field-container">
             <p>Icon</p>
-            <FileUploadInputField :acceptedExt="['image/*']" @input="onIconChanged" />
+            <SingleImageUploadInputField :initIcon="icon.init" @input="onIconChanged" />
           </div>
         </div>
       </div>
@@ -113,12 +113,12 @@
 <script>
 import {
   TextInputField,
-  FileUploadInputField
+  SingleImageUploadInputField
 } from './input';
 import { apiClient } from '../../api';
 
 export default {
-  name: 'ProjectUpsertWindow',
+  name: 'TechnologyUpsertWindow',
   data() {
     return {
       name: '',
@@ -136,7 +136,7 @@ export default {
   },
   components: {
     TextInputField,
-    FileUploadInputField
+    SingleImageUploadInputField
   },
   methods:  {
     actionButtonClass() {
