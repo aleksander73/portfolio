@@ -220,9 +220,8 @@ export default {
       ].map(x => x.condition() ? x.class : '').join(' ');
     },
     async mainAction() {
-      let success = false;
       if(!this.project) {
-        success = await apiClient.addProject(
+        const project = await apiClient.addProject(
           this.name,
           this.description,
           this.features,
@@ -236,8 +235,14 @@ export default {
           this.score,
           this.color
         );
+        if(project) {
+          console.log(project);
+          this.$emit('requestClose');
+        } else {
+          console.log('Couldn\'t add project');
+        }
       } else {
-        success = await apiClient.editProject(
+        const success = await apiClient.editProject(
           this.project._id,
           this.name,
           this.description,
@@ -254,11 +259,11 @@ export default {
           this.score,
           this.color
         );
-      }
-      if(success) {
-        this.$emit('requestClose');
-      } else {
-        console.log('Couldn\'t add / upload...');
+        if(success) {
+          this.$emit('requestClose');
+        } else {
+          console.log('Couldn\'t edit project');
+        }
       }
     },
     cancel() {

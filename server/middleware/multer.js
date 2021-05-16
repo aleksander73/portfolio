@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
         } else if(req.originalUrl.includes('projects')) {
             prefix = 'project.' + req.body.githubRepo + '.';
         } else if(req.originalUrl.includes('technologies')) {
-            prefix = 'technology.' + req.body.tag.toLowerCase() + '.';
+            prefix = 'technology.' + req.body.name.toLowerCase().replace(/ /g,"-") + '.';
         }
         const id = intFormat(flakeId.next(), 'hex', { prefix: '0x' });
         const i = file.originalname.lastIndexOf('.');

@@ -122,7 +122,11 @@ export default {
   data() {
     return {
       name: '',
-      icon: null
+      icon: {
+        init: '',
+        deleted: '',
+        uploaded: ''
+      }
     }
   },
   props: {
@@ -143,12 +147,19 @@ export default {
     },
     async mainAction() {
       if(!this.technology) {
-        await apiClient.addTechnology(
-          this.name,
-          this.icon
-        );
+        const technology = await apiClient.addTechnology(this.name, this.icon.uploaded);
+        if(technology) {
+          this.$emit('requestClose');
+        } else {
+          console.log('Couldn\'t add project');
+        }
       } else {
-        console.log('Updating', this.technology.name);
+        const success = await apiClient.editTechnology(this.technology._id, this.name, this.icon.init, this.icon.deleted, this.icon.uploaded);
+        if(success) {
+          this.$emit('requestClose');
+        } else {
+          console.log('Couldn\'t add project');
+        }
       }
       this.$emit('requestClose');
     },
@@ -159,7 +170,9 @@ export default {
       this.name = value;
     },
     onIconChanged(value) {
-      this.icon = value;
+      const { deleted, uploaded } = value;
+      this.icon.deleted = deleted;
+      this.icon.uploaded = uploaded;
     }
   },
   computed: {
@@ -173,6 +186,7 @@ export default {
   created() {
     if(this.technology) {
       this.name = this.technology.name;
+      this.icon.init = this.technology.icon;
     }
   }
 }

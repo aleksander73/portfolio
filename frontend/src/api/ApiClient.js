@@ -28,9 +28,9 @@ class ApiClient {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            return res.status === 200;
+            return res.data;
         } catch (error) {
-            return false;
+            return null;
         }
     }
 
@@ -59,7 +59,7 @@ class ApiClient {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            return res.status === 200;
+            return res.data.success
         } catch (error) {
             return false;
         }
@@ -75,12 +75,31 @@ class ApiClient {
             const data = new FormData();
             data.append('name', name);
             data.append('icon', icon);
-            const { status } = await axios.post('/api/technologies/add', data, {
+            const res = await axios.post('/api/technologies/add', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            return status === 200;
+            return res.data;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    async editTechnology(_id, name, icon, deletedIcon, uploadedIcon) {
+        try {
+            const data = new FormData();
+            data.append('_id', _id);
+            data.append('name', name);
+            data.append('icon', icon);
+            data.append('deletedIcon', deletedIcon);
+            data.append('uploadedIcon', uploadedIcon);
+            const res = await axios.post('/api/technologies/edit', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return res.data.success;
         } catch (error) {
             return false;
         }
