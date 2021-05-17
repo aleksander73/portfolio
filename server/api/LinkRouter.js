@@ -13,8 +13,8 @@ router.post('/add', cryptographyService.authorize, upload.single('logo'), async 
     try {
         const { name, url, priority } = req.body;
         const logo = req.file.filename;
-        await linkService.addLink(name, url, logo, priority);
-        res.sendStatus(200);
+        const link = await linkService.addLink(name, url, logo, priority);
+        res.sendStatus(200).send(link);
     } catch(error) {
         res.status(400).send(error.message);
     }
