@@ -35,8 +35,8 @@
 }
 
 .top > img {
-    width: 35vh;
-    height: 35vh;
+    width: 30vh;
+    height: 30vh;
     border-radius: 50%;
     margin-right: 10vh;
 }
