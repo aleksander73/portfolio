@@ -5,7 +5,7 @@
       <Index :projects="projects"/>
       <div id="projects">
         <div v-for="(project, index) in projects" :key=index>
-          <Project :name="project.name" :description="project.description" :features="project.features" :githubRepo="project.githubRepo" :technologyIds="project.technologies" :technologyId="project.technologyId" :pictures="project.pictures" :ytVideoId="project.ytVideoId" />
+          <Project :project="project" />
           <div v-if="index < projects.length - 1" class="horizontal-line"></div>
         </div>
       </div>
@@ -31,13 +31,14 @@
 </style>
 
 <script>
-import { storage} from '../storage'
+import { dataAssembler } from '../assembler';
 import {
   Intro,
   Index,
   Project,
   Footer
 } from '../components'
+import { apiClient } from '../api';
 
 export default {
   name: 'Home',
@@ -48,9 +49,9 @@ export default {
     };
   },
   async created() {
-    await storage.initialize();
-    this.projects = [...storage.projects].sort((p1, p2) => p2.score - p1.score);
-    this.links = [...storage.links].sort((l1, l2) => l1.priority - l2.priority);
+    this.links = (await apiClient.getLinks()).sort((x, y) => x.priority - y.priority);
+    const technologies = await apiClient.getTechnologies();
+    this.projects = (await apiClient.getProjects()).map(project => dataAssembler.assebleProject(project, technologies)).sort((x, y) => -(x.score - y.score));
   },
   components: {
     Intro,
