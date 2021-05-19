@@ -51,7 +51,7 @@ export default {
     },
     methods: {
         onIndexItemClick(project) {
-            const projectElement = document.getElementById(project.githubRepo);
+            const projectElement = document.getElementById('project-' + project._id);
             projectElement.scrollIntoView();
         }
     }
