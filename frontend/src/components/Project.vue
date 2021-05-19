@@ -1,28 +1,28 @@
 <template>
-    <div :id="githubRepo" class="project-container">
+    <div :id="project.githubRepo" class="project-container">
         <div class="project-header">
             <div class="title-container">
                 <div class="center-x">
-                    <h1 class="title">{{name}}</h1>
-                    <img v-if="technology" class="logo" :src=logoSrc :title="technology.name + ' logo'">
+                    <h1 class="title">{{ project.name }}</h1>
+                    <img v-if="project.technology" class="logo" :src=logoSrc :title="project.technology.name + ' logo'">
                 </div>
                 <div class="center-y">
-                    <a :href=githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img :src="githubIcon"></a>
+                    <a :href=project.githubUrl target="_blank" class="github-repo-link" :title=githubUrlTitle><img :src="githubIcon"></a>
                     <img class="github-version" :src=versionUrl>
                 </div>
             </div>
             <div class="tech-stack">
-                <div v-for="(technology, index) in technologies" :key=index>
+                <div v-for="(technology, index) in project.technologies" :key=index>
                     <Technology :name=technology.name :icon=technology.icon />
                 </div>
             </div>
         </div>
         <div class="description">
-            <p>{{description}}</p>
+            <p>{{ project.description }}</p>
         </div>
-        <p v-for="feature in features" :key="feature">{{ feature }}</p>
-        <Gallery :images="pictures" />
-        <div v-if="ytVideoId" class="center-x">
+        <p v-for="feature in project.features" :key="feature">{{ feature }}</p>
+        <Gallery :images="project.pictures" />
+        <div v-if="project.ytVideoId" class="center-x">
             <iframe class="yt-video-item" width='70%' :height="888 / 1.77" :src=ytVideoSrc frameborder='0' allowfullscreen />
         </div>
     </div>
@@ -93,9 +93,9 @@
 </style>
 
 <script>
-import { storage } from '../storage';
 import Technology from './Technology.vue';
 import Gallery from './Gallery.vue';
+import { apiClient } from '../api';
 
 export default {
     name: 'Project',
@@ -103,49 +103,37 @@ export default {
         Technology,
         Gallery
     },
-    data() {
-        return {
-            technology: undefined,
-            technologies: []
+    props: {
+        project: {
+            type: Object,
+            required: true
         }
     },
-    props: {
-        name: String,
-        description: String,
-        features: Array,
-        githubRepo: String,
-        technologyIds: Array,
-        technologyId: String,
-        pictures: Array,
-        ytVideoId: String
+    methods: {
+        async githubIcon() {
+            const link = (await apiClient.getLinks()).find(link => link.name === 'GitHub');
+            return require(`../../../server/uploads/${link.logo}`);
+        },
     },
     computed: {
         logoSrc() {
-            return require(`../../../server/uploads/${this.technology.icon}`);
-        },
-        githubIcon() {
-            const link = storage.links.find(link => link.name === 'GitHub');
-            return require(`../../../server/uploads/${link.logo}`);
+            return require(`../../../server/uploads/${this.project.technology.icon}`);
         },
         githubUrl() {
-            return `https://github.com/aleksander73/${this.githubRepo}`;
+            return `https://github.com/aleksander73/${this.project.githubRepo}`;
         },
         githubUrlTitle() {
-            return `Visit ${this.name} repository on GitHub`;
+            return `Visit ${this.project.name} repository on GitHub`;
         },
         versionUrl() {
-            return `https://img.shields.io/github/tag/aleksander73/${this.githubRepo}.svg?label=version&style=for-the-badge`;
+            return `https://img.shields.io/github/tag/aleksander73/${this.project.githubRepo}.svg?label=version&style=for-the-badge`;
         },
         ytVideoSrc() {
-            return 'https://www.youtube.com/embed/' + this.ytVideoId;
+            return 'https://www.youtube.com/embed/' + this.project.ytVideoId;
         }
     },
     created() {
-        if(this.technologyId) {
-            this.technology = storage.technologies.find(technology => technology._id === this.technologyId);
-        }
-        this.technologies = this.technologyIds.map(_id => storage.technologies.find(technology => technology._id === _id));
-        this.technologies.sort((x, y) => x.name.localeCompare(y.name));
+        this.project.technologies.sort((x, y) => x.name.localeCompare(y.name));
     }
 }
 </script>
