@@ -4,7 +4,8 @@ Portfolio single page application
 ## Setting up the environment
 * Create `.env` file in the project `root` and provide your `development MongoDB database` credentials. You should use the following file structure
 ```
-DB_CLUSTER = ?
+DB_CLUSTER_NAME = ?
+DB_CLUSTER_ID = ?
 DB_NAME = ?
 DB_USER = ?
 DB_PASSWORD = ?
