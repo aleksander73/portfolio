@@ -4,4 +4,4 @@ const cache = new NodeCache({
     useClones: false
 });
 
-module.exports = Object.freeze(cache);
+module.exports = cache;
