@@ -5,7 +5,7 @@
       <Index :projects="projects"/>
       <div id="projects">
         <div v-for="(project, index) in projects" :key=index>
-          <Project :project="project" />
+          <ProjectTile :project="project" />
           <div v-if="index < projects.length - 1" class="horizontal-line"></div>
         </div>
       </div>
@@ -21,12 +21,12 @@
 }
 
 #projects {
-  width: 70%;
+  width: 60%;
   margin: 0 auto;
 }
 
 .horizontal-line {
-  border-bottom: 15px solid #00000000;
+  border-bottom: 10px solid #00000000;
 }
 </style>
 
@@ -35,7 +35,7 @@ import { dataAssembler } from '../assembler';
 import {
   Intro,
   Index,
-  Project,
+  ProjectTile,
   Footer
 } from '../components'
 import { apiClient } from '../api';
@@ -56,7 +56,7 @@ export default {
   components: {
     Intro,
     Index,
-    Project,
+    ProjectTile,
     Footer
   }
 }
