@@ -96,9 +96,6 @@ export default {
   computed: {
     logoSrc() {
       return require(`../../../server/uploads/${this.project.technology.icon}`);
-    },
-    versionUrl() {
-      return `https://img.shields.io/github/tag/aleksander73/${this.project.githubRepo}.svg?label=version&style=for-the-badge`;
     }
   },
   created() {
