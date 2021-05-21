@@ -88,7 +88,9 @@
 .image {
     height: 100%;
     width: 100%;
-    background-repeat: round;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
     transition: background-image 0.25s linear
 }
 
