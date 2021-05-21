@@ -9,6 +9,7 @@ DB_CLUSTER_ID = ?
 DB_NAME = ?
 DB_USER = ?
 DB_PASSWORD = ?
+JWT_SECRET = ?
 ```
 * Since I have a lot of references to `frontend/assets` folder, you will have to find them and resolve the missing assets problems
 
