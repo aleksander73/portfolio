@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="image-container">
-                <img class="image" :src="src(index)" alt="image">
+                <div class="image" :style="imageStyle()" alt="image"></div>
             </div>
             <div :class="navigationClass">
                 <div class="arrow-container">
@@ -81,12 +81,15 @@
 
 .image-container {
     background-color: #0f0f0f;
+    height: 100%;
+    width: 100%;
 }
 
 .image {
-    width: 100%;
     height: 100%;
-    object-fit: contain;
+    width: 100%;
+    background-repeat: round;
+    transition: background-image 0.25s linear
 }
 
 .dots-container {
@@ -100,12 +103,12 @@
 .dot {
     width: 17px;
     height: 17px;
-    border: 1px solid black;
+    border-width: 1px;
+    border-style: solid;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.75);
     margin: 0 0.3em;
     opacity: 0;
-    transition: background-color 0.25s ease, opacity 0.25s ease;
+    transition: background-color 0.25s linear, opacity 0.25s linear;
 }
 
 .dot:hover {
@@ -122,12 +125,13 @@ export default {
     name: 'Gallery',
     data() {
         return {
+            images: [],
             index: 0,
             galleryAwake: false
         };
     },
     props: {
-        images: {
+        imagePaths: {
             type: Array,
             required: true
         },
@@ -137,14 +141,11 @@ export default {
     },
     methods: {
         move(dir) {
-            let n = this.images.length;
+            const n = this.images.length;
             this.index += dir;
             if(this.index < 0 || this.index > n - 1) {
                 this.index += -dir * n;
             }
-        },
-        src(i) {
-            return require(`../../../server/uploads/${this.images[i]}`);
         },
         onMouseEnterGallery() {
             this.galleryAwake = true;
@@ -155,12 +156,16 @@ export default {
         toogleArrow(event) {
             event.target.classList.toggle('arrow-active');
         },
-        dotStyle(index) {
-            const bgColor = index === this.index ? this.color : 'white';
-            const borderColor = index === this.index ? this.color : 'black';
+        imageStyle() {
+            const src = this.images[this.index];
             return {
-                'background-color': bgColor,
-                'border-color': borderColor
+                'background-image': `url(${src})`
+            };
+        },
+        dotStyle(index) {
+            return {
+                'background-color': index === this.index ? this.color : 'rgba(255, 255, 255, 0.75)',
+                'border-color': index === this.index ? this.color : 'black'
             };
         },
         select(index) {
@@ -184,6 +189,9 @@ export default {
                 { class: 'dot-awake', condition: () => this.galleryAwake },
             ].map(x => x.condition() ? x.class : '').join(' ');
         }
+    },
+    created() {
+        this.images = this.imagePaths.map(x => require(`../../../server/uploads/${x}`));
     }
 }
 </script>

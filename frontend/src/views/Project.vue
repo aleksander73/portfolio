@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div v-if="project.pictures.length > 0" class="gallery-container">
-				<Gallery :images="project.pictures" :color="project.color" />
+				<Gallery :imagePaths="project.pictures" :color="project.color" />
 			</div>
             <div v-if="project.ytVideoId" class="center-x">
                 <iframe class="yt-video-item" width="950px" height="536px" :src=ytVideoSrc frameborder='0' allowfullscreen />
