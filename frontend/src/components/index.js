@@ -5,7 +5,6 @@ import InputField from './InputField';
 import Intro from './Intro';
 import List from './admin/List';
 import Navigation from './admin/Navigation'
-import Project from './Project';
 import ProjectTile from './ProjectTile';
 import ProjectUpsertWindow from './admin/ProjectUpsertWindow';
 import ProjectSection from './admin/ProjectSection';
@@ -23,7 +22,6 @@ export {
     Intro,
     List,
     Navigation,
-    Project,
     ProjectTile,
     ProjectUpsertWindow,
     ProjectSection,
