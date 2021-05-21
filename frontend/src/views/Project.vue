@@ -21,7 +21,7 @@
             <div class="description">
                 <p>{{ project.description }}</p>
             </div>
-            <div v-if="project.features || project.highlights" class="description-extended">
+            <div v-if="project.features.length > 0 || project.highlights.length > 0" class="description-extended">
                 <div v-if="project.features.length > 0" class="fh-container">
                     <div class="hf-title center-xy">
 						<img src="../../assets/icons/leaf.svg" class="svg-green">
@@ -41,9 +41,11 @@
                     </ul>
                 </div>
             </div>
-            <Gallery :images="project.pictures" />
+            <div v-if="project.pictures.length > 0" class="gallery-container">
+				<Gallery :images="project.pictures" :color="project.color" />
+			</div>
             <div v-if="project.ytVideoId" class="center-x">
-                <iframe class="yt-video-item" width='70%' :height="888 / 1.77" :src=ytVideoSrc frameborder='0' allowfullscreen />
+                <iframe class="yt-video-item" width="950px" height="536px" :src=ytVideoSrc frameborder='0' allowfullscreen />
             </div>
         </div>
     </div>
@@ -128,7 +130,6 @@
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 5px;
     padding: 25px 50px 12px 50px;
-    margin: 0 auto;
     width: 35%;
 	position: relative;
 }
@@ -138,7 +139,7 @@
 	top: -18px;
 	left: 25px;
 	background-color: #0f0f0f;
-	padding: 5px 10px;
+	padding: 5px 15px;
 	border: 1px solid rgba(255, 255, 255, 0.5);
 	border-radius: 18px;
 }
@@ -155,6 +156,10 @@
 
 .description-extended li {
     font-size: 1.1em;
+}
+
+.project-container > .gallery-container {
+	margin-top: 50px;
 }
 
 .yt-video-item {
