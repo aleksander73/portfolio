@@ -7,9 +7,10 @@
                         <h1 class="title">{{ project.name }}</h1>
                         <img v-if="project.technology" class="logo" :src=logoSrc :title="project.technology.name + ' logo'">
                     </div>
-                    <div class="center-y">
+                    <div class="title-container-row2 center-y">
+                        <img class="project-status" :src=statusUrl>
                         <img class="github-version" :src=versionUrl>
-						<a v-if="project.githubRepo" :href="githubUrl" target="_blank" class="github-link">Visit on GitHub</a>
+						<a v-if="project.githubRepo" :href="githubUrl" target="_blank" class="github-link">GitHub repository</a>
                     </div>
                 </div>
                 <div class="tech-stack">
@@ -87,8 +88,8 @@
     margin-top: 10px;
 }
 
-.github-version {
-    height: min-content;
+.title-container-row2 > * {
+    margin-right: 15px;
 }
 
 .github-link{
@@ -98,7 +99,6 @@
 	background-color: rgb(13, 17, 23);
 	padding: 3px 10px 0 10px;
 	height: 24px;
-	margin-left: 10px;
 	text-decoration: none;
 	color: inherit;
 }
@@ -113,11 +113,11 @@
 .description {
     margin: 30px auto 0px auto;
     padding: 2em 15%;
-    font-size: 1.5em;
+    font-size: 1.25em;
     text-align: center;
     line-height: 1.5em;
-    border-top: 1px solid #e2e2e2;
-    border-bottom: 1px solid #e2e2e2;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
 }
 
 .description-extended {
@@ -128,7 +128,6 @@
 
 .fh-container {
     border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 5px;
     padding: 25px 50px 12px 50px;
     width: 35%;
 	position: relative;
@@ -199,7 +198,12 @@ export default {
             const github = this.project.githubRepo;
             const color = this.project.color.substring(1);
             return `https://img.shields.io/github/tag/aleksander73/${github}.svg?label=version&style=for-the-badge&color=${color}`;
-		},
+        },
+        statusUrl() {
+            const status = this.project.status;
+            const color = this.project.color.substring(1);
+            return `https://img.shields.io/static/v1?label=status&message=${status}&style=for-the-badge&color=${color}`;
+        },
 		githubUrl() {
             return `https://github.com/aleksander73/${this.project.githubRepo}`;
         },

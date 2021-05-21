@@ -91,7 +91,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    transition: background-image 0.25s linear
+    transition: background 0.2s linear
 }
 
 .dots-container {
@@ -110,7 +110,7 @@
     border-radius: 50%;
     margin: 0 0.3em;
     opacity: 0;
-    transition: background-color 0.25s linear, opacity 0.25s linear;
+    transition: background-color 0.25s linear, opacity 0.2s linear;
 }
 
 .dot:hover {

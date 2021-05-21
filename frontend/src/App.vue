@@ -18,7 +18,7 @@ html {
 
 body {
   font-family: 'Open Sans', sans-serif;
-  color: #e2e2e2;
+  color: white;
 }
 
 #app {
