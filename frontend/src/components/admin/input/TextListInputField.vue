@@ -93,7 +93,7 @@ p {
   height: 20px;
   width: 20px;
   padding: 0;
-  margin: 0 5px;
+  margin: 0 3px;
 }
 
 .control-buttons > button > img {
@@ -212,7 +212,7 @@ export default {
     },
     controlButtonClass(i) {
       return [
-        { class: 'control-buttons center-x', condition: () => true },
+        { class: 'control-buttons center-xy', condition: () => true },
         { class: 'show-controls', condition: () => this.active[i] && this.mode == this.modes.ADDITION }
       ].map(x => x.condition() ? x.class : '').join(' ');
     },
