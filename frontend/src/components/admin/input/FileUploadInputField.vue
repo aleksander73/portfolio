@@ -47,8 +47,8 @@
 }
 
 .control > label > img {
-  height: 17px;
-  width: 17px;
+  height: 20px;
+  width: 20px;
 }
 
 .control > label > p {

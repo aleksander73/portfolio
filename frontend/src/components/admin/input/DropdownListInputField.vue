@@ -3,7 +3,7 @@
     <div :class="mainRowClass()" @click="toggleList()">
       <input type="text" v-model.trim="inputLabel" disabled />
       <div :class="dropDownButtonClass()">
-        <img src="../../../../assets/other/arrow-down.png">
+        <img src="../../../../assets/icons/arrow-down.svg" class="svg-white">
       </div>
     </div>
     <div v-if="expanded" class="dropdown">

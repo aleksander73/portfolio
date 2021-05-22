@@ -27,7 +27,7 @@
             <div v-if="project.features.length > 0 || project.highlights.length > 0" class="description-extended">
                 <div v-if="project.features.length > 0" class="fh-container">
                     <div class="hf-title center-xy">
-						<img src="../../assets/icons/leaf.svg" class="svg-green">
+						<img src="../../assets/icons/leaf.svg">
 						<h3>Features</h3>
 					</div>
                     <ul>

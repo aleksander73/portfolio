@@ -22,7 +22,7 @@ body {
 }
 
 #app {
-  background: url('../assets/other/code.jpeg');
+  background: url('../assets/code.jpeg');
   background-repeat: repeat;
   background-attachment: fixed;
   min-height: 100vh;

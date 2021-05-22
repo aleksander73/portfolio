@@ -3,7 +3,7 @@
         <div class="gallery center-xy" v-if="images.length > 0" @mouseenter="onMouseEnterGallery" @mouseleave="onMouseLeaveGallery">
             <div :class="navigationClass">
                 <div class="arrow-container">
-                    <img :src="arrowImage" @mouseenter="toogleArrow" @mouseleave="toogleArrow" @click="move(-1)">
+                    <img :src="arrowImage" class="svg-white" @mouseenter="toogleArrow" @mouseleave="toogleArrow" @click="move(-1)">
                 </div>
             </div>
             <div class="image-container">
@@ -11,7 +11,7 @@
             </div>
             <div :class="navigationClass">
                 <div class="arrow-container">
-                    <img :src="arrowImage" @mouseenter="toogleArrow" @mouseleave="toogleArrow" @click="move(1)">
+                    <img :src="arrowImage" class="svg-white" @mouseenter="toogleArrow" @mouseleave="toogleArrow" @click="move(1)">
                 </div>
             </div>
             <div class="dots-container center-xy" v-if="images.length > 1">
@@ -176,7 +176,7 @@ export default {
     },
     computed: {
         arrowImage() {
-            return require('../../assets/other/arrow-left.png');
+            return require('../../assets/icons/arrow-left.svg');
         },
         navigationClass() {
             return [

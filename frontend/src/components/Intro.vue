@@ -1,13 +1,13 @@
 <template>
     <div id="intro" class="center-xy">
         <div class="top center-xy">
-            <img src="../../assets/external/profile.png">
+            <img src="../../assets/profile.png">
             <p>{{ $t('intro') }}</p>
         </div>
         <div class="scroll-arrow-container center-y" @click=onScrollArrowClick()>
             <span class="scroll-label">{{ $t('see-projects-label') }}</span>
             <div class="scroll-arrow">
-                <img src="../../assets/other/arrow-down.png" >
+                <img src="../../assets/icons/scroll-down.svg" class="svg-white">
             </div>
         </div>
         <div class="external-links">
@@ -76,7 +76,7 @@
 }
 
 .scroll-arrow img {
-    height: 6vh;
+    height: 7vh;
 }
 
 .external-links {
