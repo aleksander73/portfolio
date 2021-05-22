@@ -1,2 +1,2 @@
-cd client
+cd frontend
 npm run build
