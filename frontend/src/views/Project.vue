@@ -10,7 +10,9 @@
                     <div class="title-container-row2 center-y">
                         <img class="project-status" :src=statusUrl>
                         <img class="github-version" :src=versionUrl>
-						<a v-if="project.githubRepo" :href="githubUrl" target="_blank" class="github-link">GitHub repository</a>
+                    </div>
+                    <div class="title-container-row3 center-y">
+						<a v-if="project.githubRepo" :href="githubUrl" target="_blank"><button :style="githubButtonStyle">Visit on GitHub</button></a>
                     </div>
                 </div>
                 <div class="tech-stack">
@@ -85,22 +87,26 @@
 }
 
 .title-container > div:nth-child(2) {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
-.title-container-row2 > * {
+.title-container > div:nth-child(2) > * {
     margin-right: 15px;
 }
 
-.github-link{
+.title-container > div:nth-child(3) {
+    margin: 20px 0 0 0;
+}
+
+.title-container > div:nth-child(3) > a > button {
 	border-width: 1px;
 	border-style: solid;
 	border-color: white;
 	background-color: rgb(13, 17, 23);
-	padding: 3px 10px 0 10px;
-	height: 24px;
-	text-decoration: none;
-	color: inherit;
+}
+
+.title-container > div:nth-child(3) > a > button:hover {
+	background-color: rgb(21, 28, 37);
 }
 
 .tech-stack {
@@ -111,7 +117,7 @@
 }
 
 .description {
-    margin: 30px auto 0px auto;
+    margin-top: 20px;
     padding: 2em 15%;
     font-size: 1.25em;
     text-align: center;
@@ -128,7 +134,7 @@
 
 .fh-container {
     border: 1px solid rgba(255, 255, 255, 0.5);
-    padding: 25px 50px 12px 50px;
+    padding: 25px 50px;
     width: 35%;
 	position: relative;
 }
@@ -207,8 +213,10 @@ export default {
 		githubUrl() {
             return `https://github.com/aleksander73/${this.project.githubRepo}`;
         },
-        githubUrlTitle() {
-            return `Visit ${this.project.name} repository on GitHub`;
+        githubButtonStyle() {
+            return {
+                'border-color': this.project.color
+            };
         },
         ytVideoSrc() {
             return `https://www.youtube.com/embed/${this.project.ytVideoId}`;
