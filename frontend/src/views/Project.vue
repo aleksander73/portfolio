@@ -179,6 +179,9 @@ import { dataAssembler } from '../assembler';
 
 export default {
     name: 'Project',
+    title() {
+        return this.project.name;
+    },
     components: {
         Technology,
         Gallery

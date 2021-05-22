@@ -32,6 +32,7 @@ import { storage } from '../storage';
 
 export default {
   name: 'ControlPanel',
+  title: 'Control panel',
   data() {
     return {
       sectionId: 'home'

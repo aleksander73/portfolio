@@ -71,6 +71,7 @@ import { InputField } from './utility';
 import apiClient from '../api/ApiClient';
 
 export default {
+  title: 'Login',
   data() {
     return {
       loginInputFields: [
