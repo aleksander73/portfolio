@@ -6,6 +6,14 @@
           <p>{{ item }}</p>
         </div>
         <div :class="controlButtonClass(i)">
+          <div class="button-stack">
+            <button class="edit-button center-xy" @click="moveUp(item, i)">
+              <img src="../../../../assets/icons/arrow-up.svg" class="svg-white">
+            </button>
+            <button class="edit-button center-xy" @click="moveDown(item, i)">
+              <img src="../../../../assets/icons/arrow-down.svg" class="svg-white">
+            </button>
+          </div>
           <button class="edit-button center-xy" @click="editItem(item, i)">
             <img src="../../../../assets/icons/edit.svg" class="svg-blue">
           </button>
@@ -87,7 +95,7 @@ p {
   z-index: 0;
 }
 
-.control-buttons > button {
+.control-buttons button {
   background-color: inherit;
   min-width: 0;
   height: 20px;
@@ -96,7 +104,15 @@ p {
   margin: 0 3px;
 }
 
-.control-buttons > button > img {
+.control-buttons .button-stack button {
+  height: 10px;
+}
+
+.control-buttons .button-stack button:nth-child(2) {
+  margin-top: 3px;
+}
+
+.control-buttons button > img {
   height: 90%;
 }
 
@@ -173,6 +189,24 @@ export default {
       }
       this.buffer = '';
       this.$emit('input', this.items);
+    },
+    moveUp(item, index) {
+      if(index > 0) {
+        let temp = this.items[index];
+        this.items[index] = this.items[index - 1];
+        this.items[index - 1] = temp;
+        this.items = [...this.items];
+        this.$emit('input', this.items);
+      }
+    },
+    moveDown(item, index) {
+      if(index < this.items.length - 1) {
+        let temp = this.items[index];
+        this.items[index] = this.items[index + 1];
+        this.items[index + 1] = temp;
+        this.items = [...this.items];
+        this.$emit('input', this.items);
+      }
     },
     editItem(item, index) {
       this.mode = this.modes.EDITION;
