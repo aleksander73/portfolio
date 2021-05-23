@@ -1,14 +1,31 @@
 <template>
   <div class="technology-section-container">
-    <h1>{{ 'Technologies'.toUpperCase() }}</h1>
-    <List :data="technologies" :getKey="x => x._id" :getName="x => x.name" :sortFunc="(x, y) => x.name.localeCompare(y.name)" @itemClicked="openUpsertWindow" />
+    <div class="title-container">
+      <h1>{{ 'Technologies'.toUpperCase() }}</h1>
+      <img src="../../../assets/icons/technology.svg" class="svg-white">
+    </div>
+    <div class="list">
+      <List :data="technologies" :getKey="x => x._id" :getName="x => x.name" :sortFunc="(x, y) => x.name.localeCompare(y.name)" @itemClicked="openUpsertWindow" />
+    </div>
     <TechnologyUpsertWindow v-if="showUpsertWindow" :technology="technology" @requestClose="closeUpsertWindow" />
   </div>
 </template>
 
 <style scoped>
-h1 {
-  margin-bottom: 40px;
+.title-container {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+}
+
+.title-container > img {
+  height: 40px;
+  margin-left: 20px;
+}
+
+.list {
+  margin-top: 50px;
 }
 </style>
 

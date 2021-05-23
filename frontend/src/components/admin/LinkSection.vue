@@ -1,14 +1,31 @@
 <template>
   <div class="link-section-container">
-    <h1>{{ 'Links'.toUpperCase() }}</h1>
-    <List :data="links" :getKey="x => x._id" :getName="x => x.name" :sortFunc="(x, y) => x.name.localeCompare(y.name)" @itemClicked="openUpsertWindow" />
+    <div class="title-container">
+      <h1>{{ 'Links'.toUpperCase() }}</h1>
+      <img src="../../../assets/icons/link.svg" class="svg-white">
+    </div>
+    <div class="list">
+      <List :data="links" :getKey="x => x._id" :getName="x => x.name" :sortFunc="(x, y) => x.name.localeCompare(y.name)" @itemClicked="openUpsertWindow" />
+    </div>
     <LinkUpsertWindow v-if="showUpsertWindow" :link="link" @requestClose="closeUpsertWindow" />
   </div>
 </template>
 
 <style scoped>
-h1 {
-  margin-bottom: 40px;
+.title-container {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+}
+
+.title-container > img {
+  height: 40px;
+  margin-left: 20px;
+}
+
+.list {
+  margin-top: 50px;
 }
 </style>
 
