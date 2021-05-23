@@ -4,6 +4,7 @@ import Index from './Index';
 import InputField from './InputField';
 import Intro from './Intro';
 import List from './admin/List';
+import LoadingButton from './admin/LoadingButton';
 import Navigation from './admin/Navigation'
 import ProjectTile from './ProjectTile';
 import ProjectUpsertWindow from './admin/ProjectUpsertWindow';
@@ -21,6 +22,7 @@ export {
     InputField,
     Intro,
     List,
+    LoadingButton,
     Navigation,
     ProjectTile,
     ProjectUpsertWindow,

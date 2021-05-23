@@ -28,7 +28,7 @@
         <div class="divide"></div>
         <div class="button-panel">
           <button class="btn-cancel" @click="cancel()">Cancel</button>
-          <button :class="actionButtonClass()" @click="mainAction()">{{ buttonLabel }}</button> 
+          <LoadingButton :class="actionButtonClass()" :label="buttonLabel" :action="() => mainAction()" @completed="onMainActionCompleted" />
         </div>
       </div>
     </div>
@@ -123,6 +123,7 @@ import {
   TextInputField,
   SingleImageUploadInputField
 } from './input';
+import LoadingButton from './LoadingButton';
 import { apiClient } from '../../api';
 
 export default {
@@ -146,7 +147,8 @@ export default {
   },
   components: {
     TextInputField,
-    SingleImageUploadInputField
+    SingleImageUploadInputField,
+    LoadingButton
   },
   methods:  {
     actionButtonClass() {
@@ -158,18 +160,17 @@ export default {
     async mainAction() {
       if(!this.link) {
         const link =  await apiClient.addLink(this.name, this.url, this.logo.uploaded, this.priority);
-        if(link) {
-          this.$emit('requestClose');
-        } else {
-          console.log('Couldn\'t add link');
-        }
+        return link;
       } else {
         const success = await apiClient.editLink(this.link._id, this.name, this.url, this.logo.init, this.logo.deleted, this.logo.uploaded, this.priority);
-        if(success) {
-          this.$emit('requestClose');
-        } else {
-          console.log('Couldn\'t edit link');
-        }
+        return success;
+      }
+    },
+    onMainActionCompleted(result) {
+      if(result) {
+        this.$emit('requestClose');
+      } else {
+        console.log('Couldn\'t complete the action');
       }
     },
     cancel() {
