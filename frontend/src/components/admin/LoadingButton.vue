@@ -8,10 +8,10 @@
 <style scoped>
 button > img {
     height: 60%;
-    animation: load 1s linear infinite;
+    animation: loading 2s linear infinite;
 }
 
-@keyframes load {
+@keyframes loading {
     0% {
         transform: rotate(0deg);
     }

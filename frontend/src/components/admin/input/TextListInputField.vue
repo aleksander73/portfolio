@@ -7,10 +7,10 @@
         </div>
         <div :class="controlButtonClass(i)">
           <div class="button-stack">
-            <button class="edit-button center-xy" @click="moveUp(item, i)">
+            <button v-if="i > 0" class="edit-button center-xy" @click="moveUp(item, i)">
               <img src="../../../../assets/icons/arrow-up.svg" class="svg-white">
             </button>
-            <button class="edit-button center-xy" @click="moveDown(item, i)">
+            <button v-if="i < items.length - 1" class="edit-button center-xy" @click="moveDown(item, i)">
               <img src="../../../../assets/icons/arrow-down.svg" class="svg-white">
             </button>
           </div>
