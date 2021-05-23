@@ -6,7 +6,7 @@
         <div :class="controlButtonClass(i)">
           <button class="delete-button center-xy" @click="deleteImage(image, i)">
             <img v-if="!isDeleted(i)" src="../../../../assets/icons/delete.svg" class="svg-red">
-            <img v-else src="../../../../assets/icons/back.svg" class="svg-white">
+            <img v-else src="../../../../assets/icons/revert.svg" class="svg-white">
           </button>
         </div>
       </div>

@@ -51,6 +51,9 @@
                 <iframe class="yt-video-item" width="950px" height="536px" :src=ytVideoSrc frameborder='0' allowfullscreen />
             </div>
         </div>
+        <div class="navigation" @click="$router.go(-1)">
+            <img src="../../assets/icons/back.svg" class="svg-white">
+        </div>
     </div>
 </template>
 
@@ -169,6 +172,21 @@
 
 .yt-video-item {
     margin: 3em 0;
+}
+
+.navigation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 50px;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.navigation > img {
+    height: 100%;
+    width: 100%;
 }
 </style>
 
