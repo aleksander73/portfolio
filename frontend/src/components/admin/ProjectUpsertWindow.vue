@@ -74,7 +74,7 @@
         <div class="divide"></div>
         <div class="button-panel">
           <button class="btn-cancel" @click="cancel()">Cancel</button>
-          <button :class="actionButtonClass()" @click="mainAction()">{{ buttonLabel }}</button> 
+          <LoadingButton :class="actionButtonClass()" :label="buttonLabel" :action="() => mainAction()" @completed="onMainActionCompleted" />
         </div>
       </div>
     </div>
@@ -159,7 +159,7 @@
   margin: 20px 0;
 }
 
-.button-panel > button {
+.button-panel > * {
   margin: 0 10px;
 }
 </style>
@@ -173,6 +173,7 @@ import {
   MultipleChoiceInputField,
   ImageUploadInputField
 } from './input';
+import LoadingButton from './LoadingButton';
 import { apiClient } from '../../api';
 import { storage } from '../../storage';
 
@@ -210,9 +211,10 @@ export default {
     TextListInputField,
     DropdownListInputField,
     MultipleChoiceInputField,
-    ImageUploadInputField
+    ImageUploadInputField,
+    LoadingButton
   },
-  methods:  {
+  methods: {
     actionButtonClass() {
       return [
         { class: 'btn-add', condition: () => !this.project },
@@ -235,11 +237,7 @@ export default {
           this.score,
           this.color
         );
-        if(project) {
-          this.$emit('requestClose');
-        } else {
-          console.log('Couldn\'t add project');
-        }
+        return project;
       } else {
         const success = await apiClient.editProject(
           this.project._id,
@@ -258,11 +256,14 @@ export default {
           this.score,
           this.color
         );
-        if(success) {
-          this.$emit('requestClose');
-        } else {
-          console.log('Couldn\'t edit project');
-        }
+        return success;
+      }
+    },
+    onMainActionCompleted(result) {
+      if(result) {
+        this.$emit('requestClose');
+      } else {
+        console.log('Couldn\'t complete the action');
       }
     },
     cancel() {
