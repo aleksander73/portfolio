@@ -2,9 +2,11 @@
   <div class="control-panel-container">
       <Navigation @itemSelected="navItemSelected" />
       <div class="main-content-container">
-        <ProjectSection v-if="sectionId === 'projects'" />
-        <TechnologySection v-if="sectionId === 'technologies'" />
-        <LinkSection v-if="sectionId === 'links'" />
+        <transition name="section-fade" mode="out-in">
+          <ProjectSection v-if="sectionId === 'projects'" />
+          <TechnologySection v-if="sectionId === 'technologies'" />
+          <LinkSection v-if="sectionId === 'links'" />
+        </transition>
       </div>
   </div>
 </template>
@@ -22,6 +24,16 @@
   margin: 0 auto;
   padding: 60px;
   width: 60%;
+}
+
+.section-fade-enter-active,
+.section-fade-leave-active {
+  transition: opacity 0.15s linear;
+}
+
+.section-fade-enter,
+.section-fade-leave-to {
+  opacity: 0;
 }
 </style>
 

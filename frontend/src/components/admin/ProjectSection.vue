@@ -7,7 +7,9 @@
     <div class="list">
       <List :data="projects" :getKey="x => x._id" :getName="x => x.name" :sortFunc="(x, y) => x.name.localeCompare(y.name)" @itemClicked="openUpsertWindow" />
     </div>
-    <ProjectUpsertWindow v-if="showUpsertWindow" :project="project" @requestClose="closeUpsertWindow" />
+    <transition name="window-fade" mode="out-in">
+      <ProjectUpsertWindow v-if="showUpsertWindow" :project="project" @requestClose="closeUpsertWindow" />
+    </transition>
   </div>
 </template>
 
@@ -26,6 +28,16 @@
 
 .list {
   margin-top: 50px;
+}
+
+.window-fade-enter-active,
+.window-fade-leave-active {
+  transition: opacity 0.15s linear;
+}
+
+.window-fade-enter,
+.window-fade-leave-to {
+  opacity: 0;
 }
 </style>
 
