@@ -1,9 +1,11 @@
 <template>
   <div class="link-section-container">
-    <div class="title-container">
-      <h1>{{ 'Home'.toUpperCase() }}</h1>
-      <img src="../../../assets/icons/home.svg" class="svg-white">
-    </div>
+    <transition name="title-fade" mode="out-in">
+      <div v-if="username" class="title-container">
+        <h1>{{ `Welcome, ${username}!`.toUpperCase() }}</h1>
+        <img src="../../../assets/icons/home.svg" class="svg-white">
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -19,10 +21,31 @@
   height: 40px;
   margin-left: 20px;
 }
+
+.title-fade-enter-active,
+.title-fade-leave-active {
+  transition: opacity 0.15s linear;
+}
+
+.title-fade-enter,
+.title-fade-leave-to {
+  opacity: 0;
+}
 </style>
 
 <script>
+import { apiClient } from '../../api';
+
 export default {
-  name: 'HomeSection'
+  name: 'HomeSection',
+  data() {
+    return {
+      username: ''
+    }
+  },
+  async created() {
+    const user = await apiClient.getLoggedInUser();
+    this.username = user.username;
+  }
 }
 </script>
