@@ -47,6 +47,7 @@ import { storage } from '../../storage';
 
 export default {
   name: 'LinkSection',
+  title: 'Links',
   data() {
     return {
       links: [...storage.links],

@@ -24,7 +24,7 @@
 
 .title-fade-enter-active,
 .title-fade-leave-active {
-  transition: opacity 0.15s linear;
+  transition: opacity 1s linear;
 }
 
 .title-fade-enter,
@@ -38,6 +38,7 @@ import { apiClient } from '../../api';
 
 export default {
   name: 'HomeSection',
+  title: 'Home',
   data() {
     return {
       username: ''

@@ -47,6 +47,7 @@ import { storage } from '../../storage';
 
 export default {
   name: 'TechnologySection',
+  title: 'Technologies',
   data() {
     return {
       technologies: [...storage.technologies],
