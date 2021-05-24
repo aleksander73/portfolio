@@ -3,6 +3,7 @@
       <Navigation @itemSelected="navItemSelected" />
       <div class="main-content-container">
         <transition name="section-fade" mode="out-in">
+          <HomeSection v-if="sectionId === 'home'" />
           <ProjectSection v-if="sectionId === 'projects'" />
           <TechnologySection v-if="sectionId === 'technologies'" />
           <LinkSection v-if="sectionId === 'links'" />
@@ -38,7 +39,7 @@
 </style>
 
 <script>
-import { Navigation, ProjectSection, TechnologySection, LinkSection } from '../components';
+import { Navigation, HomeSection, ProjectSection, TechnologySection, LinkSection } from '../components';
 import { apiClient } from '../api';
 import { storage } from '../storage';
 
@@ -52,6 +53,7 @@ export default {
   },
   components: {
     Navigation,
+    HomeSection,
     ProjectSection,
     TechnologySection,
     LinkSection
