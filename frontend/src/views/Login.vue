@@ -20,7 +20,9 @@
 
 .form-container {
   background-color: rgb(30, 30, 30);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 5px;
+  box-shadow: 3px 3px 4px rgba(128, 128, 128, 0.15);
   flex-direction: column;
   height: 475px;
   width: 550px;
@@ -37,6 +39,8 @@
 
 button {
   margin-top: 20px;
+  height: 50px;
+  width: 400px;
 }
 
 .error {
