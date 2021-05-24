@@ -8,7 +8,7 @@
 <style scoped>
 button > img {
     height: 60%;
-    animation: loading 2s linear infinite;
+    animation: loading 0.75s linear infinite;
 }
 
 @keyframes loading {
