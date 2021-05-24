@@ -47,6 +47,7 @@ import { storage } from '../../storage';
 
 export default {
   name: 'ProjectSection',
+  title: 'Projects',
   data() {
     return {
       projects: [...storage.projects],

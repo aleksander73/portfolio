@@ -6,6 +6,7 @@ import Intro from './Intro';
 import List from './admin/List';
 import LoadingButton from './admin/LoadingButton';
 import Navigation from './admin/Navigation'
+import HomeSection from './admin/HomeSection';
 import ProjectTile from './ProjectTile';
 import ProjectUpsertWindow from './admin/ProjectUpsertWindow';
 import ProjectSection from './admin/ProjectSection';
@@ -24,6 +25,7 @@ export {
     List,
     LoadingButton,
     Navigation,
+    HomeSection,
     ProjectTile,
     ProjectUpsertWindow,
     ProjectSection,
