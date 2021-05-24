@@ -9,10 +9,10 @@
                     </div>
                     <div class="title-container-row2 center-y">
                         <img class="project-status" :src=statusUrl>
-                        <img class="github-version" :src=versionUrl>
+                        <img v-if="project.githubRepo" class="github-version" :src=versionUrl>
                     </div>
-                    <div class="title-container-row3 center-y">
-						<a v-if="project.githubRepo" :href="githubUrl" target="_blank"><button :style="githubButtonStyle">Visit on GitHub</button></a>
+                    <div v-if="project.githubRepo" class="title-container-row3 center-y">
+						<a :href="githubUrl" target="_blank"><button :style="githubButtonStyle">Visit on GitHub</button></a>
                     </div>
                 </div>
                 <div class="tech-stack">

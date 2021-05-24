@@ -24,7 +24,14 @@
           </div>
           <div class="input-field-container">
             <p>GitHub repository</p>
-            <TextInputField :initValue="githubRepo" @input="onGithubRepoChanged" />
+            <DropdownListInputField
+              :items="[...githubRepos]"
+              :required="false"
+              :initSelectedItem="githubRepo"
+              :getKey="x => x.name"
+              :getName="x => x.name"
+              :sortFunc="(x, y) => x.name.localeCompare(y.name)"
+              @input="onGithubRepoChanged" />
           </div>
           <div class="input-field-container">
             <p>Technologies</p>
@@ -189,7 +196,8 @@ export default {
       description: '',
       features: [],
       highlights: [],
-      githubRepo: '',
+      githubRepo: null,
+      githubRepos: [],
       allTechnologies: [],
       technologies: [],
       technology: null,
@@ -233,7 +241,7 @@ export default {
           this.description,
           this.features,
           this.highlights,
-          this.githubRepo,
+          this.githubRepo ? this.githubRepo.name : '',
           this.technologies.map(x => x._id),
           this.technology ? this.technology._id : '',
           this.status,
@@ -250,7 +258,7 @@ export default {
           this.description,
           this.features,
           this.highlights,
-          this.githubRepo,
+          this.githubRepo ? this.githubRepo.name : '',
           this.technologies.map(x => x._id),
           this.technology ? this.technology._id : '',
           this.status,
@@ -323,12 +331,13 @@ export default {
   },
   created() {
     this.allTechnologies = storage.technologies;
+    this.githubRepos = storage.githubRepos;
     if(this.project) {
       this.name = this.project.name;
       this.description = this.project.description;
       this.features = this.project.features;
       this.highlights = this.project.highlights;
-      this.githubRepo = this.project.githubRepo;
+      this.githubRepo = this.githubRepos.find(x => x.name === this.project.githubRepo);
       this.technologies = this.project.technologies.map(_id => this.allTechnologies.find(x => x._id === _id));
       this.technology = this.allTechnologies.find(x => x._id === this.project.technologyId);
       this.status = this.project.status;

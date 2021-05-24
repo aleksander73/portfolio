@@ -65,6 +65,11 @@ class ApiClient {
         }
     }
 
+    async getGithubRepos() {
+        const { data } = await axios.get('/api/projects/github');
+        return data;
+    }
+
     async getTechnologies() {
         const { data } = await axios.get('/api/technologies');
         return data;

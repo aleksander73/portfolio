@@ -1,5 +1,5 @@
 const express = require('express');
-const { cryptographyService, projectService } = require('../services');
+const { cryptographyService, githubService, projectService } = require('../services');
 const { upload } = require('../middleware');
 
 const router = express.Router();
@@ -45,6 +45,11 @@ router.post('/edit', cryptographyService.authorize, upload.array('uploadedPictur
     } catch(error) {
         res.status(400).send(error.message);
     }
+});
+
+router.get('/github', async (req, res) => {
+    const githubRepos = await githubService.getPublicProjects();
+    res.send(githubRepos);
 });
 
 module.exports = router;
