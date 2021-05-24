@@ -37,6 +37,7 @@
 
 <style scoped>
 .window-container {
+  background-color: rgba(0, 0, 0, 0.75);
   position: fixed;
   top: 0;
   left: 70px;
