@@ -32,6 +32,10 @@ body {
   position: relative;
 }
 
+.flex {
+  display: flex;
+}
+
 .center-x {
   display: flex;
   justify-content: center;

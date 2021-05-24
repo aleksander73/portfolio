@@ -65,7 +65,10 @@
             <TextInputField :initValue="score.toString()" @input="onScoreChanged" />
           </div>
           <div class="input-field-container">
-            <p>Color</p>
+            <div class="flex">
+              <p>Color</p>
+              <Tooltip hint="Hexadecimal format, e.g. #434fd1" />
+            </div>
             <TextInputField :initValue="color" @input="onColorChanged" />
           </div>
         </div>
@@ -139,7 +142,7 @@
   width: 100%;
 }
 
-.input-field-container > p {
+.input-field-container p {
   margin: 5px 0;
 }
 
@@ -171,7 +174,8 @@ import {
   TextListInputField,
   DropdownListInputField,
   MultipleChoiceInputField,
-  ImageUploadInputField
+  ImageUploadInputField,
+  Tooltip
 } from './input';
 import LoadingButton from './LoadingButton';
 import { apiClient } from '../../api';
@@ -212,7 +216,8 @@ export default {
     DropdownListInputField,
     MultipleChoiceInputField,
     ImageUploadInputField,
-    LoadingButton
+    LoadingButton,
+    Tooltip
   },
   methods: {
     actionButtonClass() {

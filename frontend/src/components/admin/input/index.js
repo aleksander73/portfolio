@@ -6,6 +6,7 @@ import MultipleChoiceInputField from './MultipleChoiceInputField';
 import FileUploadInputField from './FileUploadInputField';
 import SingleImageUploadInputField from './SingleImageUploadInputField';
 import ImageUploadInputField from './ImageUploadInputField';
+import Tooltip from './Tooltip';
 
 export {
     TextInputField,
@@ -15,5 +16,6 @@ export {
     MultipleChoiceInputField,
     FileUploadInputField,
     SingleImageUploadInputField,
-    ImageUploadInputField
+    ImageUploadInputField,
+    Tooltip
 };
