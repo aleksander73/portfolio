@@ -10,7 +10,7 @@
 
 <style scoped>
 .index-container {
-    background-color: #0f0f0fad;
+    background-color: #0f0f0fdb;
     width: 10%;
     margin: 0 auto;
     padding: 0 5em;

@@ -9,8 +9,7 @@
 .footer {
     height: 20vh;
     flex-direction: column;
-    background-color: #0f0f0fad;
-    border-top: 2px solid #e2e2e2
+    background-image: linear-gradient(#0f0f0fdb 10%, #0f0f0f73);
 }
 
 p {
