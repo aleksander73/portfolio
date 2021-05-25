@@ -175,10 +175,10 @@
 }
 
 .navigation {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    margin: 50px;
+    margin: 50px 0 0 80px;
     height: 50px;
     width: 50px;
     cursor: pointer;
