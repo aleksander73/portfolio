@@ -51,7 +51,7 @@
                 <iframe class="yt-video-item" width="950px" height="536px" :src=ytVideoSrc frameborder='0' allowfullscreen />
             </div>
         </div>
-        <div class="navigation" @click="$router.go(-1)">
+        <div class="navigation" @click="navigateBack()">
             <img src="../../assets/icons/back.svg" class="svg-white">
         </div>
     </div>
@@ -216,6 +216,15 @@ export default {
         );
         project.technologies.sort((x, y) => x.name.localeCompare(y.name));
         next(vm => vm.project = project);
+    },
+    methods: {
+        navigateBack() {
+            if(window.history.length > 2) {
+                this.$router.go(-1);
+            } else {
+                this.$router.push('/');
+            }
+        }
     },
     computed: {
         logoSrc() {
