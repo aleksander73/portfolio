@@ -60,6 +60,10 @@
             <TextInputField :initValue="status" @input="onStatusChanged" />
           </div>
           <div class="input-field-container">
+            <p>Tags</p>
+            <TextListInputField :initItems="tags" @input="onTagsChanged" />
+          </div>
+          <div class="input-field-container">
             <p>Pictures</p>
             <ImageUploadInputField :initImages="pictures.all" @input="onPicturesChanged" />
           </div>
@@ -203,6 +207,7 @@ export default {
       technologies: [],
       technology: null,
       status,
+      tags: [],
       pictures: {
         all: [],
         deleted: [],
@@ -246,6 +251,7 @@ export default {
           this.technologies.map(x => x._id),
           this.technology ? this.technology._id : '',
           this.status,
+          this.tags,
           this.pictures.uploaded,
           this.ytVideoId,
           this.score,
@@ -263,6 +269,7 @@ export default {
           this.technologies.map(x => x._id),
           this.technology ? this.technology._id : '',
           this.status,
+          this.tags,
           this.pictures.all,
           this.pictures.deleted,
           this.pictures.uploaded,
@@ -307,6 +314,9 @@ export default {
     onStatusChanged(value) {
       this.status = value;
     },
+    onTagsChanged(value) {
+      this.tags = value;
+    },
     onPicturesChanged(value) {
       const { deleted, uploaded } = value;
       this.pictures.deleted = deleted;
@@ -342,6 +352,7 @@ export default {
       this.technologies = this.project.technologies.map(_id => this.allTechnologies.find(x => x._id === _id));
       this.technology = this.allTechnologies.find(x => x._id === this.project.technologyId);
       this.status = this.project.status;
+      this.tags = this.project.tags;
       this.pictures.all = this.project.pictures;
       this.ytVideoId = this.project.ytVideoId;
       this.score = this.project.score;

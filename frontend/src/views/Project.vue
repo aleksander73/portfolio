@@ -2,7 +2,7 @@
     <div class="center-x">
         <div class="project-container">
             <div class="project-header">
-                <div class="title-container">
+                <div class="header-left">
                     <div class="center-x">
                         <h1 class="title">{{ project.name }}</h1>
                         <img v-if="project.technology" class="logo" :src=logoSrc :title="project.technology.name + ' logo'">
@@ -15,9 +15,14 @@
 						<a :href="githubUrl" target="_blank"><button :style="githubButtonStyle">Visit on GitHub</button></a>
                     </div>
                 </div>
-                <div class="tech-stack">
-                    <div v-for="(technology, index) in project.technologies" :key=index>
-                        <Technology :name=technology.name :icon=technology.icon />
+                <div class="header-right">
+                    <div class="tech-stack">
+                        <div v-for="(technology, index) in project.technologies" :key=index>
+                            <Technology :name=technology.name :icon=technology.icon />
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <Tag v-for="tag in project.tags" :key="tag" :label="tag" :color="project.color" />
                     </div>
                 </div>
             </div>
@@ -71,7 +76,7 @@
 	margin-top: 10px;
 }
 
-.title-container {
+.header-left {
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -86,34 +91,41 @@
 .title {
     text-transform: uppercase;
     font-size: 3em;
+    white-space: nowrap;
     font-weight: 100;
 }
 
-.title-container > div:nth-child(2) {
+.header-left > div:nth-child(2) {
     margin-top: 5px;
 }
 
-.title-container > div:nth-child(2) > * {
+.header-left > div:nth-child(2) > * {
     margin-right: 15px;
 }
 
-.title-container > div:nth-child(3) {
+.header-left > div:nth-child(3) {
     margin: 20px 0 0 0;
 }
 
-.title-container > div:nth-child(3) > a > button {
+.header-left > div:nth-child(3) > a > button {
 	border-width: 1px;
 	border-style: solid;
 	border-color: white;
 	background-color: rgb(13, 17, 23);
 }
 
-.title-container > div:nth-child(3) > a > button:hover {
+.header-left > div:nth-child(3) > a > button:hover {
 	background-color: rgb(21, 28, 37);
 }
 
-.tech-stack {
+.header-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 40%;
+}
+
+.header-right > * {
     display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;
@@ -191,7 +203,7 @@
 </style>
 
 <script>
-import { Gallery, Technology } from '../components';
+import { Gallery, Technology, Tag } from '../components';
 import { apiClient } from '../api';
 import { dataAssembler } from '../assembler';
 
@@ -202,6 +214,7 @@ export default {
     },
     components: {
         Technology,
+        Tag,
         Gallery
     },
     data() {
