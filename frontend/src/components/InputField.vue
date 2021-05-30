@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div :class="inputFieldClass('input-field-container')">
+    <div :class="inputFieldClass">
       <div class='icon-container center-xy'>
         <img class="icon svg-white" :src=model.icon :title=model.placeholder>
       </div>
@@ -55,14 +55,19 @@ export default {
     }
   },
   methods: {
-    inputFieldClass(base) {
-      return `${base} ${this.focused ? 'shadow' : ''}`;
-    },
     onFocus() {
       this.focused = true;
     },
     onBlur() {
       this.focused = false;
+    }
+  },
+  computed: {
+    inputFieldClass() {
+      return [
+        { class: 'input-field-container', condition: () => true },
+        { class: 'shadow', condition: () => this.focused },
+      ].map(x => x.condition() ? x.class : '').join(' ');
     }
   }
 }

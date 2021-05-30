@@ -16,7 +16,10 @@
     <div class="description">
       <p>{{ project.description }}</p>
     </div>
-    <div class="read-more">
+    <div class="project-footer center-y">
+      <div class="tags">
+        <Tag v-for="tag in project.tags" :key="tag" :label="tag" color="#ffffff80" />
+      </div>
       <a :href="'/projects/' + project._id"><button>See project</button></a>
     </div>
   </div>
@@ -72,20 +75,31 @@
   width: 90%;
 }
 
-.read-more {
-  display: flex;
-  justify-content: flex-end;
+.project-footer {
+  justify-content: space-between;
   margin: 20px 0 5px 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  width: 75%;
+}
+
+button {
+  border-radius: 2px;
 }
 </style>
 
 <script>
-import Technology from './Technology.vue';
+import Technology from './Technology';
+import Tag from './Tag';
 
 export default {
   name: 'Project',
   components: {
-    Technology
+    Technology,
+    Tag
   },
   props: {
     project: {
