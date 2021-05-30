@@ -11,9 +11,9 @@ router.get('/', async (req, res) => {
 
 router.post('/add', cryptographyService.authorize, upload.array('pictures'), async (req, res) => {
     try {
-        const { name, description, features, highlights, githubRepo, technologies, technologyId, status, ytVideoId, score, color } = req.body;
+        const { name, description, features, highlights, githubRepo, technologies, technologyId, status, tags, ytVideoId, score, color } = req.body;
         const pictures = req.files.map(file => file.filename);
-        const project = await projectService.addProject(name, description, JSON.parse(features), JSON.parse(highlights), githubRepo, JSON.parse(technologies), technologyId, status, pictures, ytVideoId, score, color);
+        const project = await projectService.addProject(name, description, JSON.parse(features), JSON.parse(highlights), githubRepo, JSON.parse(technologies), technologyId, status, JSON.parse(tags), pictures, ytVideoId, score, color);
         res.status(200).send(project);
     } catch(error) {
         res.status(400).send(error.message);
@@ -22,7 +22,7 @@ router.post('/add', cryptographyService.authorize, upload.array('pictures'), asy
 
 router.post('/edit', cryptographyService.authorize, upload.array('uploadedPictures'), async (req, res) => {
     try {
-        const { _id, name, description, features, highlights, githubRepo, technologies, technologyId, status, allPictures, deletedPictures, ytVideoId, score, color } = req.body;
+        const { _id, name, description, features, highlights, githubRepo, technologies, technologyId, status, tags, allPictures, deletedPictures, ytVideoId, score, color } = req.body;
         const uploadedPictures = req.files.map(file => file.filename);
         const success = await projectService.editProject(
             _id,
@@ -34,6 +34,7 @@ router.post('/edit', cryptographyService.authorize, upload.array('uploadedPictur
             JSON.parse(technologies),
             technologyId,
             status,
+            JSON.parse(tags),
             JSON.parse(allPictures),
             JSON.parse(deletedPictures),
             uploadedPictures,
