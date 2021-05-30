@@ -77,7 +77,7 @@
 }
 
 .header-left {
-    width: 50%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -91,6 +91,7 @@
 .title {
     text-transform: uppercase;
     font-size: 3em;
+    white-space: nowrap;
     font-weight: 100;
 }
 
@@ -121,7 +122,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 50%;
+    width: 40%;
 }
 
 .header-right > * {
