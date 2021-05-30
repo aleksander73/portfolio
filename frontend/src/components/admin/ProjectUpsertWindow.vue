@@ -24,7 +24,14 @@
           </div>
           <div class="input-field-container">
             <p>GitHub repository</p>
-            <TextInputField :initValue="githubRepo" @input="onGithubRepoChanged" />
+            <DropdownListInputField
+              :items="[...githubRepos]"
+              :required="false"
+              :initSelectedItem="githubRepo"
+              :getKey="x => x.name"
+              :getName="x => x.name"
+              :sortFunc="(x, y) => x.name.localeCompare(y.name)"
+              @input="onGithubRepoChanged" />
           </div>
           <div class="input-field-container">
             <p>Technologies</p>
@@ -53,6 +60,10 @@
             <TextInputField :initValue="status" @input="onStatusChanged" />
           </div>
           <div class="input-field-container">
+            <p>Tags</p>
+            <TextListInputField :initItems="tags" @input="onTagsChanged" />
+          </div>
+          <div class="input-field-container">
             <p>Pictures</p>
             <ImageUploadInputField :initImages="pictures.all" @input="onPicturesChanged" />
           </div>
@@ -65,7 +76,10 @@
             <TextInputField :initValue="score.toString()" @input="onScoreChanged" />
           </div>
           <div class="input-field-container">
-            <p>Color</p>
+            <div class="flex">
+              <p>Color</p>
+              <Tooltip hint="Hexadecimal format, e.g. #434fd1" />
+            </div>
             <TextInputField :initValue="color" @input="onColorChanged" />
           </div>
         </div>
@@ -74,7 +88,7 @@
         <div class="divide"></div>
         <div class="button-panel">
           <button class="btn-cancel" @click="cancel()">Cancel</button>
-          <button :class="actionButtonClass()" @click="mainAction()">{{ buttonLabel }}</button> 
+          <LoadingButton :class="actionButtonClass()" :label="buttonLabel" :action="() => mainAction()" @completed="onMainActionCompleted" />
         </div>
       </div>
     </div>
@@ -83,6 +97,7 @@
 
 <style scoped>
 .window-container {
+  background-color: rgba(0, 0, 0, 0.75);
   position: fixed;
   top: 0;
   left: 70px;
@@ -139,7 +154,7 @@
   width: 100%;
 }
 
-.input-field-container > p {
+.input-field-container p {
   margin: 5px 0;
 }
 
@@ -159,7 +174,7 @@
   margin: 20px 0;
 }
 
-.button-panel > button {
+.button-panel > * {
   margin: 0 10px;
 }
 </style>
@@ -171,8 +186,10 @@ import {
   TextListInputField,
   DropdownListInputField,
   MultipleChoiceInputField,
-  ImageUploadInputField
+  ImageUploadInputField,
+  Tooltip
 } from './input';
+import LoadingButton from './LoadingButton';
 import { apiClient } from '../../api';
 import { storage } from '../../storage';
 
@@ -184,11 +201,13 @@ export default {
       description: '',
       features: [],
       highlights: [],
-      githubRepo: '',
+      githubRepo: null,
+      githubRepos: [],
       allTechnologies: [],
       technologies: [],
       technology: null,
       status,
+      tags: [],
       pictures: {
         all: [],
         deleted: [],
@@ -210,9 +229,11 @@ export default {
     TextListInputField,
     DropdownListInputField,
     MultipleChoiceInputField,
-    ImageUploadInputField
+    ImageUploadInputField,
+    LoadingButton,
+    Tooltip
   },
-  methods:  {
+  methods: {
     actionButtonClass() {
       return [
         { class: 'btn-add', condition: () => !this.project },
@@ -226,20 +247,17 @@ export default {
           this.description,
           this.features,
           this.highlights,
-          this.githubRepo,
+          this.githubRepo ? this.githubRepo.name : '',
           this.technologies.map(x => x._id),
           this.technology ? this.technology._id : '',
           this.status,
+          this.tags,
           this.pictures.uploaded,
           this.ytVideoId,
           this.score,
           this.color
         );
-        if(project) {
-          this.$emit('requestClose');
-        } else {
-          console.log('Couldn\'t add project');
-        }
+        return project;
       } else {
         const success = await apiClient.editProject(
           this.project._id,
@@ -247,10 +265,11 @@ export default {
           this.description,
           this.features,
           this.highlights,
-          this.githubRepo,
+          this.githubRepo ? this.githubRepo.name : '',
           this.technologies.map(x => x._id),
           this.technology ? this.technology._id : '',
           this.status,
+          this.tags,
           this.pictures.all,
           this.pictures.deleted,
           this.pictures.uploaded,
@@ -258,11 +277,14 @@ export default {
           this.score,
           this.color
         );
-        if(success) {
-          this.$emit('requestClose');
-        } else {
-          console.log('Couldn\'t edit project');
-        }
+        return success;
+      }
+    },
+    onMainActionCompleted(result) {
+      if(result) {
+        this.$emit('requestClose');
+      } else {
+        console.log('Couldn\'t complete the action');
       }
     },
     cancel() {
@@ -292,6 +314,9 @@ export default {
     onStatusChanged(value) {
       this.status = value;
     },
+    onTagsChanged(value) {
+      this.tags = value;
+    },
     onPicturesChanged(value) {
       const { deleted, uploaded } = value;
       this.pictures.deleted = deleted;
@@ -317,15 +342,17 @@ export default {
   },
   created() {
     this.allTechnologies = storage.technologies;
+    this.githubRepos = storage.githubRepos;
     if(this.project) {
       this.name = this.project.name;
       this.description = this.project.description;
       this.features = this.project.features;
       this.highlights = this.project.highlights;
-      this.githubRepo = this.project.githubRepo;
+      this.githubRepo = this.githubRepos.find(x => x.name === this.project.githubRepo);
       this.technologies = this.project.technologies.map(_id => this.allTechnologies.find(x => x._id === _id));
       this.technology = this.allTechnologies.find(x => x._id === this.project.technologyId);
       this.status = this.project.status;
+      this.tags = this.project.tags;
       this.pictures.all = this.project.pictures;
       this.ytVideoId = this.project.ytVideoId;
       this.score = this.project.score;

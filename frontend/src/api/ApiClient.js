@@ -6,7 +6,7 @@ class ApiClient {
         return data;
     }
 
-    async addProject(name, description, features, highlights, githubRepo, technologies, technologyTag, status, pictures, ytVideoId, score, color) {
+    async addProject(name, description, features, highlights, githubRepo, technologies, technologyTag, status, tags, pictures, ytVideoId, score, color) {
         try {
             const data = new FormData();
             data.append('name', name);
@@ -17,6 +17,7 @@ class ApiClient {
             data.append('technologies', JSON.stringify(technologies));
             data.append('technologyTag', technologyTag);
             data.append('status', status);
+            data.append('tags', JSON.stringify(tags));
             pictures.forEach(picture => {
                 data.append('pictures', picture);
             });
@@ -34,7 +35,7 @@ class ApiClient {
         }
     }
 
-    async editProject(_id, name, description, features, highlights, githubRepo, technologies, technologyId, status, allPictures, deletedPictures, uploadedPictures, ytVideoId, score, color) {
+    async editProject(_id, name, description, features, highlights, githubRepo, technologies, technologyId, status, tags, allPictures, deletedPictures, uploadedPictures, ytVideoId, score, color) {
         try {
             const data = new FormData();
             data.append('_id', _id);
@@ -46,6 +47,7 @@ class ApiClient {
             data.append('technologies', JSON.stringify(technologies));
             data.append('technologyId', technologyId);
             data.append('status', status);
+            data.append('tags', JSON.stringify(tags));
             data.append('allPictures', JSON.stringify(allPictures));
             data.append('deletedPictures', JSON.stringify(deletedPictures));
             uploadedPictures.forEach(picture => {
@@ -63,6 +65,11 @@ class ApiClient {
         } catch (error) {
             return false;
         }
+    }
+
+    async getGithubRepos() {
+        const { data } = await axios.get('/api/projects/github');
+        return data;
     }
 
     async getTechnologies() {

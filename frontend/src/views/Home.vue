@@ -42,6 +42,7 @@ import { apiClient } from '../api';
 
 export default {
   name: 'Home',
+  title: 'Home',
   data() {
     return {
       projects: [],

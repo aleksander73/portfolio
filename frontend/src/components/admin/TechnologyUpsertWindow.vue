@@ -20,7 +20,7 @@
         <div class="divide"></div>
         <div class="button-panel">
           <button class="btn-cancel" @click="cancel()">Cancel</button>
-          <button :class="actionButtonClass()" @click="mainAction()">{{ buttonLabel }}</button> 
+          <LoadingButton :class="actionButtonClass()" :label="buttonLabel" :action="() => mainAction()" @completed="onMainActionCompleted" />
         </div>
       </div>
     </div>
@@ -29,6 +29,7 @@
 
 <style scoped>
 .window-container {
+  background-color: rgba(0, 0, 0, 0.75);
   position: fixed;
   top: 0;
   left: 70px;
@@ -115,6 +116,7 @@ import {
   TextInputField,
   SingleImageUploadInputField
 } from './input';
+import LoadingButton from './LoadingButton';
 import { apiClient } from '../../api';
 
 export default {
@@ -136,9 +138,10 @@ export default {
   },
   components: {
     TextInputField,
-    SingleImageUploadInputField
+    SingleImageUploadInputField,
+    LoadingButton
   },
-  methods:  {
+  methods: {
     actionButtonClass() {
       return [
         { class: 'btn-add', condition: () => !this.technology },
@@ -148,18 +151,17 @@ export default {
     async mainAction() {
       if(!this.technology) {
         const technology = await apiClient.addTechnology(this.name, this.icon.uploaded);
-        if(technology) {
-          this.$emit('requestClose');
-        } else {
-          console.log('Couldn\'t add project');
-        }
+        return technology;
       } else {
         const success = await apiClient.editTechnology(this.technology._id, this.name, this.icon.init, this.icon.deleted, this.icon.uploaded);
-        if(success) {
-          this.$emit('requestClose');
-        } else {
-          console.log('Couldn\'t edit project');
-        }
+        return success;
+      }
+    },
+    onMainActionCompleted(result) {
+      if(result) {
+        this.$emit('requestClose');
+      } else {
+        console.log('Couldn\'t complete the action');
       }
     },
     cancel() {

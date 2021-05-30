@@ -7,7 +7,7 @@
       <div v-for="(inputField, index) in loginInputFields" :key=index class="input-field">
         <InputField :ref=inputField.id :model=inputField />
       </div>
-      <button @click=login>Log in</button>
+      <LoadingButton label="Log in" :action="() => login()" @completed="onLoggedIn" />
       <div :class=errorClass><span>{{ error.message }}</span></div>
     </div>
   </div>
@@ -20,7 +20,9 @@
 
 .form-container {
   background-color: rgb(30, 30, 30);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 5px;
+  box-shadow: 3px 3px 4px rgba(128, 128, 128, 0.15);
   flex-direction: column;
   height: 475px;
   width: 550px;
@@ -37,6 +39,8 @@
 
 button {
   margin-top: 20px;
+  height: 50px;
+  width: 400px;
 }
 
 .error {
@@ -66,11 +70,12 @@ button {
 </style>
 
 <script>
-import { InputField as InputFieldComponent } from '../components';
+import { InputField as InputFieldComponent, LoadingButton } from '../components';
 import { InputField } from './utility';
 import apiClient from '../api/ApiClient';
 
 export default {
+  title: 'Login',
   data() {
     return {
       loginInputFields: [
@@ -84,7 +89,8 @@ export default {
     }
   },
   components: {
-    'InputField': InputFieldComponent
+    'InputField': InputFieldComponent,
+    LoadingButton
   },
   methods: {
     getInputFieldById(id) {
@@ -93,8 +99,10 @@ export default {
     async login() {
       const username = this.getInputFieldById('username').model.value;
       const password = this.getInputFieldById('password').model.value;
-      const loginSucceeded = await apiClient.loginUser(username, password);
-      if(loginSucceeded) {
+      return await apiClient.loginUser(username, password);
+    },
+    onLoggedIn(result) {
+      if(result) {
         this.$router.push('/control-panel');
       } else {
         this.showError('Invalid username or password');

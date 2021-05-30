@@ -25,7 +25,7 @@
     height: 100vh;
     position: relative;
     flex-direction: column;
-    background-color: #0f0f0fad;
+    background-image: linear-gradient(#0f0f0f73 90%, #0f0f0fdb);
 }
 
 .top {

@@ -2,9 +2,12 @@
   <div class="control-panel-container">
       <Navigation @itemSelected="navItemSelected" />
       <div class="main-content-container">
-        <ProjectSection v-if="sectionId === 'projects'" />
-        <TechnologySection v-if="sectionId === 'technologies'" />
-        <LinkSection v-if="sectionId === 'links'" />
+        <transition name="section-fade" mode="out-in">
+          <HomeSection v-if="sectionId === 'home'" />
+          <ProjectSection v-if="sectionId === 'projects'" />
+          <TechnologySection v-if="sectionId === 'technologies'" />
+          <LinkSection v-if="sectionId === 'links'" />
+        </transition>
       </div>
   </div>
 </template>
@@ -23,15 +26,26 @@
   padding: 60px;
   width: 60%;
 }
+
+.section-fade-enter-active,
+.section-fade-leave-active {
+  transition: opacity 0.15s linear;
+}
+
+.section-fade-enter,
+.section-fade-leave-to {
+  opacity: 0;
+}
 </style>
 
 <script>
-import { Navigation, ProjectSection, TechnologySection, LinkSection } from '../components';
+import { Navigation, HomeSection, ProjectSection, TechnologySection, LinkSection } from '../components';
 import { apiClient } from '../api';
 import { storage } from '../storage';
 
 export default {
   name: 'ControlPanel',
+  title: 'Control panel',
   data() {
     return {
       sectionId: 'home'
@@ -39,6 +53,7 @@ export default {
   },
   components: {
     Navigation,
+    HomeSection,
     ProjectSection,
     TechnologySection,
     LinkSection

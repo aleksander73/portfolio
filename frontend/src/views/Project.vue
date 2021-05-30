@@ -2,22 +2,27 @@
     <div class="center-x">
         <div class="project-container">
             <div class="project-header">
-                <div class="title-container">
+                <div class="header-left">
                     <div class="center-x">
                         <h1 class="title">{{ project.name }}</h1>
                         <img v-if="project.technology" class="logo" :src=logoSrc :title="project.technology.name + ' logo'">
                     </div>
                     <div class="title-container-row2 center-y">
                         <img class="project-status" :src=statusUrl>
-                        <img class="github-version" :src=versionUrl>
+                        <img v-if="project.githubRepo" class="github-version" :src=versionUrl>
                     </div>
-                    <div class="title-container-row3 center-y">
-						<a v-if="project.githubRepo" :href="githubUrl" target="_blank"><button :style="githubButtonStyle">Visit on GitHub</button></a>
+                    <div v-if="project.githubRepo" class="title-container-row3 center-y">
+						<a :href="githubUrl" target="_blank"><button :style="githubButtonStyle">Visit on GitHub</button></a>
                     </div>
                 </div>
-                <div class="tech-stack">
-                    <div v-for="(technology, index) in project.technologies" :key=index>
-                        <Technology :name=technology.name :icon=technology.icon />
+                <div class="header-right">
+                    <div class="tech-stack">
+                        <div v-for="(technology, index) in project.technologies" :key=index>
+                            <Technology :name=technology.name :icon=technology.icon />
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <Tag v-for="tag in project.tags" :key="tag" :label="tag" :color="project.color" />
                     </div>
                 </div>
             </div>
@@ -51,6 +56,9 @@
                 <iframe class="yt-video-item" width="950px" height="536px" :src=ytVideoSrc frameborder='0' allowfullscreen />
             </div>
         </div>
+        <div class="navigation" @click="navigateBack()">
+            <img src="../../assets/icons/back.svg" class="svg-white">
+        </div>
     </div>
 </template>
 
@@ -68,7 +76,7 @@
 	margin-top: 10px;
 }
 
-.title-container {
+.header-left {
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -83,34 +91,41 @@
 .title {
     text-transform: uppercase;
     font-size: 3em;
+    white-space: nowrap;
     font-weight: 100;
 }
 
-.title-container > div:nth-child(2) {
+.header-left > div:nth-child(2) {
     margin-top: 5px;
 }
 
-.title-container > div:nth-child(2) > * {
+.header-left > div:nth-child(2) > * {
     margin-right: 15px;
 }
 
-.title-container > div:nth-child(3) {
+.header-left > div:nth-child(3) {
     margin: 20px 0 0 0;
 }
 
-.title-container > div:nth-child(3) > a > button {
+.header-left > div:nth-child(3) > a > button {
 	border-width: 1px;
 	border-style: solid;
 	border-color: white;
 	background-color: rgb(13, 17, 23);
 }
 
-.title-container > div:nth-child(3) > a > button:hover {
+.header-left > div:nth-child(3) > a > button:hover {
 	background-color: rgb(21, 28, 37);
 }
 
-.tech-stack {
+.header-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 40%;
+}
+
+.header-right > * {
     display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;
@@ -170,17 +185,36 @@
 .yt-video-item {
     margin: 3em 0;
 }
+
+.navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 55px 0 0 80px;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.navigation > img {
+    height: 100%;
+    width: 100%;
+}
 </style>
 
 <script>
-import { Gallery, Technology } from '../components';
+import { Gallery, Technology, Tag } from '../components';
 import { apiClient } from '../api';
 import { dataAssembler } from '../assembler';
 
 export default {
     name: 'Project',
+    title() {
+        return this.project.name;
+    },
     components: {
         Technology,
+        Tag,
         Gallery
     },
     data() {
@@ -195,6 +229,15 @@ export default {
         );
         project.technologies.sort((x, y) => x.name.localeCompare(y.name));
         next(vm => vm.project = project);
+    },
+    methods: {
+        navigateBack() {
+            if(window.history.length > 2) {
+                this.$router.go(-1);
+            } else {
+                this.$router.push('/');
+            }
+        }
     },
     computed: {
         logoSrc() {

@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
         if(req.originalUrl.includes('links')) {
             prefix = 'link.' + req.body.name.toLowerCase().replace(/ /g,"-") + '.';
         } else if(req.originalUrl.includes('projects')) {
-            prefix = 'project.' + req.body.githubRepo + '.';
+            prefix = 'project.' + req.body.name.toLowerCase().replace(/ /g,"-") + '.';
         } else if(req.originalUrl.includes('technologies')) {
             prefix = 'technology.' + req.body.name.toLowerCase().replace(/ /g,"-") + '.';
         }

@@ -32,6 +32,10 @@ body {
   position: relative;
 }
 
+.flex {
+  display: flex;
+}
+
 .center-x {
   display: flex;
   justify-content: center;
@@ -56,6 +60,17 @@ input {
   font-size: 1.1em;
   outline: none;
   width: 90%;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 25px #1e1e1e inset;
+  -webkit-text-fill-color: white;
+  caret-color: white;
+}
+
+input:-webkit-autofill::first-line {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.1rem;
 }
 
 textarea {
