@@ -1,6 +1,6 @@
 import Footer from './Footer';
 import Gallery from './Gallery';
-import Index from './Index';
+import Index from './Index.vue';
 import InputField from './InputField';
 import Intro from './Intro';
 import List from './admin/List';
