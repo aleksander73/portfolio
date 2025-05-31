@@ -2,4 +2,6 @@ node_modules/
 .env
 package-lock.json
 server/public/
+server/environment/env/.env.development
+server/environment/env/.env.production
 server/uploads/

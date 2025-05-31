@@ -3,10 +3,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
+const EnvironmentManager = require('./environment/EnvironmentManager');
 const { linkRouter, projectRouter, technologyRouter, userRouter } = require('./api');
 const { utility } = require('./util');
 
-dotenv.config();
+EnvironmentManager.loadEnvironment();
 utility.config();
 
 const app = express();
