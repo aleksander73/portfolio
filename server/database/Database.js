@@ -3,27 +3,49 @@ const MongoClient = mongodb.MongoClient;
 const ObjectId = mongodb.ObjectId;
 
 class Database {
-    constructor(clusterName, clusterId, database, user, password) {
-        this.clusterName = clusterName;
-        this.clusterId = clusterId;
-        this.database = database;
-        this.user = user;
-        this.password = password;
-        this.url = `mongodb+srv://${this.user}:${this.password}@${this.clusterName}.${this.clusterId}.mongodb.net/${this.database}?retryWrites=true&w=majority`;
+    constructor(connectionParams) {
+        this.dbName = connectionParams?.dbName;
+        this.url = this.constructUrl(connectionParams);
     }
 
     static getInstance() {
         if(!this.instance) {
-            this.instance = Object.freeze(new Database(
-                process.env.DB_CLUSTER_NAME,
-                process.env.DB_CLUSTER_ID,
-                process.env.DB_NAME,
-                process.env.DB_USER,
-                process.env.DB_PASSWORD
-            ));
+            // Gather connection parameters depending on environment
+            let connectionParams = {};
+            if(process.env.NODE_ENV !== 'production') {
+                const { DB_NAME } = process.env;
+                connectionParams = {
+                    dbName: DB_NAME
+                };
+            } else {
+                const { DB_CLUSTER_NAME, DB_CLUSTER_ID, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
+                connectionParams = {
+                    clusterName: DB_CLUSTER_NAME,
+                    clusterID: DB_CLUSTER_ID,
+                    dbName: DB_NAME,
+                    user: DB_USER,
+                    password: DB_PASSWORD
+                };
+            }
+
+            this.instance = Object.freeze(new Database(connectionParams));
         }
         return this.instance;
+    }   
+
+    constructUrl(connectionParams) {
+        let url = '';
+        if(process.env.NODE_ENV !== 'production') {
+            const { dbName } = connectionParams;
+            url = `mongodb://localhost:27017/${dbName}`;
+        } else {
+            const { clusterName, clusterID, dbName, user, password } = connectionParams;
+            url = `mongodb+srv://${user}:${password}@${clusterName}.${clusterID}.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+        }
+        return url;
     }
+    
+    // ==================================================
 
     async getConnection() {
         const client = new MongoClient(this.url, {
@@ -35,7 +57,7 @@ class Database {
 
     async loadCollection(collection) {
         const connection = await this.getConnection();
-        return connection.db(this.database).collection(collection);
+        return connection.db(this.dbName).collection(collection);
     }
 
     async getCollection(collectionName, filter) {
