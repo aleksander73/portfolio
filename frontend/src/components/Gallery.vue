@@ -127,13 +127,12 @@ export default {
     name: 'Gallery',
     data() {
         return {
-            images: [],
             index: 0,
             galleryAwake: false
         };
     },
     props: {
-        imagePaths: {
+        images: {
             type: Array,
             required: true
         },
@@ -191,9 +190,6 @@ export default {
                 { class: 'dot-awake', condition: () => this.galleryAwake },
             ].map(x => x.condition() ? x.class : '').join(' ');
         }
-    },
-    created() {
-        this.images = this.imagePaths.map(x => require(`../../../server/uploads/${x}`));
     }
 }
 </script>

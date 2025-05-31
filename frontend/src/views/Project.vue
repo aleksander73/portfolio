@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div v-if="project.pictures.length > 0" class="gallery-container">
-				<Gallery :imagePaths="project.pictures" :color="project.color" />
+				<Gallery :images="project.pictures" :color="project.color" />
 			</div>
             <div v-if="project.ytVideoId" class="center-x">
                 <iframe class="yt-video-item" width="950px" height="536px" :src=ytVideoSrc frameborder='0' allowfullscreen />
@@ -241,7 +241,7 @@ export default {
     },
     computed: {
         logoSrc() {
-            return this.project.technology ? require(`../../../server/uploads/${this.project.technology.icon}`) : '';
+            return this.project.technology?.icon || '';
         },
         versionUrl() {
             const github = this.project.githubRepo;

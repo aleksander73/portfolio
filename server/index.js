@@ -11,7 +11,7 @@ EnvironmentManager.loadEnvironment();
 utility.config();
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cors());
 app.use(cookieParser());
 app.use('/api/links', linkRouter);

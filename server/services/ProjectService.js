@@ -1,7 +1,6 @@
 const { Project } = require('../models');
 const { cache } = require('../cache');
 const { Database } = require('../database');
-const fs = require('fs');
 
 class ProjectService {
     async getProjects(filter) {
@@ -22,8 +21,7 @@ class ProjectService {
         return result.ops[0];
     }
 
-    async editProject(_id, name, description, features, highlights, githubRepo, technologies, technologyId, status, tags, allPictures, deletedPictures, uploadedPictures, ytVideoId, score, color) {
-        deletedPictures.forEach(picture => fs.unlinkSync(`${__dirname}/../uploads/${picture}`));
+    async editProject(_id, name, description, features, highlights, githubRepo, technologies, technologyId, status, tags, pictures, ytVideoId, score, color) {
         const { result } = await Database.getInstance().updateDocument('projects', _id, {
             name,
             description,
@@ -34,7 +32,7 @@ class ProjectService {
             technologyId,
             status,
             tags,
-            pictures: allPictures.diff(deletedPictures).concat(uploadedPictures),
+            pictures,
             ytVideoId,
             score,
             color

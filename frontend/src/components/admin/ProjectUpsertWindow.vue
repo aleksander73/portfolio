@@ -65,7 +65,7 @@
           </div>
           <div class="input-field-container">
             <p>Pictures</p>
-            <ImageUploadInputField :initImages="pictures.all" @input="onPicturesChanged" />
+            <ImageUploadInputField :initImages="pictures" @input="onPicturesChanged" />
           </div>
           <div class="input-field-container">
             <p>YouTube video ID</p>
@@ -208,11 +208,7 @@ export default {
       technology: null,
       status,
       tags: [],
-      pictures: {
-        all: [],
-        deleted: [],
-        uploaded: []
-      },
+      pictures: [],
       ytVideoId: '',
       score: -1,
       color: '#000000'
@@ -252,7 +248,7 @@ export default {
           this.technology ? this.technology._id : '',
           this.status,
           this.tags,
-          this.pictures.uploaded,
+          this.pictures,
           this.ytVideoId,
           this.score,
           this.color
@@ -265,14 +261,12 @@ export default {
           this.description,
           this.features,
           this.highlights,
-          this.githubRepo ? this.githubRepo.name : '',
+          this.githubRepo?.name || '',
           this.technologies.map(x => x._id),
-          this.technology ? this.technology._id : '',
+          this.technology?._id || '',
           this.status,
           this.tags,
-          this.pictures.all,
-          this.pictures.deleted,
-          this.pictures.uploaded,
+          this.pictures,
           this.ytVideoId,
           this.score,
           this.color
@@ -318,9 +312,7 @@ export default {
       this.tags = value;
     },
     onPicturesChanged(value) {
-      const { deleted, uploaded } = value;
-      this.pictures.deleted = deleted;
-      this.pictures.uploaded = uploaded;
+      this.pictures = value;
     },
     onYtVideoIdChanged(value) {
       this.ytVideoId = value;
@@ -353,7 +345,7 @@ export default {
       this.technology = this.allTechnologies.find(x => x._id === this.project.technologyId);
       this.status = this.project.status;
       this.tags = this.project.tags;
-      this.pictures.all = this.project.pictures;
+      this.pictures = this.project.pictures;
       this.ytVideoId = this.project.ytVideoId;
       this.score = this.project.score;
       this.color = this.project.color;

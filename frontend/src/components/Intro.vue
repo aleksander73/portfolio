@@ -13,7 +13,7 @@
         <div class="external-links">
             <div class="external-link-container" v-for="link in links" :key="link._id">
                 <a :href="link.url" target="_blank">
-                    <img :src="require(`../../../server/uploads/${link.logo}`)">
+                    <img :src="link.logo">
                 </a>
             </div>
         </div>

@@ -25,6 +25,7 @@
 
 <script>
 import { FileUploadInputField } from '.';
+import { FileUtility } from '../../../utility/FileUtility';
 
 export default {
   name: 'SingleImageUploadInputField',
@@ -42,16 +43,16 @@ export default {
     FileUploadInputField
   },
   methods: {
-    onFileChosen(value) {
-      if(value) {
-        this.icon = {
-          src: URL.createObjectURL(value)
-        };
-        this.$emit('input', {
-          deleted: this.initIcon,
-          uploaded: value
-        });
+    async onFileChosen(file) {
+      if(!file) {
+        return;
       }
+
+      const dataURL = await FileUtility.asDataURL(file);
+      this.icon = {
+        src: dataURL
+      };
+      this.$emit('input', dataURL);
     },
     iconClass() {
       return [
@@ -63,7 +64,7 @@ export default {
   created() {
     if(this.initIcon) {
       this.icon = {
-        src: require(`../../../../../server/uploads/${this.initIcon}`)
+        src: this.initIcon
       };
     }
   }

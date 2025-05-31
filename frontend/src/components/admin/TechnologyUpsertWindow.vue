@@ -12,7 +12,7 @@
           </div>
           <div class="input-field-container">
             <p>Icon</p>
-            <SingleImageUploadInputField :initIcon="icon.init" @input="onIconChanged" />
+            <SingleImageUploadInputField :initIcon="icon" @input="onIconChanged" />
           </div>
         </div>
       </div>
@@ -124,11 +124,7 @@ export default {
   data() {
     return {
       name: '',
-      icon: {
-        init: '',
-        deleted: '',
-        uploaded: ''
-      }
+      icon: ''
     }
   },
   props: {
@@ -150,10 +146,10 @@ export default {
     },
     async mainAction() {
       if(!this.technology) {
-        const technology = await apiClient.addTechnology(this.name, this.icon.uploaded);
+        const technology = await apiClient.addTechnology(this.name, this.icon);
         return technology;
       } else {
-        const success = await apiClient.editTechnology(this.technology._id, this.name, this.icon.init, this.icon.deleted, this.icon.uploaded);
+        const success = await apiClient.editTechnology(this.technology._id, this.name, this.icon);
         return success;
       }
     },
@@ -171,9 +167,7 @@ export default {
       this.name = value;
     },
     onIconChanged(value) {
-      const { deleted, uploaded } = value;
-      this.icon.deleted = deleted;
-      this.icon.uploaded = uploaded;
+      this.icon = value;
     }
   },
   computed: {
@@ -187,7 +181,7 @@ export default {
   created() {
     if(this.technology) {
       this.name = this.technology.name;
-      this.icon.init = this.technology.icon;
+      this.icon = this.technology.icon;
     }
   }
 }

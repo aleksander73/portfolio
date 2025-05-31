@@ -25,8 +25,6 @@ class EnvironmentManager {
         dotenv.config({
             path: environmentPath
         });
-
-        console.log(process.env);
     }
 }
 

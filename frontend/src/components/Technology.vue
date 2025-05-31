@@ -1,6 +1,6 @@
 <template>
     <div class="tech-container">
-        <img :src=iconPath() :title=name />
+        <img :src="icon" :title=name />
     </div>
 </template>
 
@@ -20,11 +20,6 @@ export default {
     props: {
         name: String,
         icon: String
-    },
-    methods: {
-        iconPath() {
-            return require('../../../server/uploads/' + this.icon);
-        }
     }
 }
 </script>

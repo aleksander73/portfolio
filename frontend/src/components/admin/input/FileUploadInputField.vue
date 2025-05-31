@@ -82,8 +82,8 @@ export default {
       this.files = Object.values(this.$refs.files.files);
       this.$emit('input', !this.multiple ? this.files[0] : this.files);
     },
-    removeFile(file) {
-      this.files = this.files.filter(x => x !== file);
+    removeFile(fileToRemove) {
+      this.files = this.files.filter(file => file !== fileToRemove);
     }
   },
   computed: {

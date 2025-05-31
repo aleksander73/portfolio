@@ -4,7 +4,7 @@
       <div class="title-container">
         <div class="center-x">
           <h1 class="title">{{ project.name }}</h1>
-          <img v-if="project.technology" class="logo" :src=logoSrc :title="project.technology.name + ' logo'">
+          <img v-if="project.technology" class="logo" :src="project.technology.icon" :title="project.technology.name + ' logo'">
         </div>
       </div>
       <div class="tech-stack">
@@ -107,11 +107,6 @@ export default {
     project: {
       type: Object,
       required: true
-    }
-  },
-  computed: {
-    logoSrc() {
-      return require(`../../../server/uploads/${this.project.technology.icon}`);
     }
   },
   created() {

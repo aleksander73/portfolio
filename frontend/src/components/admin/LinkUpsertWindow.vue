@@ -16,7 +16,7 @@
           </div>
           <div class="input-field-container">
             <p>Logo</p>
-            <SingleImageUploadInputField :initIcon="logo.init" @input="onLogoChanged" />
+            <SingleImageUploadInputField :initIcon="logo" @input="onLogoChanged" />
           </div>
           <div class="input-field-container">
             <p>Priority</p>
@@ -133,11 +133,7 @@ export default {
     return {
       name: '',
       url: '',
-      logo: {
-        init: '',
-        deleted: '',
-        uploaded: ''
-      },
+      logo: '',
       priority: -1
     }
   },
@@ -160,10 +156,10 @@ export default {
     },
     async mainAction() {
       if(!this.link) {
-        const link =  await apiClient.addLink(this.name, this.url, this.logo.uploaded, this.priority);
+        const link =  await apiClient.addLink(this.name, this.url, this.logo, this.priority);
         return link;
       } else {
-        const success = await apiClient.editLink(this.link._id, this.name, this.url, this.logo.init, this.logo.deleted, this.logo.uploaded, this.priority);
+        const success = await apiClient.editLink(this.link._id, this.name, this.url, this.logo, this.priority);
         return success;
       }
     },
@@ -184,9 +180,7 @@ export default {
       this.url = value;
     },
     onLogoChanged(value) {
-      const { deleted, uploaded } = value;
-      this.logo.deleted = deleted;
-      this.logo.uploaded = uploaded;
+      this.logo = value;
     },
     onPriorityChanged(value) {
       this.priority = Number(value);
@@ -204,7 +198,7 @@ export default {
     if(this.link) {
       this.name = this.link.name;
       this.url = this.link.url;
-      this.logo.init = this.link.logo;
+      this.logo = this.link.logo;
       this.priority = this.link.priority;
     }
   }

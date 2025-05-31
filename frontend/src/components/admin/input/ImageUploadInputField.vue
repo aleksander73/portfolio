@@ -1,11 +1,11 @@
 <template>
   <div>
     <div v-if="showImageSection" class="images-container center-y">
-      <div v-for="(image, i) in images" :key="i" :class="imageContainerClass(i)" @mouseenter="showItemControls(i)" @mouseleave="hideItemControls(i)">
-        <img :src="image.src" :class="imageClass(image, i)" :title="imageTitle(image)">
-        <div :class="controlButtonClass(i)">
-          <button class="delete-button center-xy" @click="deleteImage(image, i)">
-            <img v-if="!isDeleted(i)" src="../../../../assets/icons/delete.svg" class="svg-red">
+      <div v-for="(image, i) in images" :key="i" :class="imageContainerClass(image)" @mouseenter="showItemControls(image)" @mouseleave="hideItemControls(image)">
+        <img :src="image.src" :class="imageClass(image, i)">
+        <div :class="controlButtonClass(image)">
+          <button class="delete-button center-xy" @click="toggleImageDeletion(image, i)">
+            <img v-if="!image.isMarkedForDeletion" src="../../../../assets/icons/delete.svg" class="svg-red">
             <img v-else src="../../../../assets/icons/revert.svg" class="svg-white">
           </button>
         </div>
@@ -83,18 +83,18 @@
 
 <script>
 import { FileUploadInputField } from '.';
+import { FileUtility } from '../../../utility/FileUtility';
 
 export default {
   name: 'ImageUploadInputField',
   data() {
     return {
-      images: this.initImages.map(filename => ({
-        new: false,
-        src: require(`../../../../../server/uploads/${filename}`),
-        filename
-      })),
-      delete: new Array(this.initImages.length).fill(false),
-      active: []
+      images: this.initImages.map(image => ({
+        src: image,
+        isNew: false,
+        isActive: false,
+        isMarkedForDeletion: false
+      }))
     }
   },
   props: {
@@ -108,57 +108,58 @@ export default {
   },
   methods: {
     emitInputEvent() {
-      this.$emit('input', {
-        deleted: this.images.filter((image, index) => this.delete[index]).map(image => image.filename),
-        uploaded: this.images.filter(image => image.new).map(image => image.file)
-      });
+      this.$emit('input', this.images.filter(image => !image.isMarkedForDeletion).map(image => image.src));
     },
-    deleteImage(image) {
-      if(!image.new) {
-        const index = this.images.indexOf(image);
-        this.delete[index] = !this.delete[index];
-        this.delete = [...this.delete];
+    toggleImageDeletion(image) {
+      if(!image.isNew) {
+        image.isMarkedForDeletion = !image.isMarkedForDeletion;
+        this.images = [...this.images];
       } else {
         this.$refs['fileInput'].removeFile(image.file);
         this.images = this.images.filter(x => x !== image);
       }
       this.emitInputEvent();
     },
-    onUploadedImages(value) {
-      this.images = this.images.filter(x => !x.new).concat(value.map(file => ({ new: true, src: URL.createObjectURL(file), file })));
+    async onUploadedImages(files) {
+      const uploadedImages = await Promise.all(files.map(async file => {
+        const dataURL = await FileUtility.asDataURL(file);
+        const uploadedImage = {
+          src: dataURL,
+          isNew: true,
+          isActive: false,
+          isMarkedForDeletion: false,
+          file
+        };
+        return uploadedImage;
+      }));
+      this.images = this.images.concat(uploadedImages);
       this.emitInputEvent();
     },
-    showItemControls(i) {
-      this.active[i] = true;
-      this.active = [...this.active];
+    showItemControls(image) {
+      image.isActive = true;
+      this.images = [...this.images];
     },
-    hideItemControls(i) {
-      this.active[i] = false;
-      this.active = [...this.active];
+    hideItemControls(image) {
+      image.isActive = false;
+      this.images = [...this.images];
     },
-    imageContainerClass(i) {
+    imageContainerClass(image) {
       return [
         { class: 'image-container', condition: () => true },
-        { class: 'uploaded', condition: () => this.images[i].file }
+        { class: 'uploaded', condition: () => image.isNew }
       ].map(x => x.condition() ? x.class : '').join(' ');
     },
-    imageClass(image, i) {
+    imageClass(image) {
       return [
         { class: 'image', condition: () => true },
-        { class: 'delete', condition: () => this.delete[i] }
+        { class: 'delete', condition: () => image.isMarkedForDeletion }
       ].map(x => x.condition() ? x.class : '').join(' ');
     },
-    imageTitle(image) {
-      return !image.new ? image.filename : image.file.name;
-    },
-    controlButtonClass(i) {
+    controlButtonClass(image) {
       return [
         { class: 'control-buttons center-x', condition: () => true },
-        { class: 'show-controls', condition: () => this.active[i] }
+        { class: 'show-controls', condition: () => image.isActive }
       ].map(x => x.condition() ? x.class : '').join(' ');
-    },
-    isDeleted(i) {
-      return this.delete[i];
     }
   },
   computed: {
