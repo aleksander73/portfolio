@@ -8,8 +8,9 @@ class EnvironmentManager {
     static loadEnvironment() {
         const baseEnvPath = path.join(__dirname, 'env');
         let envFilname = '';
-        const { ENV } = config;
-        switch(ENV) {
+
+        const currentEnvironment = this.currentEnvironment();
+        switch(currentEnvironment) {
             case Environments.DEVELOPMENT: {
                 envFilname = '.env.development';
                 break;
@@ -29,12 +30,16 @@ class EnvironmentManager {
 
     // ==================================================
 
+    static currentEnvironment() {
+        return config.ENV || Environments.DEVELOPMENT;
+    }
+
     static isDevelopment() {
-        return config.ENV === Environments.DEVELOPMENT;
+        return this.currentEnvironment() === Environments.DEVELOPMENT;
     }
 
     static isProduction() {
-        return config.ENV === Environments.PRODUCTION;
+        return this.currentEnvironment() === Environments.PRODUCTION;
     }
 }
 
