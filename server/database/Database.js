@@ -1,3 +1,4 @@
+const EnvironmentManager = require('../environment/EnvironmentManager');
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const ObjectId = mongodb.ObjectId;
@@ -12,12 +13,12 @@ class Database {
         if(!this.instance) {
             // Gather connection parameters depending on environment
             let connectionParams = {};
-            if(process.env.NODE_ENV !== 'production') {
+            if(EnvironmentManager.isDevelopment()) {
                 const { DB_NAME } = process.env;
                 connectionParams = {
                     dbName: DB_NAME
                 };
-            } else {
+            } else if(EnvironmentManager.isProduction()) {
                 const { DB_CLUSTER_NAME, DB_CLUSTER_ID, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
                 connectionParams = {
                     clusterName: DB_CLUSTER_NAME,
@@ -35,10 +36,10 @@ class Database {
 
     constructUrl(connectionParams) {
         let url = '';
-        if(process.env.NODE_ENV !== 'production') {
+        if(EnvironmentManager.isDevelopment()) {
             const { dbName } = connectionParams;
             url = `mongodb://localhost:27017/${dbName}`;
-        } else {
+        } else if(EnvironmentManager.isProduction()) {
             const { clusterName, clusterID, dbName, user, password } = connectionParams;
             url = `mongodb+srv://${user}:${password}@${clusterName}.${clusterID}.mongodb.net/${dbName}?retryWrites=true&w=majority`;
         }

@@ -1,4 +1,5 @@
 const express = require('express');
+const EnvironmentManager = require('../environment/EnvironmentManager');
 const { userService, cryptographyService } = require('../services');
 
 const router = express.Router();
@@ -6,7 +7,7 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
     try {
         const token = await userService.loginUser(req.body.username, req.body.password);
-        res.cookie('authentication-token', token, { secure: process.env.NODE_ENV === 'production' });
+        res.cookie('authentication-token', token, { secure: EnvironmentManager.isProduction() });
         res.sendStatus(200);
     } catch(error) {
         res.status(400).send(error.message);

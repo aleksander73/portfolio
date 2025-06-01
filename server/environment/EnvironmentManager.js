@@ -26,6 +26,16 @@ class EnvironmentManager {
             path: environmentPath
         });
     }
+
+    // ==================================================
+
+    static isDevelopment() {
+        return config.ENV === Environments.DEVELOPMENT;
+    }
+
+    static isProduction() {
+        return config.ENV === Environments.PRODUCTION;
+    }
 }
 
 module.exports = EnvironmentManager;

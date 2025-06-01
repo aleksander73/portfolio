@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const dotenv = require('dotenv');
 const EnvironmentManager = require('./environment/EnvironmentManager');
 const { linkRouter, projectRouter, technologyRouter, userRouter } = require('./api');
 const { utility } = require('./util');
@@ -18,7 +17,7 @@ app.use('/api/links', linkRouter);
 app.use('/api/projects', projectRouter);
 app.use('/api/technologies', technologyRouter);
 app.use('/api/user', userRouter);
-if(process.env.NODE_ENV === 'production') {
+if(EnvironmentManager.isProduction()) {
     app.use(express.static(__dirname + '/public'));
 }
 
