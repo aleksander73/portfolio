@@ -8,6 +8,6 @@ cd ..
 
 git add .
 git commit -m "Deploy"
-giit push
+git push
 
 git checkout master
