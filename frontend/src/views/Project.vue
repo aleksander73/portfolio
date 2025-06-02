@@ -4,7 +4,7 @@
             <div class="project-header">
                 <div class="header-left">
                     <div class="center-x">
-                        <h1 class="title">{{ project.name + '(test)' }}</h1>
+                        <h1 class="title">{{ project.name }}</h1>
                         <img v-if="project.technology" class="logo" :src=logoSrc :title="project.technology.name + ' logo'">
                     </div>
                     <div class="title-container-row2 center-y">
