@@ -6,6 +6,15 @@ class ApiClient {
         return data;
     }
 
+    async getProjectByID(id) {
+        if(!id) {
+            return null;
+        }
+
+        const { data } = await axios.get(`/api/projects/id?id=${id}`);
+        return data;
+    }
+
     async addProject(name, description, features, highlights, githubRepo, technologies, technologyId, status, tags, pictures, ytVideoId, score, color) {
         try {
             const data = {
@@ -68,7 +77,11 @@ class ApiClient {
     }
 
     async getTechnologyByID(id) {
-        const { data } = await axios.get(`/api/technologies/id?id-${id}`);
+        if(!id) {
+            return null;
+        }
+        
+        const { data } = await axios.get(`/api/technologies/id?id=${id}`);
         return data;
     }
 

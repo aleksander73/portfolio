@@ -8,6 +8,17 @@ router.get('/', async (req, res) => {
     res.send(projects);
 });
 
+router.get('/id', async (req, res) => {
+    const { id } = req.query;
+    if(!id) {
+        res.status(400).send(`Query parameter 'id' must be provided`);
+        return;
+    }
+
+    const project = await projectService.getProjectByID(id);
+    res.send(project);
+});
+
 router.post('/add', cryptographyService.authorize, async (req, res) => {
     try {
         const { name, description, features, highlights, githubRepo, technologies, technologyId, status, tags, pictures, ytVideoId, score, color } = req.body;

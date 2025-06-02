@@ -10,6 +10,11 @@ router.get('/', async (req, res) => {
 
 router.get('/id', async (req, res) => {
     const { id } = req.query;
+    if(!id) {
+        res.status(400).send(`Query parameter 'id' must be provided`);
+        return;
+    }
+
     const technology = await technologyService.getTechnologyByID(id);
     res.send(technology);
 });

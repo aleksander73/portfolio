@@ -1,6 +1,6 @@
 <template>
     <div class="center-x">
-        <div class="project-container">
+        <div v-if="!loading" class="project-container">
             <div class="project-header">
                 <div class="header-left">
                     <div class="center-x">
@@ -205,13 +205,9 @@
 <script>
 import { Gallery, Technology, Tag } from '../components';
 import { apiClient } from '../api';
-import { dataAssembler } from '../assembler';
 
 export default {
     name: 'Project',
-    title() {
-        return this.project.name;
-    },
     components: {
         Technology,
         Tag,
@@ -219,16 +215,24 @@ export default {
     },
     data() {
         return {
-            project: null
+            project: null,
+            loading: true
         }
     },
-    async beforeRouteEnter(to, from, next) {
-        const project = dataAssembler.assebleProject(
-            (await apiClient.getProjects()).find(x => x._id === to.params.id),
-            await apiClient.getTechnologies()
-        );
-        project.technologies.sort((x, y) => x.name.localeCompare(y.name));
-        next(vm => vm.project = project);
+    async created() {
+        const projectID = this.$route.params.id;
+        const project = await apiClient.getProjectByID(projectID);
+        document.title = project.name;
+
+        const technologies = await Promise.all(project.technologies.map(technologyID => apiClient.getTechnologyByID(technologyID))); 
+        technologies.sort((x, y) => x.name.localeCompare(y.name));       
+        const technology = await apiClient.getTechnologyByID(project.technology);    
+
+        project.technologies = technologies;
+        project.technology = technology;
+        this.project = project;
+
+        this.loading = false;
     },
     methods: {
         navigateBack() {

@@ -14,6 +14,11 @@ class ProjectService {
         }
     }
 
+    async getProjectByID(id) {
+        const project = await Database.getInstance().getDocumentByID('projects', id);
+        return project;
+    }
+
     async addProject(name, description, features, highlights, githubRepo, technologies, technologyId, status, tags, pictures, ytVideoId, score, color) {
         const project = new Project(name, description, features, highlights, githubRepo, technologies, technologyId, status, tags, pictures, ytVideoId, score, color);
         const result = await Database.getInstance().postDocument('projects', project);
