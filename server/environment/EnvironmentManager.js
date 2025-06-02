@@ -1,4 +1,3 @@
-const config = require('./Config');
 const Environments = require('./Environments');
 
 const dotenv = require('dotenv');
@@ -6,6 +5,11 @@ const path = require('path');
 
 class EnvironmentManager {
     static loadEnvironment() {
+        // Load .env from root
+        dotenv.config();
+
+        // =========================
+
         const baseEnvPath = path.join(__dirname, 'env');
         let envFilname = '';
 
@@ -31,7 +35,7 @@ class EnvironmentManager {
     // ==================================================
 
     static currentEnvironment() {
-        return config.ENV || Environments.DEVELOPMENT;
+        return process.env.ENV || Environments.DEVELOPMENT;
     }
 
     static isDevelopment() {
