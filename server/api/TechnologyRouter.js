@@ -8,6 +8,12 @@ router.get('/', async (req, res) => {
     res.send(technologies);
 });
 
+router.get('/id', async (req, res) => {
+    const { id } = req.query;
+    const technology = await technologyService.getTechnologyByID(id);
+    res.send(technology);
+});
+
 router.post('/add', cryptographyService.authorize, async (req, res) => {
     try {
         const { name, icon } = req.body;

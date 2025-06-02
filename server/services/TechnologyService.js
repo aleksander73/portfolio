@@ -14,6 +14,11 @@ class TechnologyService {
         }
     }
 
+    async getTechnologyByID(id) {
+        const technology = await Database.getInstance().getDocumentByID('technologies', id);
+        return technology;
+    }
+
     async addTechnology(name, icon) {
         const technology = new Technology(name, icon);
         const result = await Database.getInstance().postDocument('technologies', technology);

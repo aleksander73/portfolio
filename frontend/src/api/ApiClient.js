@@ -67,6 +67,11 @@ class ApiClient {
         return data;
     }
 
+    async getTechnologyByID(id) {
+        const { data } = await axios.get(`/api/technologies/id?id-${id}`);
+        return data;
+    }
+
     async addTechnology(name, icon) {
         try {
             const data = {

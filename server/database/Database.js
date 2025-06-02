@@ -66,6 +66,13 @@ class Database {
         return collection.find(filter || {}).toArray();
     }
 
+    async getDocumentByID(collectionName, id) {
+        const collection = await this.loadCollection(collectionName);
+        return collection.findOne({
+            _id: ObjectId(id)
+        });
+    }
+
     async postDocument(collectionName, document) {
         const collection = await this.loadCollection(collectionName);
         return collection.insertOne(document);
